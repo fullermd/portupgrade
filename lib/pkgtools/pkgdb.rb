@@ -67,6 +67,7 @@ class PkgDB
   }
 
   PREFIX = ENV["LOCALBASE"] || '/usr/local'
+  PSBINS = File.dirname($0) || "#{PREFIX}/sbin"
 
   LOCK_FILE = '/var/run/pkgdb.db.lock'
 
@@ -75,13 +76,13 @@ class PkgDB
     :pkg_create			=> nil,
     :pkg_delete			=> nil,
     :pkg_info			=> nil,
-    :pkg_deinstall		=> "#{PREFIX}/sbin/pkg_deinstall",
-    :pkg_fetch			=> "#{PREFIX}/sbin/pkg_fetch",
-    :pkg_which			=> "#{PREFIX}/sbin/pkg_which",
-    :pkgdb			=> "#{PREFIX}/sbin/pkgdb",
-    :portcvsweb			=> "#{PREFIX}/sbin/portcvsweb",
-    :portinstall		=> "#{PREFIX}/sbin/portinstall",
-    :portsclean			=> "#{PREFIX}/sbin/portsclean",
+    :pkg_deinstall		=> "#{PSBINS}/pkg_deinstall",
+    :pkg_fetch			=> "#{PSBINS}/pkg_fetch",
+    :pkg_which			=> "#{PSBINS}/pkg_which",
+    :pkgdb			=> "#{PSBINS}/pkgdb",
+    :portcvsweb			=> "#{PSBINS}/portcvsweb",
+    :portinstall		=> "#{PSBINS}/portinstall",
+    :portsclean			=> "#{PSBINS}/portsclean",
     :pkg			=> nil,
   }
 
