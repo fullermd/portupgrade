@@ -43,6 +43,9 @@ module PkgDBTools
     end
   end
 
+  class DBError < StandardError
+  end
+
   def db_dir()
     unless @db_dir
       set_db_dir(nil)	# initialize with the default value
