@@ -1068,6 +1068,9 @@ class PkgDB
   end
 
   def autofix!(less_quiet = true)
+    if with_pkgng?
+      return
+    end
     xsystem!(PkgDB::command(:pkgdb), '-aFO' << (less_quiet ? 'Q' : 'QQ'))
   end
 
