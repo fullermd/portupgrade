@@ -456,8 +456,6 @@ class PkgDB
 
       STDERR.puts "- done]"
 
-      mark_fixme
-
       return true
     end
 
