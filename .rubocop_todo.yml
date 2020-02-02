@@ -1260,12 +1260,6 @@ Style/UnlessElse:
     - 'bin/portupgrade'
     - 'bin/portversion'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/UnneededCondition:
-  Exclude:
-    - 'bin/portupgrade'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/UnneededInterpolation:
