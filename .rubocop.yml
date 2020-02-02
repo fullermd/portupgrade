@@ -13,6 +13,8 @@ Style/StringLiteralsInInterpolation:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+Style/WordArray:
+  Enabled: false
 Style/SymbolProc:
   Enabled: false
 

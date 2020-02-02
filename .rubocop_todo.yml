@@ -1228,16 +1228,6 @@ Style/UnneededInterpolation:
 
 # Offense count: 5
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinSize, WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  Exclude:
-    - 'bin/portcvsweb'
-    - 'lib/pkgtools/portsdb.rb'
-    - 'tests/test_portinfo.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: all_comparison_operators, equality_operators_only
 Style/YodaCondition:
