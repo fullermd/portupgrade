@@ -94,12 +94,6 @@ Lint/AssignmentInCondition:
     - 'lib/pkgtools/portsdb.rb'
 
 # Offense count: 2
-Lint/EmptyWhen:
-  Exclude:
-    - 'bin/pkgdb'
-    - 'lib/pkgtools/pkgversion.rb'
-
-# Offense count: 2
 Lint/HandleExceptions:
   Exclude:
     - 'bin/pkg_fetch'

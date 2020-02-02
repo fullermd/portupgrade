@@ -54,4 +54,10 @@ Style/SpecialGlobalVars:
 Layout/AlignHash:
   Enabled: false
 
+# x-ref https://github.com/rubocop-hq/rubocop/issues/3696 on this
+Lint/EmptyWhen:
+  Exclude:
+    - 'bin/pkgdb'
+    - 'lib/pkgtools/pkgversion.rb'
+
 inherit_from: .rubocop_todo.yml
