@@ -367,6 +367,7 @@ module PortCvsWeb
       else
         nil
       end
+    end
 
     def Uri_FreshPorts.search_portsdb(file)
       ret = nil
@@ -381,7 +382,6 @@ module PortCvsWeb
         end
       end
       ret
-    end
     end
 
     private
