@@ -30,7 +30,10 @@
 #
 
 PREFIX = ENV["LOCALBASE"] || "/usr/local"
+# Legacy, let it be...
+# rubocop:disable Naming/ConstantName
 Version = "2.4.16"
+# rubocop:enable Naming/ConstantName
 
 require "pkgtools/pkg"
 require "pkgtools/ports"

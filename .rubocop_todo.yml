@@ -149,11 +149,6 @@ Lint/Void:
     - 'lib/pkgtools/pkgdbtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 1
-Naming/ConstantName:
-  Exclude:
-    - 'lib/pkgtools/pkgtools.rb'
-
 # Offense count: 23
 # Configuration parameters: Blacklist.
 # Blacklist: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
