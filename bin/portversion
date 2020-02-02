@@ -282,7 +282,7 @@ Environment Variables [default]:
 
     tasks -= $exclude_packages
 
-    check_pkgs tasks.sort.collect {|pkgname| PkgInfo.new(pkgname) }
+    check_pkgs tasks.sort.collect { |pkgname| PkgInfo.new(pkgname) }
 
     if $command_output
       printf %Q`\nif [ X"$pkgs" != X"" ]; then\n  %s "$@" $pkgs\nfi\n`, $command
@@ -341,7 +341,7 @@ def check_pkgs(pkgs)
 
     held = config_held?(pkg)
 
-    suggestion = SUGGESTIONS[sign] % [ newpkg ? newpkg.version : nil ]
+    suggestion = SUGGESTIONS[sign] % [newpkg ? newpkg.version : nil]
 
     if held
       suggestion = '[held] ' + suggestion

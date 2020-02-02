@@ -107,7 +107,7 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
 
     opts.def_option("-F", "--fix", "Fix the package database interactively") { |v|
       $fix_db = v
-      $interactive = true if ! $automatic
+      $interactive = true if !$automatic
     }
 
     opts.def_option("-a", "--auto", "Turn on automatic mode when -F is also specified") { |v|
@@ -177,7 +177,7 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
 
       break if dry_parse
 
-      sep = expr.slice!(0,1)
+      sep = expr.slice!(0, 1)
 
       oldpkgname, newpkgname = expr.split(sep)
 
@@ -253,7 +253,7 @@ Environment Variables [default]:
       list = []
       
       opts.order(*argv) do |arg|
-        if arg[0,1] == '/' || File.exist?(arg)
+        if arg[0, 1] == '/' || File.exist?(arg)
           path = arg
         else
           path = `which #{arg}`.chomp
@@ -328,7 +328,7 @@ def check_lost_deps()
     # Remove dependencies which exist in ALT_PKGDEP
     lost.delete_if { |origin| alt_dep('', origin) }
 
-    if ! lost.empty?
+    if !lost.empty?
       puts "found"
       lost.each do |origin|
         puts "  #{origin}"
@@ -338,7 +338,7 @@ def check_lost_deps()
       end
       dep = ""
       lost.each do |origin|
-        real_deps.each do |d,o|
+        real_deps.each do |d, o|
           if o == origin
             dep = d
             break
@@ -362,7 +362,7 @@ def fix_db
 
   progress_message "Checking the package registry database"
 
-  if ! File.owned?($pkgdb_dir) && Process.uid > 0
+  if !File.owned?($pkgdb_dir) && Process.uid > 0
     if $force
       warning_message "You do not own #{$pkgdb_dir}. (proceeding anyway)"
     else

@@ -29,7 +29,7 @@
 # SUCH DAMAGE.
 #
 
-PREFIX = ENV["LOCALBASE"] ||  "/usr/local"
+PREFIX = ENV["LOCALBASE"] || "/usr/local"
 Version = "2.4.16"
 
 require "pkgtools/pkg"
@@ -383,15 +383,15 @@ end
 
 OPTIONS_NONE        = 0x00
 OPTIONS_SKIP        = 0x01
-OPTIONS_DELETE        = 0x02
-OPTIONS_ALL        = 0x04
-OPTIONS_HISTORY        = 0x08
+OPTIONS_DELETE = 0x02
+OPTIONS_ALL = 0x04
+OPTIONS_HISTORY = 0x08
 
 def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
-  skip                = (flags & OPTIONS_SKIP).nonzero?
-  delete        = (flags & OPTIONS_DELETE).nonzero?
-  all                = (flags & OPTIONS_ALL).nonzero?
-  history        = (flags & OPTIONS_HISTORY).nonzero?
+  skip = (flags & OPTIONS_SKIP).nonzero?
+  delete = (flags & OPTIONS_DELETE).nonzero?
+  all = (flags & OPTIONS_ALL).nonzero?
+  history = (flags & OPTIONS_HISTORY).nonzero?
 
   completion_proc = nil
 
@@ -703,7 +703,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
   pkgver_re = %r{-\d\S*$}
   file = $pkgdb.pkg_contents(pkgname)
 
-  if ! newdep == :add
+  if !newdep == :add
     grep_q_file(/^@pkgdep[[:space:]]+#{Regexp.quote(dep)}$/, file) or return
   end
 
@@ -781,7 +781,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
         keyword = $1
         data = $2
         if keyword == "pkgdep " && 
-            data.sub(pkgver_re,'') == dep.sub(pkgver_re,'')
+            data.sub(pkgver_re, '') == dep.sub(pkgver_re, '')
           depends_lines << "@pkgdep #{dep}\n"
           pkgdep_undeleted = true
           last_correct = true
@@ -950,7 +950,7 @@ def timer_end(name, verbose = $verbose)
   start_time = $timer[name]
 
   time = end_time - start_time
-  days = time/86400
+  days = time / 86400
   str_time = ""
   if days.to_i > 0
     str_time = "#{days.to_i} day"

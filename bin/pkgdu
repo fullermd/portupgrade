@@ -75,7 +75,7 @@ usage: #{MYNAME} [-hbkmRrqs] [pkgname_glob ...]
     }
 
     opts.def_option("-m", "--mbytes", "Display size in Megabytes") {
-      $divider = 1024*1024
+      $divider = 1024 * 1024
     }
 
     opts.def_option("-t", "--total", "Display a grand total") { |v|
@@ -208,7 +208,7 @@ Environment Variables [default]:
 
     tasks -= $exclude_packages
 
-    pkgs_size tasks.sort.collect {|pkgname| PkgInfo.new(pkgname) }
+    pkgs_size tasks.sort.collect { |pkgname| PkgInfo.new(pkgname) }
 
     if $command_output
       printf %Q`\nif [ X"$pkgs" != X"" ]; then\n  %s "$@" $pkgs\nfi\n`, $command
@@ -237,7 +237,7 @@ def pkgs_size(pkgs)
         end
       end
     rescue => e
-      warning_message "Package PLIST error: "+e.message
+      warning_message "Package PLIST error: " + e.message
     end
   else
     pkgs.each do |pkg|
@@ -259,7 +259,7 @@ def pkgs_size(pkgs)
           end
         end
       rescue => e
-        warning_message "Package PLIST error: "+e.message
+        warning_message "Package PLIST error: " + e.message
         next
       end
 

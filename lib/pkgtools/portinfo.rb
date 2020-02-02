@@ -34,12 +34,12 @@ require 'pkgtools/pkginfo'
 class PortInfo
   include Comparable
 
-  FIELDS = [ :pkgname, :origin, :prefix, :comment, :descr_file,
-             :maintainer, :categories, :build_depends, :run_depends, :www,
-             :extract_depends, :patch_depends, :fetch_depends ]
-  LIST_FIELDS = [ :categories, :build_depends, :run_depends,
-                  :extract_depends, :patch_depends, :fetch_depends ]
-  PORTS_DIR_FIELDS = [ :origin, :descr_file ]
+  FIELDS = [:pkgname, :origin, :prefix, :comment, :descr_file,
+            :maintainer, :categories, :build_depends, :run_depends, :www,
+            :extract_depends, :patch_depends, :fetch_depends]
+  LIST_FIELDS = [:categories, :build_depends, :run_depends,
+                 :extract_depends, :patch_depends, :fetch_depends]
+  PORTS_DIR_FIELDS = [:origin, :descr_file]
   NFIELDS = FIELDS.size
   FIELD_SEPARATOR = '|'
 

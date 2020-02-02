@@ -69,7 +69,7 @@ class PortsDB
 #    end
   end
 
-  class IndexFileFetchError< IndexFileError
+  class IndexFileFetchError < IndexFileError
 #    def message
 #      "index file fetch error"
 #    end
@@ -134,7 +134,7 @@ class PortsDB
       while true
         if moved = @moved[me]
           t << moved if t.empty? or t.last.seq < moved.seq
-          if me.nil? or t.map{|p| p.to}.include?(me)
+          if me.nil? or t.map { |p| p.to }.include?(me)
             break
           else
             me = moved.to
@@ -394,7 +394,7 @@ class PortsDB
       dir = File.dirname(index_file)
 
       if !File.writable?(dir)
-        STDERR.puts"index file directory #{dir} not writable!"
+        STDERR.puts "index file directory #{dir} not writable!"
         raise IndexFileError, "index generation error"
       end
     end

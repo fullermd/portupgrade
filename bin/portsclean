@@ -271,7 +271,7 @@ def distclean(level)
     end
   end
 
-  dirs.sort {|a, b| b <=> a}.each do |dir|
+  dirs.sort { |a, b| b <=> a }.each do |dir|
     if Dir.entries(dir).size <= 2
       delete_empty_dir(dir) rescue nil
     end
@@ -282,7 +282,7 @@ def ldconfig_m(*dirs)
   msg = " --> Running ldconfig -m"
 
   dirs.each do |d|
-    dirs.delete(d) if ! (File.exists?(d) && File.stat(d).directory?)
+    dirs.delete(d) if !(File.exists?(d) && File.stat(d).directory?)
   end
 
   case dirs.size
@@ -518,7 +518,7 @@ def pkgclean(level)
           origin = $1
 
           if pkgfile
-            pkgs[pkgname] = {:origin => origin, :pkgfile => pkgfile}
+            pkgs[pkgname] = { :origin => origin, :pkgfile => pkgfile }
 
             pkgfile = pkgname = nil
           end
@@ -538,7 +538,7 @@ def pkgclean(level)
           origin = $1
 
           if pkgfile
-            pkgs[pkgname] = {:origin => origin, :pkgfile => pkgfile}
+            pkgs[pkgname] = { :origin => origin, :pkgfile => pkgfile }
 
             pkgfile = pkgname = nil
           end
@@ -547,7 +547,7 @@ def pkgclean(level)
     end
   end
 
-  pkgs.each do |pkgname,pkg_info|
+  pkgs.each do |pkgname, pkg_info|
     origin = pkg_info[:origin]
     pkgfile = pkg_info[:pkgfile]
     pkg = PkgInfo.new(pkgname)
@@ -624,7 +624,7 @@ def scan_distfiles(dist_dir)
       next if not File.file?(f)
 
       if f[1] == ?/
-        f.slice!(0,2)
+        f.slice!(0, 2)
 
         distfiles << f
       end

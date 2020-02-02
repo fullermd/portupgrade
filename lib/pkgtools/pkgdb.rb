@@ -545,13 +545,13 @@ class PkgDB
         end
       end
 
-      n=0
+      n = 0
       new_pkgs.sort { |a, b|
         date_installed(a) <=> date_installed(b)
       }.each do |pkg|
         STDERR.putc ?.
 
-        n+=1
+        n += 1
         if n % 100 == 0
           STDERR.print n
         end

@@ -292,7 +292,7 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
     }
 
     opts.def_option("-e", "--emit-summaries",
-                    "Emit summary info after each port processing" << NEXTLINE ) { |v|
+                    "Emit summary info after each port processing" << NEXTLINE) { |v|
       $emit_summaries = v
     }
 
@@ -900,7 +900,7 @@ def get_all_depends(origin, parents_list = nil)
 
     `cd #{portdir} && #{shelljoin(*cmdargs)} -V #{depends_vars.join(' -V ')}`.each_line do |line|
       line.split(/\s+/).each do |dep|
-        dep.sub!(/.*?:/,'')
+        dep.sub!(/.*?:/, '')
         if dep.rindex(':') != nil
           (dep, target) = dep.split(':')
           next if target != "install"
@@ -909,7 +909,7 @@ def get_all_depends(origin, parents_list = nil)
       end
     end
 
-    STDERR.print '.'*depends.length if depends.length > 0
+    STDERR.print '.' * depends.length if depends.length > 0
 
     children_deps = Set.new
     depends.each do |dep|
@@ -961,7 +961,7 @@ def run_make_config(portdir, origin)
     cmdargs << 'config-conditional'
   end
 
-  if ! system "cd #{portdir} && #{shelljoin(*cmdargs)}"
+  if !system "cd #{portdir} && #{shelljoin(*cmdargs)}"
     warning_message "make config failed for #{origin}"
     raise ConfigError
   end
@@ -1162,7 +1162,7 @@ def get_make_args(origin, pkgname = nil)
       else
         quoted = n
         is_quoted = true
-        n+=1
+        n += 1
         next
       end
     end
@@ -1171,7 +1171,7 @@ def get_make_args(origin, pkgname = nil)
       args[quoted] << " " << args[n]
       args[n] = nil
     end
-    n+=1
+    n += 1
   end
   args.compact
 end
@@ -1198,9 +1198,9 @@ def get_upgrade_env_vars(pkgname)
 
   unless pkgname.empty?
     env_vars << 'UPGRADE_TOOL=portupgrade'
-    env_vars << 'UPGRADE_PORT='+pkgname
+    env_vars << 'UPGRADE_PORT=' + pkgname
     pkgname =~ %r{^.*-(.*)$}
-    env_vars << 'UPGRADE_PORT_VER='+$1
+    env_vars << 'UPGRADE_PORT_VER=' + $1
   end
 
   env_vars
@@ -1823,12 +1823,12 @@ def build_port(origin, logfile = nil, retried = false, is_new = false)
 
   cmdargs << 'MASTER_SORT_REGEX=' << 'MASTER_SORT=' if retried
 
-  cmdargs << "FETCH_CMD=#{$fetch_cmd}" if retried && ! $fetch_cmd.nil?
+  cmdargs << "FETCH_CMD=#{$fetch_cmd}" if retried && !$fetch_cmd.nil?
 
   Dir.chdir(portdir) {
     $fetch_cmd = `make -V FETCH_CMD`.chomp
 
-    if ! STDOUT.tty?
+    if !STDOUT.tty?
       cmdargs << "FETCH_BEFORE_ARGS=-q"
     end
 
@@ -2019,7 +2019,7 @@ def install_pkg(pkgname, orphan, origin, logfile = nil, is_new = false, *teardow
   timer_start(time_key = "Installation of #{pkgname}")
 
   unless $is_new or $without_env_upgrade
-    cmdargs = [ '/usr/bin/env' ]
+    cmdargs = ['/usr/bin/env']
     cmdargs.concat(get_upgrade_env_vars(pkgname))
   else
     cmdargs = []
@@ -2123,7 +2123,7 @@ def uninstall_pkg(pkgname, orphan, logfile = nil, extra_flags = '')
   $pkgdb_update = false
 
   unless $without_env_upgrade
-    cmd = [ '/usr/bin/env' ]
+    cmd = ['/usr/bin/env']
     cmd.concat(get_upgrade_env_vars(pkgname))
   else
     cmd = []

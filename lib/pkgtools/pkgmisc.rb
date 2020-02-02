@@ -96,7 +96,7 @@ def shelljoin(*args)
 end
 
 def init_tmpdir
-  if ! $tmpdir.nil? && $tmpdir != "" then
+  if !$tmpdir.nil? && $tmpdir != "" then
     return
   end
   maintmpdir = ENV['PKG_TMPDIR'] || ENV['TMPDIR'] || '/var/tmp'
@@ -120,5 +120,5 @@ def init_tmpdir
       warning_message "Could not clean up temporary directory: " + $!
     end
   }
-  $tmpdir=tmpdir
+  $tmpdir = tmpdir
 end

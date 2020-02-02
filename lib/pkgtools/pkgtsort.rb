@@ -98,7 +98,7 @@ class PkgTSort
     result = []
 
     until empty?
-      ary = @hints.sort { |a,b| b[1].size <=> a[1].size }
+      ary = @hints.sort { |a, b| b[1].size <=> a[1].size }
       key, deps = ary.pop
 
       if deps.empty?
@@ -165,14 +165,14 @@ end
 
 if __FILE__ == $0
   t = PkgTSort.new
-  t.add(1, 2, 3).add(2, 4).add(3, 4).add(2, 3).add(1,3).add(6, 5).add(5, 1)
+  t.add(1, 2, 3).add(2, 4).add(3, 4).add(2, 3).add(1, 3).add(6, 5).add(5, 1)
 
   p t.dump
   a = t.tsort { |cycle| puts "cycle found: " + cycle.join('-'); false }
   puts(*a)
 
   t = PkgTSort.new
-  t.add(1, 2, 3).add(2, 4).add(3, 4).add(2, 3).add(4,1).add(1,3).add(6, 5).add(5, 6)
+  t.add(1, 2, 3).add(2, 4).add(3, 4).add(2, 3).add(4, 1).add(1, 3).add(6, 5).add(5, 6)
 
   p t.dump
   a = t.tsort { |cycle| puts "cycle found: " + cycle.join('-'); nil }

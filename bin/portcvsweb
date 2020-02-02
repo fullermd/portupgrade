@@ -391,7 +391,7 @@ module PortCvsWeb
       tz_back = ENV['TZ']
       ENV['TZ'] = TZ_FRESHPORTS
       if DATESPEC_DAYBACK_RE =~ $datespec
-        time = Time.at(Time.now + $datespec.to_i*24*60*60)
+        time = Time.at(Time.now + $datespec.to_i * 24 * 60 * 60)
       else   # DATESPEC_DATE_RE =~ datespec
         time = Time.parse($datespec)
       end
