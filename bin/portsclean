@@ -397,7 +397,7 @@ def libclean()
 
   libtable.each do |libname, hash|
     # ignore the ones outside the localbase and the x11base
-    hash.delete_if { |ver, (path, dir, prefix, pkgname)|
+    hash.delete_if { |_ver, (_path, dir, prefix, _pkgname)|
       !prefix || dir == compatlibdir
     }
 
@@ -410,7 +410,7 @@ def libclean()
     pkgnames = {}
     n = size
 
-    hash.each do |ver, (path, dir, prefix, pkgname)|
+    hash.each do |ver, (_path, _dir, _prefix, pkgname)|
       if pkgname
         pkgnames[ver] = pkgname
         n -= 1

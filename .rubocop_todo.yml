@@ -123,22 +123,6 @@ Lint/StringConversionInInterpolation:
     - 'lib/pkgtools/pkginfo.rb'
     - 'lib/pkgtools/portinfo.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 3
 # Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
 Lint/UselessAccessModifier:

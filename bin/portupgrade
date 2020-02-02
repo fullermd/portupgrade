@@ -450,12 +450,12 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
     }
 
     opts.def_option("-w", "--noclean",
-                    "Do not \"make clean\" before each build") { |noclean|
+                    "Do not \"make clean\" before each build") { |_noclean|
       $clean = false
     }
 
     opts.def_option("-W", "--nocleanup",
-                    "Do not \"make clean\" after each installation") { |nocleanup|
+                    "Do not \"make clean\" after each installation") { |_nocleanup|
       $cleanup = false
     }
 
@@ -2006,7 +2006,7 @@ end
 
 # raises:
 #   InstallError
-def install_pkg(pkgname, orphan, origin, logfile = nil, is_new = false, *teardown_procs)
+def install_pkg(pkgname, orphan, origin, logfile = nil, _is_new = false, *teardown_procs)
   newpkg, pkgfile = find_pkg(origin)
 
   if pkgfile and deporigins = extract_pkgfile_deporigins(pkgfile)
@@ -2211,7 +2211,7 @@ def find_pkg(origin)
     end
   end
 
-  latest_pkg, pkgfile = *pkglist.max { |(pkg1, file1), (pkg2, file2)|
+  latest_pkg, pkgfile = *pkglist.max { |(pkg1, _file1), (pkg2, _file2)|
     pkg1 <=> pkg2
   }
 

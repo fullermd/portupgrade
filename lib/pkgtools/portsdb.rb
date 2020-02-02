@@ -296,7 +296,7 @@ class PortsDB
     File.join(category, port)
   end
 
-  def split(origin)
+  def split(_origin)
     if %r"^([^./A-Z][^/]*)/([^./][^/]*)$" =~ path
       return $1, $2
     end
