@@ -280,7 +280,10 @@ def do_fetch_pkg(pkgname)
   return true, pkgdep
 end
 
+# WTF, rubocop?  This isn't an accessor, it's not even in a class!
+# rubocop:disable Naming/AccessorMethodName
 def set_uri_base(uri_s)
+# rubocop:enable Naming/AccessorMethodName
   $subdir = nil
 
   begin

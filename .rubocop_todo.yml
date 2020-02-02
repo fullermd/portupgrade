@@ -149,11 +149,6 @@ Lint/Void:
     - 'lib/pkgtools/pkgdbtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'bin/pkg_fetch'
-
 # Offense count: 3
 Naming/ClassAndModuleCamelCase:
   Exclude:
