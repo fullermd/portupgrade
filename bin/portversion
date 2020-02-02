@@ -355,20 +355,20 @@ def check_pkgs(pkgs)
         held ? '# ' : '',
         pkg.fullname
     else
-          case $verbose_output
-          when :verbose then
+      case $verbose_output
+      when :verbose then
         printf "%-26s  %c  %s %s\n",
           pkg.send($display),
           sign,
           suggestion,
           (origin != pkg.origin) ? "(=> '#{origin}')" : ''
-          when :default then
+      when :default then
         printf "%-26s  %c\n",
           pkg.send($display),
           sign
-          when :quiet then
+      when :quiet then
         printf "%s\n", pkg.send($display)
-      end
+  end
     end
   end
 rescue PortsDB::IndexFileError

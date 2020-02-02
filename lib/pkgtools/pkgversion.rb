@@ -184,7 +184,7 @@ class PkgVersion
     if x1 == "pl"
       return -1
     elsif x2 == "pl"
-        return 1
+      return 1
     end
 
     if /^\D/ =~ x1                # x1: non-number

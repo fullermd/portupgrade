@@ -71,18 +71,6 @@ Layout/IndentationConsistency:
   Exclude:
     - 'bin/portcvsweb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgmisc.rb'
-    - 'lib/pkgtools/pkgversion.rb'
-    - 'tests/test_pkgdb.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/LeadingBlankLines:

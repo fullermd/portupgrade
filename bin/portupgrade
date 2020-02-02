@@ -865,8 +865,8 @@ def get_all_depends(origin, parents_list = nil)
   if $use_packages_only
     depends_vars = %w{LIB_DEPENDS RUN_DEPENDS}
   else
-  depends_vars = %w{FETCH_DEPENDS EXTRACT_DEPENDS PATCH_DEPENDS
-                    BUILD_DEPENDS LIB_DEPENDS RUN_DEPENDS}
+    depends_vars = %w{FETCH_DEPENDS EXTRACT_DEPENDS PATCH_DEPENDS
+                      BUILD_DEPENDS LIB_DEPENDS RUN_DEPENDS}
   end
 
   unless $depends.has_key?(origin)
@@ -899,14 +899,14 @@ def get_all_depends(origin, parents_list = nil)
     cmdargs.concat(get_make_args(origin))
 
     `cd #{portdir} && #{shelljoin(*cmdargs)} -V #{depends_vars.join(' -V ')}`.each_line do |line|
-        line.split(/\s+/).each do |dep|
-          dep.sub!(/.*?:/,'')
-          if dep.rindex(':') != nil
-            (dep, target) = dep.split(':')
-            next if target != "install"
-          end
-          depends.add($portsdb.strip(dep)) if !dep.empty?
+      line.split(/\s+/).each do |dep|
+        dep.sub!(/.*?:/,'')
+        if dep.rindex(':') != nil
+          (dep, target) = dep.split(':')
+          next if target != "install"
         end
+        depends.add($portsdb.strip(dep)) if !dep.empty?
+      end
     end
 
     STDERR.print '.'*depends.length if depends.length > 0

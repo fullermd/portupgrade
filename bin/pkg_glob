@@ -389,7 +389,7 @@ def deinstall_pkg(pkgname)
 
         if /\bELF\b.*\bshared object\b.*\bFreeBSD\b/ !~ filetype and
            /\bsymbolic link to\b/ !~ filetype
-                next
+          next
         end
 
         dest = File.join($compatlibdir, base)
