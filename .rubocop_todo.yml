@@ -142,6 +142,7 @@ Lint/UselessAssignment:
 
 # Offense count: 3
 # Configuration parameters: CheckForMethodsWithNoSideEffects.
+# XXX These may be bugs too
 Lint/Void:
   Exclude:
     - 'lib/pkgtools/pkgdb.rb'
