@@ -282,7 +282,7 @@ def ldconfig_m(*dirs)
   msg = " --> Running ldconfig -m"
 
   dirs.each do |d|
-    dirs.delete(d) if !(File.exists?(d) && File.stat(d).directory?)
+    dirs.delete(d) if !(File.exist?(d) && File.stat(d).directory?)
   end
 
   case dirs.size

@@ -524,7 +524,7 @@ def script_path
   # If a fixed/custom script(1) is installed by the port, use that version.
   # See #8
   custom_script = "#{PREFIX}/libexec/pkgtools/script"
-  if File.exists?(custom_script)
+  if File.exist?(custom_script)
     $script_path = custom_script
   else
     $script_path = '/usr/bin/script'
