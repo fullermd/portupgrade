@@ -32,8 +32,9 @@ Style/SpecialGlobalVars:
   Enabled: false
   #EnforcedStyle: use_perl_names
 
-# It might be nice to have this more automatic, but forcing it always and
-# everywhere is probably a terrible idea.
+# It might be nice to have this more automaticly done, but forcing it
+# always and everywhere to a single style (key vs table) is a terrible
+# idea.
 Layout/AlignHash:
   Enabled: false
 
