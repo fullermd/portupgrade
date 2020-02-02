@@ -150,15 +150,6 @@ Lint/Void:
     - 'lib/pkgtools/portsdb.rb'
 
 # Offense count: 1
-# Configuration parameters: CountKeywordArgs.
-Metrics/ParameterLists:
-  Max: 6
-
-# Offense count: 78
-Metrics/PerceivedComplexity:
-  Max: 88
-
-# Offense count: 1
 Naming/AccessorMethodName:
   Exclude:
     - 'bin/pkg_fetch'
