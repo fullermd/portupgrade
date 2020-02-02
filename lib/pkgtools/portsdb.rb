@@ -260,7 +260,7 @@ class PortsDB
       PkgDB.instance.db_dir,
       ENV['TMPDIR'],
       '/var/tmp',
-      '/tmp'
+      '/tmp',
     ].compact
   end
 

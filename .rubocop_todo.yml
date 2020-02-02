@@ -1232,19 +1232,6 @@ Style/TernaryParentheses:
   Exclude:
     - 'bin/portversion'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'bin/portcvsweb'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 16
 # Cop supports --auto-correct.
 Style/UnlessElse:
