@@ -1585,7 +1585,10 @@ def get_pkgname(origin)
 
   # Some packages ouptut a ':\n ' to try to look nice when using the normal
   # ports build process. That looks really bad here, so we undo that.
+  # XXX This lint fights with Style/RedundantParentheses
+  # rubocop:disable Lint/AmbiguousRegexpLiteral
   ignore.slice!(0..2) if (ignore.match /^:\n /)
+  # rubocop:enable Lint/AmbiguousRegexpLiteral
 
   if not ignore_message.empty?
     warning_message "Port marked as IGNORE: #{origin}:"

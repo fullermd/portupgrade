@@ -76,17 +76,6 @@ Layout/LeadingCommentSpace:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkgmisc.rb'
 
-# Offense count: 2
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - 'bin/pkgdu'
-    - 'bin/portversion'
-
-# Offense count: 1
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'bin/portupgrade'
-
 # Offense count: 57
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

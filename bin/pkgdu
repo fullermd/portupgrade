@@ -208,7 +208,7 @@ Environment Variables [default]:
 
     tasks -= $exclude_packages
 
-    pkgs_size tasks.sort.collect { |pkgname| PkgInfo.new(pkgname) }
+    pkgs_size(tasks.sort.collect { |pkgname| PkgInfo.new(pkgname) })
 
     if $command_output
       printf %Q`\nif [ X"$pkgs" != X"" ]; then\n  %s "$@" $pkgs\nfi\n`, $command
