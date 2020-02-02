@@ -1172,13 +1172,6 @@ Style/RescueModifier:
 Style/RescueStandardError:
   Enabled: false
 
-# Offense count: 36
-# Cop supports --auto-correct.
-# Configuration parameters: .
-# SupportedStyles: use_perl_names, use_english_names
-Style/SpecialGlobalVars:
-  EnforcedStyle: use_perl_names
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowSafeAssignment.

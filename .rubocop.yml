@@ -25,4 +25,9 @@ Style/WordArray:
 Style/SymbolProc:
   Enabled: false
 
+# It may be useful to enforce one way or another in the future
+Style/SpecialGlobalVars:
+  Enabled: false
+  #EnforcedStyle: use_perl_names
+
 inherit_from: .rubocop_todo.yml
