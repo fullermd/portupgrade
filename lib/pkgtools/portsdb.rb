@@ -648,7 +648,6 @@ class PortsDB
       STDERR.sync = prev_sync
       true
     end
-
   end
 
   def port(key)

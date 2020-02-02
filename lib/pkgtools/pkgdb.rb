@@ -826,7 +826,6 @@ class PkgDB
       else
         return Time.local(*ary)
       end
-
     rescue LoadError
       require 'date'
 
@@ -839,7 +838,6 @@ class PkgDB
         return time.localtime
       end
     end
-
   rescue
     raise ArgumentError, "#{str}: date format error"
   end

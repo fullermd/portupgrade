@@ -19,18 +19,6 @@ Layout/CommentIndentation:
     - 'lib/pkgtools/pkgversion.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Exclude:
-    - 'lib/pkgtools/pkgdb.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleAlignWith, AutoCorrect, Severity.
