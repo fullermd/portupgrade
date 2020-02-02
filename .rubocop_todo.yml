@@ -150,6 +150,7 @@ Lint/Void:
     - 'lib/pkgtools/pkgdbtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
+#######            XXXXXXXXXXX HERE HERE HERE XXXXXXXX
 # Offense count: 4
 Security/Open:
   Exclude:
