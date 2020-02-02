@@ -158,7 +158,7 @@ module PkgDBTools
     end
 
     file = File.open(@lock_file, "w")
-    file.puts "#$$ r"
+    file.puts "#{$$} r"
     file.close
   end
 
@@ -183,7 +183,7 @@ module PkgDBTools
     end
 
     file = File.open(@lock_file, "w")
-    file.puts "#$$ w"
+    file.puts "#{$$} w"
     file.close
   end
 

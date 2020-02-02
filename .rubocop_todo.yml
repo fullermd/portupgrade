@@ -1272,12 +1272,6 @@ Style/UnneededInterpolation:
   Exclude:
     - 'bin/pkgdu'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/VariableInterpolation:
-  Exclude:
-    - 'lib/pkgtools/pkgdbtools.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, MinSize, WordRegex.
