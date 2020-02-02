@@ -64,11 +64,11 @@ def shellwords(line)
       if line.sub!(/\A"(([^"\\]|\\.)*)"/, '') then #"
         snippet = $1
         snippet.gsub!(/\\(.)/, '\1')
-      elsif line =~ /\A"/ then #"
+      elsif line.starts_with?('"') then
         raise ArgumentError, "Unmatched double quote: #{line}"
       elsif line.sub!(/\A'([^']*)'/, '') then #'
         snippet = $1
-      elsif line =~ /\A'/ then #'
+      elsif line.starts_with?("'") then
         raise ArgumentError, "Unmatched single quote: #{line}"
       elsif line.sub!(/\A\\(.)/, '') then
         snippet = $1

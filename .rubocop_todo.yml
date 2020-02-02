@@ -156,13 +156,6 @@ Performance/RedundantBlockCall:
     - 'lib/pkgtools/pkgtsort.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Performance/StartWith:
-  Exclude:
-    - 'lib/pkgtools/pkgmisc.rb'
-
 # Offense count: 1
 Security/MarshalLoad:
   Exclude:
