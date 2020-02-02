@@ -1172,17 +1172,6 @@ Style/RescueModifier:
 Style/RescueStandardError:
   Enabled: false
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'bin/pkgdb'
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/pkgtsort.rb'
-    - 'lib/pkgtools/pkgversion.rb'
-    - 'tests/test_portinfo.rb'
-
 # Offense count: 36
 # Cop supports --auto-correct.
 # Configuration parameters: .

@@ -30,7 +30,7 @@ class TestPortInfo < Test::Unit::TestCase
                  portinfo.build_depends, portinfo.run_depends,
                  portinfo.www])
     
-    portinfo = PortInfo.new(SAMPLE2);
+    portinfo = PortInfo.new(SAMPLE2)
     assert_equal(['ruby-byaccr', '0.0_1',
                  'devel/ruby-byaccr', 'devel/ruby-byaccr/pkg-descr',
                  '/usr/local', 'knu@FreeBSD.org',

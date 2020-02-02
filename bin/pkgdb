@@ -45,10 +45,10 @@ def init_global
   $fix_db = false
   $force = false
   $automatic = false
-  $check_lost = false;
-  $interactive = false;
+  $check_lost = false
+  $interactive = false
   $noconfig = false
-  $omit_check = false;
+  $omit_check = false
   $quiet = false
   $quieter = false
   #$sanity_check = true

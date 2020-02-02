@@ -441,7 +441,7 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
 
     opts.def_option("-u", "--uninstall-shlibs",
                     "Do not preserve old shared libraries") {
-      $uninstall_extra_flags.sub!(/P/, '');
+      $uninstall_extra_flags.sub!(/P/, '')
     }
 
     opts.def_option("-v", "--verbose",

@@ -121,12 +121,12 @@ class PkgVersion
     end
 
     # Add missed separators.
-    n1 = n1.gsub(/([a-zA-Z]\d)([a-zA-Z])/, "\\1.\\2");
-    n2 = n2.gsub(/([a-zA-Z]\d)([a-zA-Z])/, "\\1.\\2");
+    n1 = n1.gsub(/([a-zA-Z]\d)([a-zA-Z])/, "\\1.\\2")
+    n2 = n2.gsub(/([a-zA-Z]\d)([a-zA-Z])/, "\\1.\\2")
 
     # Collaps consecutive separators
-    n1 = n1.gsub(/([^a-zA-Z\d])+/, "\\1");
-    n2 = n2.gsub(/([^a-zA-Z\d])+/, "\\1");
+    n1 = n1.gsub(/([^a-zA-Z\d])+/, "\\1")
+    n2 = n2.gsub(/([^a-zA-Z\d])+/, "\\1")
 
     # Split into subnumbers
     a1 = n1.split(/[^a-zA-Z\d]/)
