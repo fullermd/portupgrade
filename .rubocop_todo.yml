@@ -98,11 +98,6 @@ Lint/IneffectiveAccessModifier:
   Exclude:
     - 'bin/portcvsweb'
 
-# Offense count: 1
-Lint/NestedMethodDefinition:
-  Exclude:
-    - 'bin/portcvsweb'
-
 # Offense count: 4
 Lint/NonLocalExitFromIterator:
   Exclude:
