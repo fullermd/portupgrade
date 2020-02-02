@@ -42,19 +42,19 @@ class PortsDB
   DB_VERSION = [:FreeBSD, 4]
 
   LANGUAGE_SPECIFIC_CATEGORIES = {
-    "arabic"                => "ar-",
-    "chinese"                => "zh-",
-    "french"                => "fr-",
-    "german"                => "de-",
-    "hebrew"                => "iw-",
-    "hungarian"                => "hu-",
-    "japanese"                => "ja-",
-    "korean"                => "ko-",
-    "polish"                => "pl-",
-    "portuguese"        => "pt-",
-    "russian"                => "ru-",
-    "ukrainian"                => "uk-",
-    "vietnamese"        => "vi-",
+    "arabic"     => "ar-",
+    "chinese"    => "zh-",
+    "french"     => "fr-",
+    "german"     => "de-",
+    "hebrew"     => "iw-",
+    "hungarian"  => "hu-",
+    "japanese"   => "ja-",
+    "korean"     => "ko-",
+    "polish"     => "pl-",
+    "portuguese" => "pt-",
+    "russian"    => "ru-",
+    "ukrainian"  => "uk-",
+    "vietnamese" => "vi-",
   }
 
   MY_PORT = 'ports-mgmt/portupgrade'

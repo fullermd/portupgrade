@@ -72,18 +72,18 @@ class PkgDB
   LOCK_FILE = '/var/run/pkgdb.db.lock'
 
   CMD = {
-    :pkg_add                        => nil,
-    :pkg_create                        => nil,
-    :pkg_delete                        => nil,
-    :pkg_info                        => nil,
-    :pkg_deinstall                => "#{PSBINS}/pkg_deinstall",
-    :pkg_fetch                        => "#{PSBINS}/pkg_fetch",
-    :pkg_which                        => "#{PSBINS}/pkg_which",
-    :pkgdb                        => "#{PSBINS}/pkgdb",
-    :portcvsweb                        => "#{PSBINS}/portcvsweb",
-    :portinstall                => "#{PSBINS}/portinstall",
-    :portsclean                        => "#{PSBINS}/portsclean",
-    :pkg                        => nil,
+    :pkg_add       => nil,
+    :pkg_create    => nil,
+    :pkg_delete    => nil,
+    :pkg_info      => nil,
+    :pkg_deinstall => "#{PSBINS}/pkg_deinstall",
+    :pkg_fetch     => "#{PSBINS}/pkg_fetch",
+    :pkg_which     => "#{PSBINS}/pkg_which",
+    :pkgdb         => "#{PSBINS}/pkgdb",
+    :portcvsweb    => "#{PSBINS}/portcvsweb",
+    :portinstall   => "#{PSBINS}/portinstall",
+    :portsclean    => "#{PSBINS}/portsclean",
+    :pkg           => nil,
   }
 
   def self.command(sym)
