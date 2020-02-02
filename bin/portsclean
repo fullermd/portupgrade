@@ -510,7 +510,6 @@ def pkgclean(level)
       pkgfile = pkgname = nil
 
       r.each do |line|
-
         case line
         when /^Information for +\.\/((\S+-\S+)\.t[bgx]z):/
           pkgfile = $1

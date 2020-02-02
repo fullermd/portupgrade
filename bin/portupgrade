@@ -740,7 +740,6 @@ Environment Variables [default]:
               warning_message "No matching packages left after exclusion: #{arg}"
               throw :pkg
             end
-
           }
           unless found
             warning_message "No such installed package: #{arg}"
