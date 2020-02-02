@@ -60,4 +60,8 @@ Lint/EmptyWhen:
     - 'bin/pkgdb'
     - 'lib/pkgtools/pkgversion.rb'
 
+# May be a better way to handle this, but...
+Lint/HandleExceptions:
+  AllowComments: true
+
 inherit_from: .rubocop_todo.yml

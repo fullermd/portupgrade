@@ -93,12 +93,6 @@ Lint/AssignmentInCondition:
     - 'lib/pkgtools/pkgtsort.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 2
-Lint/HandleExceptions:
-  Exclude:
-    - 'bin/pkg_fetch'
-    - 'bin/portcvsweb'
-
 # Offense count: 3
 Lint/IneffectiveAccessModifier:
   Exclude:
