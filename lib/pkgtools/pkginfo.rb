@@ -53,20 +53,20 @@ class PkgInfo
   }
 
   PKG_QUERY_FLAGS = {
-    :prefix 		=> '%p',
-    :comment 		=> '%c',
-    :descr 		=> nil,
-    :message 		=> '%M',
-    :plist 		=> nil,
-    :install 		=> nil,
-    :deinstall 		=> nil,
-    :req 		=> '%dn-%dv',
-    :required_by 	=> '%rn-%rv',
-    :mtree 		=> nil,
-    :mtime 		=> '%t',
-    :files 		=> '%Fp',
-    :totalsize  	=> '%sb',
-    :origin     	=> '%o',
+    :prefix                 => '%p',
+    :comment                 => '%c',
+    :descr                 => nil,
+    :message                 => '%M',
+    :plist                 => nil,
+    :install                 => nil,
+    :deinstall                 => nil,
+    :req                 => '%dn-%dv',
+    :required_by         => '%rn-%rv',
+    :mtree                 => nil,
+    :mtime                 => '%t',
+    :files                 => '%Fp',
+    :totalsize          => '%sb',
+    :origin             => '%o',
   }
 
   attr_accessor :name, :version
@@ -104,9 +104,9 @@ class PkgInfo
       return other, @version
     when String
       if /-/ =~ other
-	return PkgInfo.new(other), self
+        return PkgInfo.new(other), self
       else
-	return PkgVersion.new(other), @version
+        return PkgVersion.new(other), @version
       end
     else
       raise TypeError, "Coercion between #{other.class} and #{self.class} is not supported."
@@ -124,11 +124,11 @@ class PkgInfo
       other_version = other
     when String
       if /-/ =~ other
-	other = PkgInfo.new(other)
-	other_name = other.name
-	other_version = other.version
+        other = PkgInfo.new(other)
+        other_name = other.name
+        other_version = other.version
       else
-	other_version = PkgVersion.new(other)
+        other_version = PkgVersion.new(other)
       end
     else
       a, b = other.coerce(self)
@@ -219,7 +219,7 @@ class PkgInfo
 
   def files()
     str = get_info(:files) || ''
-    str.gsub!(%r"//+", '/')	# tr is not multibyte-aware
+    str.gsub!(%r"//+", '/')        # tr is not multibyte-aware
     str.split("\n")
   end
 
@@ -234,7 +234,7 @@ class PkgInfo
   PkgDB::PKGDB_FILES.each_key do |key|
     module_eval %{
       def pkg_#{key.to_s}()
-	pkgfile #{key.inspect}
+        pkgfile #{key.inspect}
       end
     }
   end
@@ -253,11 +253,11 @@ class PkgInfo
       pattern =~ fullname ? true : false
     else
       if /^([<>])(=?)(.*)/ =~ pattern
-	cmp = date_cmp($3)
+        cmp = date_cmp($3)
 
-	($1 == '>' && cmp > 0) || ($1 == '<' && cmp < 0) || ($2 == '=' && cmp == 0)
+        ($1 == '>' && cmp > 0) || ($1 == '<' && cmp < 0) || ($2 == '=' && cmp == 0)
       else
-	File.fnmatch?(pattern, fullname) || @name == pattern
+        File.fnmatch?(pattern, fullname) || @name == pattern
       end
     end
   rescue => e
@@ -278,7 +278,7 @@ class PkgFileInfo < PkgInfo
 
     info.each_line do |line|
       if /^@name\s+(\S+)$/ =~ line
-	return super($1)
+        return super($1)
       end
     end
 

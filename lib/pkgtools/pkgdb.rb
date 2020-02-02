@@ -40,15 +40,15 @@ class PkgDB
   include PkgDBTools
 
   DB_VERSION = [:FreeBSD, 7]
-  # :db_version		=> DB_VERSION
-  # :pkgnames		=> list of installed packages
-  # :origins		=> list of installed packages' origins
-  # :mtime		=> modification time (marshalled)
-  # ?ori/gin		=> pkgname
+  # :db_version                => DB_VERSION
+  # :pkgnames                => list of installed packages
+  # :origins                => list of installed packages' origins
+  # :mtime                => modification time (marshalled)
+  # ?ori/gin                => pkgname
   #   ...
-  # ?pkgname		=> origin
+  # ?pkgname                => origin
   #   ...
-  # /path/to/file	=> pkgname
+  # /path/to/file        => pkgname
   #   ...
 
   PKGDB_FILES = {
@@ -72,18 +72,18 @@ class PkgDB
   LOCK_FILE = '/var/run/pkgdb.db.lock'
 
   CMD = {
-    :pkg_add			=> nil,
-    :pkg_create			=> nil,
-    :pkg_delete			=> nil,
-    :pkg_info			=> nil,
-    :pkg_deinstall		=> "#{PSBINS}/pkg_deinstall",
-    :pkg_fetch			=> "#{PSBINS}/pkg_fetch",
-    :pkg_which			=> "#{PSBINS}/pkg_which",
-    :pkgdb			=> "#{PSBINS}/pkgdb",
-    :portcvsweb			=> "#{PSBINS}/portcvsweb",
-    :portinstall		=> "#{PSBINS}/portinstall",
-    :portsclean			=> "#{PSBINS}/portsclean",
-    :pkg			=> nil,
+    :pkg_add                        => nil,
+    :pkg_create                        => nil,
+    :pkg_delete                        => nil,
+    :pkg_info                        => nil,
+    :pkg_deinstall                => "#{PSBINS}/pkg_deinstall",
+    :pkg_fetch                        => "#{PSBINS}/pkg_fetch",
+    :pkg_which                        => "#{PSBINS}/pkg_which",
+    :pkgdb                        => "#{PSBINS}/pkgdb",
+    :portcvsweb                        => "#{PSBINS}/portcvsweb",
+    :portinstall                => "#{PSBINS}/portinstall",
+    :portsclean                        => "#{PSBINS}/portsclean",
+    :pkg                        => nil,
   }
 
   def self.command(sym)
@@ -191,11 +191,11 @@ class PkgDB
       dir = db_dir
 
       begin
-	Dir.chdir(dir) {
-	  @abs_db_dir = Dir.pwd
-	}
+        Dir.chdir(dir) {
+          @abs_db_dir = Dir.pwd
+        }
       rescue => e
-	raise DBError, "Can't chdir to '#{dir}': #{e.message}"
+        raise DBError, "Can't chdir to '#{dir}': #{e.message}"
       end
     end
 
@@ -203,21 +203,21 @@ class PkgDB
   end
 
   def strip(path, installed_only = false)
-    base = path.chomp('/')	# allow `pkgname/'
+    base = path.chomp('/')        # allow `pkgname/'
 
     if base.include?('/')
-      if %r"^[^/]+/[^/]+$" =~ base	# "
-	if installed_only
-	  return deorigin_glob(base) ? base : nil
-	else
-	  return base
-	end
+      if %r"^[^/]+/[^/]+$" =~ base        # "
+        if installed_only
+          return deorigin_glob(base) ? base : nil
+        else
+          return base
+        end
       end
 
       dir, base = File.split(File.expand_path(base))
 
       if dir != db_dir && dir != abs_db_dir
-	return nil
+        return nil
       end
     end
 
@@ -276,7 +276,7 @@ class PkgDB
 
     if o_val
       o_val = o_val.split << pkgname
-      o_val.uniq!		# just in case
+      o_val.uniq!                # just in case
       @db[o_key] = o_val.join(' ')
     else
       @db[o_key] = pkgname
@@ -291,8 +291,8 @@ class PkgDB
 
     origin = @db[p_key] or
       begin
-	STDERR.print "(? #{pkgname})"
-	return false
+        STDERR.print "(? #{pkgname})"
+        return false
       end
 
     @db.delete(p_key)
@@ -301,8 +301,8 @@ class PkgDB
 
     pkgs = @db[o_key] or
       begin
-	STDERR.print "(? #{origin})"
-	return false
+        STDERR.print "(? #{origin})"
+        return false
       end
 
     pkgs = pkgs.split
@@ -370,7 +370,7 @@ class PkgDB
       PortInfo.match?(pattern, origin) or next
 
       if pkgnames = deorigin(origin)
-	ret.concat(pkgnames)
+        ret.concat(pkgnames)
       end
     end
 
@@ -400,8 +400,8 @@ class PkgDB
       close_db
 
       if system!(PkgDB::command(:pkgdb), '-u')
-	mark_fixme
-	return true
+        mark_fixme
+        return true
       end
     end
 
@@ -467,118 +467,118 @@ class PkgDB
     try_again = false
     begin
       if rebuild
-	open_db_for_rebuild!
+        open_db_for_rebuild!
 
-	new_pkgs = @installed_pkgs
+        new_pkgs = @installed_pkgs
 
-	deleted_pkgs = []
+        deleted_pkgs = []
 
-	@installed_ports = []
+        @installed_ports = []
       else
-	begin
-	  open_db_for_update!
+        begin
+          open_db_for_update!
 
-	  s = @db[':origins']
-	  s.is_a?(String) or raise "origins - not a string (#{s.class})"
-	  @installed_ports = s.split
+          s = @db[':origins']
+          s.is_a?(String) or raise "origins - not a string (#{s.class})"
+          @installed_ports = s.split
 
-	  s = @db[':pkgnames']
-	  s.is_a?(String) or raise "pkgnames - not a string (#{s.class})"
-	  prev_installed_pkgs = s.split
+          s = @db[':pkgnames']
+          s.is_a?(String) or raise "pkgnames - not a string (#{s.class})"
+          prev_installed_pkgs = s.split
 
-	  new_pkgs = @installed_pkgs - prev_installed_pkgs
-	  deleted_pkgs = prev_installed_pkgs - @installed_pkgs
+          new_pkgs = @installed_pkgs - prev_installed_pkgs
+          deleted_pkgs = prev_installed_pkgs - @installed_pkgs
 
-	  db_mtime = date_db_file()
+          db_mtime = date_db_file()
 
-	  (@installed_pkgs & prev_installed_pkgs).each do |pkg|
-	    pkg_mtime = date_installed(pkg)
+          (@installed_pkgs & prev_installed_pkgs).each do |pkg|
+            pkg_mtime = date_installed(pkg)
 
-	    if db_mtime < pkg_mtime
-	      new_pkgs << pkg
-	      deleted_pkgs << pkg
-	    end
-	  end
+            if db_mtime < pkg_mtime
+              new_pkgs << pkg
+              deleted_pkgs << pkg
+            end
+          end
 
-	  deleted_pkgs.sort!
-	rescue => e
+          deleted_pkgs.sort!
+        rescue => e
           raise e if e.class == PkgDB::NeedsPkgNGSupport
-	  STDERR.print "#{e.message}; rebuild needed] "
-	  File.unlink(@db_file)
-	  return update_db(true)
-	end
+          STDERR.print "#{e.message}; rebuild needed] "
+          File.unlink(@db_file)
+          return update_db(true)
+        end
       end
 
       STDERR.printf "- %d packages found (-%d +%d) ",
-	@installed_pkgs.size, deleted_pkgs.size, new_pkgs.size
+        @installed_pkgs.size, deleted_pkgs.size, new_pkgs.size
 
       if @installed_pkgs.size == 0
-	STDERR.puts " nothing to do]"
-	@db[':mtime'] = Marshal.dump(Time.now)
-	@db[':origins'] = ' '
-	@db[':pkgnames'] = ' '
-	@db[':db_version'] = Marshal.dump(DB_VERSION)
+        STDERR.puts " nothing to do]"
+        @db[':mtime'] = Marshal.dump(Time.now)
+        @db[':origins'] = ' '
+        @db[':pkgnames'] = ' '
+        @db[':db_version'] = Marshal.dump(DB_VERSION)
 
-	return true
+        return true
       end
 
       unless deleted_pkgs.empty?
-	STDERR.print '(...)'
+        STDERR.print '(...)'
 
-	# NOTE: you cannot delete keys while you enumerate the database elements
-	@db.select { |path, pkgs|
-	  path[0] == ?/ && pkgs.split.find { |pkg| deleted_pkgs.qinclude?(pkg) }
-	}.each do |path, pkgs|
-	  path = File.expand_path(path)
+        # NOTE: you cannot delete keys while you enumerate the database elements
+        @db.select { |path, pkgs|
+          path[0] == ?/ && pkgs.split.find { |pkg| deleted_pkgs.qinclude?(pkg) }
+        }.each do |path, pkgs|
+          path = File.expand_path(path)
 
-	  pkgs = pkgs.split - deleted_pkgs
+          pkgs = pkgs.split - deleted_pkgs
 
-	  if pkgs.empty?
-	    @db.delete(path)
-	  else
-	    @db[path] = pkgs.join(' ')
-	  end
-	end
+          if pkgs.empty?
+            @db.delete(path)
+          else
+            @db[path] = pkgs.join(' ')
+          end
+        end
 
-	deleted_pkgs.each do |pkg|
-	  delete_origin(pkg)
-	end
+        deleted_pkgs.each do |pkg|
+          delete_origin(pkg)
+        end
       end
 
       n=0
       new_pkgs.sort { |a, b|
-	date_installed(a) <=> date_installed(b)
+        date_installed(a) <=> date_installed(b)
       }.each do |pkg|
-	STDERR.putc ?.
+        STDERR.putc ?.
 
-	n+=1
-	if n % 100 == 0
-	  STDERR.print n
-	end
+        n+=1
+        if n % 100 == 0
+          STDERR.print n
+        end
 
-	begin
-	  pkginfo = PkgInfo.new(pkg)
+        begin
+          pkginfo = PkgInfo.new(pkg)
 
-	  if origin = pkginfo.origin
-	    add_origin(pkg, origin)
-	  end
+          if origin = pkginfo.origin
+            add_origin(pkg, origin)
+          end
 
-	  pkginfo.files.each do |path|
-	    path = File.expand_path(path)
+          pkginfo.files.each do |path|
+            path = File.expand_path(path)
 
-	    if @db.key?(path)
-	      pkgs = @db[path].split
-	      pkgs << pkg if !pkgs.include?(pkg)
-	      @db[path] = pkgs.join(' ')
-	    else
-	      @db[path] = pkg
-	    end
-	  end
-	rescue => e
+            if @db.key?(path)
+              pkgs = @db[path].split
+              pkgs << pkg if !pkgs.include?(pkg)
+              @db[path] = pkgs.join(' ')
+            else
+              @db[path] = pkg
+            end
+          end
+        rescue => e
           raise e if e.class == NeedsPkgNGSupport
-	  STDERR.puts "", e.message + ": skipping..."
-	  next
-	end
+          STDERR.puts "", e.message + ": skipping..."
+          next
+        end
       end
 
       @installed_ports.uniq!
@@ -597,15 +597,15 @@ class PkgDB
     rescue => e
       raise e if e.class == NeedsPkgNGSupport
       if File.exist?(@db_file)
-	begin
-	  STDERR.puts " error] Remove and try again."
-	  File.unlink(@db_file)
-	  try_again = true
-	rescue => e
-	  raise DBError, "#{e.message}: Cannot update the portsdb! (#{@db_file})]"
-	end
+        begin
+          STDERR.puts " error] Remove and try again."
+          File.unlink(@db_file)
+          try_again = true
+        rescue => e
+          raise DBError, "#{e.message}: Cannot update the portsdb! (#{@db_file})]"
+        end
       else
-	raise DBError, "#{e.message}: Cannot update the pkgdb!]"
+        raise DBError, "#{e.message}: Cannot update the pkgdb!]"
       end
     ensure
       close_db
@@ -642,7 +642,7 @@ class PkgDB
       @installed_ports = s.split
     rescue => e
       if retried
-	raise DBError, "#{e.message}: Cannot read the pkgdb!"
+        raise DBError, "#{e.message}: Cannot read the pkgdb!"
       end
 
       STDERR.print "[#{e.message}] "
@@ -773,7 +773,7 @@ class PkgDB
 
       prev = nil
 
-      if File.size(filename) >= 65536	# 64KB
+      if File.size(filename) >= 65536        # 64KB
         obj = "| grep -E '^@pkgdep|^@comment DEPORIGIN:' #{filename}"
       else
         obj = filename
@@ -806,7 +806,7 @@ class PkgDB
     module_eval %{
       def pkg_#{key.to_s}(pkgname)
         raise NeedsPkgNGSupport, "PKGNG support needed (pkg_#{key.to_s}): #{__FILE__}:#{__LINE__}" if with_pkgng?
-	pkgfile(pkgname, #{key.inspect})
+        pkgfile(pkgname, #{key.inspect})
       end
     }
   end
@@ -885,71 +885,71 @@ class PkgDB
     when String
       # shortcut
       if pkg = pkg(pattern)
-	if block_given?
-	  yield(want_pkg_info ? pkg : pattern)
-	  return nil
-	else
-	  return [want_pkg_info ? pkg : pattern]
-	end
+        if block_given?
+          yield(want_pkg_info ? pkg : pattern)
+          return nil
+        else
+          return [want_pkg_info ? pkg : pattern]
+        end
       end      
 
       if pattern.include?('/')
-	is_origin = true
+        is_origin = true
       elsif /^([<>]=?)(.*)/ =~ pattern
-	op = $1
-	arg = $2
+        op = $1
+        arg = $2
 
-	pkgs = glob(arg)
+        pkgs = glob(arg)
 
-	begin
-	  if pkgs.empty?
-	    base = PkgDB.parse_date(arg)
-	  else
-	    pkgs.size >= 2 and
-	      raise ArgumentError, "#{arg}: ambiguous package specification (#{pkgs.join(', ')})"
+        begin
+          if pkgs.empty?
+            base = PkgDB.parse_date(arg)
+          else
+            pkgs.size >= 2 and
+              raise ArgumentError, "#{arg}: ambiguous package specification (#{pkgs.join(', ')})"
 
-	    base = date_installed(pkgs[0].to_s)
-	  end
+            base = date_installed(pkgs[0].to_s)
+          end
 
-	  pattern = op + base.strftime('%Y-%m-%d %H:%M:%S')
-	rescue => e
+          pattern = op + base.strftime('%Y-%m-%d %H:%M:%S')
+        rescue => e
           raise e if e.class == PkgDB::NeedsPkgNGSupport
-	  STDERR.puts e.message
+          STDERR.puts e.message
 
-	  if block_given?
-	    return nil
-	  else
-	    return []
-	  end
-	end
+          if block_given?
+            return nil
+          else
+            return []
+          end
+        end
       end
     when Regexp
       if pattern.source.include?('/')
-	is_origin = true
+        is_origin = true
       end
     end
 
     if is_origin
       if pkgnames = deorigin_glob(pattern)
-	if block_given?
-	  pkgnames.each do |pkgname|
-	    yield(want_pkg_info ? PkgInfo.new(pkgname) : pkgname)
-	  end
+        if block_given?
+          pkgnames.each do |pkgname|
+            yield(want_pkg_info ? PkgInfo.new(pkgname) : pkgname)
+          end
 
-	  return nil
-	else
-	  if want_pkg_info
-	    return pkgnames.map { |pkgname| PkgInfo.new(pkgname) }
-	  else
-	    return pkgnames
-	  end
-	end
+          return nil
+        else
+          if want_pkg_info
+            return pkgnames.map { |pkgname| PkgInfo.new(pkgname) }
+          else
+            return pkgnames
+          end
+        end
       end
 
       if block_given?
-	return nil
+        return nil
       else
-	return []
+        return []
       end
     end
 
@@ -959,9 +959,9 @@ class PkgDB
       pkg.match?(pattern) or next
 
       if block_given?
-	yield(want_pkg_info ? pkg : pkgname)
+        yield(want_pkg_info ? pkg : pkgname)
       else
-	list.push(want_pkg_info ? pkg : pkgname)
+        list.push(want_pkg_info ? pkg : pkgname)
       end
     end
 
@@ -1021,12 +1021,12 @@ class PkgDB
           moved.last.to
           origin = moved.last.to
         end
-	# ..and ports dependencies
-	PortsDB.instance.all_depends_list(origin).each do |o|
-	  if bdeps = deorigin(o)
-	    deps.concat(bdeps)
-	  end
-	end
+        # ..and ports dependencies
+        PortsDB.instance.all_depends_list(origin).each do |o|
+          if bdeps = deorigin(o)
+            deps.concat(bdeps)
+          end
+        end
       end
 
       t.add(pkgname, *deps)
@@ -1085,13 +1085,13 @@ class PkgDB
       autofix
 
       deps = pkgdep(pkgname) and deps.each do |name|
-	installed?(name) or
-	  raise DBError,
-	  format("Stale dependency: %s --> %s -- manually run 'pkgdb -F' to fix%s.",
-		 pkgname, name,
-		 recurse_up ? ' (-O disallowed when -R is given)' : ', or specify -O to force') if sanity_check
+        installed?(name) or
+          raise DBError,
+          format("Stale dependency: %s --> %s -- manually run 'pkgdb -F' to fix%s.",
+                 pkgname, name,
+                 recurse_up ? ' (-O disallowed when -R is given)' : ', or specify -O to force') if sanity_check
 
-	list << name if recurse_up
+        list << name if recurse_up
       end
     end
 
@@ -1101,13 +1101,13 @@ class PkgDB
       autofix
 
       deps = required_by(pkgname) and deps.each do |name|
-	installed?(name) or
-	  raise DBError,
-	  format("Stale dependency: %s <-- %s -- manually run 'pkgdb -F' to fix%s.",
-		 pkgname, name,
-		 recurse_down ? ' (-O disallowed when -r is given)' : ', or specify -O to force') if sanity_check
+        installed?(name) or
+          raise DBError,
+          format("Stale dependency: %s <-- %s -- manually run 'pkgdb -F' to fix%s.",
+                 pkgname, name,
+                 recurse_down ? ' (-O disallowed when -r is given)' : ', or specify -O to force') if sanity_check
 
-	list << name if recurse_down
+        list << name if recurse_down
       end
     end
 

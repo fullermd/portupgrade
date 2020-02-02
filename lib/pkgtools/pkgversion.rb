@@ -85,9 +85,9 @@ class PkgVersion
 
   def PkgVersion::compare_numbers(n1, n2)
     # For full comparing rules see file:
-    #	/usr/src/usr.sbin/pkg_install/lib/version.c
+    #        /usr/src/usr.sbin/pkg_install/lib/version.c
     special = { 'pl' => 'pl', 'alpha' => 'a', 'beta' => 'b',
-      		'pre' => 'p', 'rc' => 'r' }
+                      'pre' => 'p', 'rc' => 'r' }
 
     n1 ||= ''
     n2 ||= ''
@@ -108,7 +108,7 @@ class PkgVersion
       a2 = n2.split(/\+/)
       c = compare_numbers(a1.shift, a2.shift)
       if c != 0
-	return c
+        return c
       else
         return compare_numbers(a1.shift, a2.shift)
       end
@@ -184,28 +184,28 @@ class PkgVersion
     if x1 == "pl"
       return -1
     elsif x2 == "pl"
-	return 1
+        return 1
     end
 
-    if /^\D/ =~ x1		# x1: non-number
-      if x2.empty?		#		vs. x2: null (5.0a > 5.0.b)
-        return 1		# -> x1 wins
+    if /^\D/ =~ x1                # x1: non-number
+      if x2.empty?                #                vs. x2: null (5.0a > 5.0.b)
+        return 1                # -> x1 wins
       end
-      if /^\D/ !~ x2		#	        vs. x2: number
-	return -1		# -> x2 wins
+      if /^\D/ !~ x2                #                vs. x2: number
+        return -1                # -> x2 wins
       end
-      				#               vs. x2: non-number
-      return x1 <=> x2		# -> Compare in dictionary order
+                                      #               vs. x2: non-number
+      return x1 <=> x2                # -> Compare in dictionary order
     end
 
-    if /^\d/ =~ x1		# x1: number
-      if /^\d/ =~ x2		#               vs. x2: number
-	return x1.to_i <=> x2.to_i	# -> Compare numerically
+    if /^\d/ =~ x1                # x1: number
+      if /^\d/ =~ x2                #               vs. x2: number
+        return x1.to_i <=> x2.to_i        # -> Compare numerically
       end
-				#               vs. x2: non-number
-      return 1			# -> x1 wins
+                                #               vs. x2: non-number
+      return 1                        # -> x1 wins
     end
-    				# x1: null	(4a < 40a)
-    return -1			# -> x2 wins
+                                    # x1: null        (4a < 40a)
+    return -1                        # -> x2 wins
   end
 end

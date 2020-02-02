@@ -115,10 +115,10 @@ usage: #{MYNAME} [-hfFMqrRuU] [-x port_glob] [port_glob ...]
 
     opts.def_option("-x", "--exclude=GLOB", "Exclude ports matching the specified glob#{NEXTLINE}pattern") { |arg|
       begin
-	pattern = parse_pattern(arg)
+        pattern = parse_pattern(arg)
       rescue RegexpError => e
-	warning_message e.message.capitalize
-	break
+        warning_message e.message.capitalize
+        break
       end
 
       $exclude_ports |= $portsdb.glob(pattern).collect { |portinfo| portinfo.origin }
@@ -148,9 +148,9 @@ Environment Variables [default]:
       rest = opts.order(*argv)
 
       unless $noconfig
-	load_config
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -158,40 +158,40 @@ Environment Variables [default]:
       opts.order!(argv)
 
       if $update_index
-	$portsdb.update($fetch_index)
+        $portsdb.update($fetch_index)
       end
 
       if $update_db
-	$portsdb.update_db($force)
+        $portsdb.update_db($force)
       end
 
       list = []
       
       opts.order(*argv) do |arg|
-	pattern = $portsdb.strip(arg) || arg	# allow pkgname_glob
+        pattern = $portsdb.strip(arg) || arg        # allow pkgname_glob
 
-	begin
-	  pattern = parse_pattern(pattern)
-	rescue RegexpError => e
-	  warning_message e.message.capitalize
-	  next
-	end
+        begin
+          pattern = parse_pattern(pattern)
+        rescue RegexpError => e
+          warning_message e.message.capitalize
+          next
+        end
 
-	$portsdb.glob(pattern) do |portinfo|
-	  list |= $portsdb.recurse(portinfo, $recursive, $upward_recursive)
-	end
+        $portsdb.glob(pattern) do |portinfo|
+          list |= $portsdb.recurse(portinfo, $recursive, $upward_recursive)
+        end
       end
 
       ports = []
 
       list.each do |portinfo|
-	if $master_recursive
-	  if masters = portinfo.masters
-	    masters.each do |master|
-	      ports << $portsdb.origin(master)
-	    end
-	  end
-	end
+        if $master_recursive
+          if masters = portinfo.masters
+            masters.each do |master|
+              ports << $portsdb.origin(master)
+            end
+          end
+        end
 
         ports << portinfo.origin
       end

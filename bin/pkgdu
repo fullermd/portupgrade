@@ -97,10 +97,10 @@ usage: #{MYNAME} [-hbkmRrqs] [pkgname_glob ...]
 
     opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") { |arg|
       begin
-	pattern = parse_pattern(arg)
+        pattern = parse_pattern(arg)
       rescue RegexpError => e
-	warning_message e.message.capitalize
-	break
+        warning_message e.message.capitalize
+        break
       end
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
@@ -133,10 +133,10 @@ Environment Variables [default]:
       rest = opts.order(*argv)
 
       unless $noconfig
-	init_global
-	load_config
+        init_global
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -144,59 +144,59 @@ Environment Variables [default]:
       opts.order!(argv)
 
       opts.order(*argv) do |arg|
-	next if arg.empty?
+        next if arg.empty?
 
-	if arg.equal? all
-	  pattern = arg
+        if arg.equal? all
+          pattern = arg
 
-	  $recursive = false
-	  $upward_recursive = false
-	else
-	  all.replace ''
+          $recursive = false
+          $upward_recursive = false
+        else
+          all.replace ''
 
-	  pattern = $pkgdb.strip(arg, true)
+          pattern = $pkgdb.strip(arg, true)
 
-	  if pattern.nil?
-	    pattern = arg
+          if pattern.nil?
+            pattern = arg
 
-	    if pattern.include?('/')
-	      # `|| arg' just in case
-	      pattern = $pkgdb.strip(pattern) || arg
-	    end
-	  end
+            if pattern.include?('/')
+              # `|| arg' just in case
+              pattern = $pkgdb.strip(pattern) || arg
+            end
+          end
 
-	  begin
-	    pattern = parse_pattern(pattern)
-	  rescue RegexpError => e
-	    warning_message e.message.capitalize
-	    next
-	  end
-	end
+          begin
+            pattern = parse_pattern(pattern)
+          rescue RegexpError => e
+            warning_message e.message.capitalize
+            next
+          end
+        end
 
-	list = []
+        list = []
 
-	begin
-	  $pkgdb.glob(pattern, false).each do |pkgname|
-	    list |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
-	  end
-	rescue => e
-	  STDERR.puts e.message
-	  exit 1
-	end
+        begin
+          $pkgdb.glob(pattern, false).each do |pkgname|
+            list |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
+          end
+        rescue => e
+          STDERR.puts e.message
+          exit 1
+        end
 
-	if list.empty?
-	  warning_message "No matching package found: #{arg}"
-	  next
-	end
+        if list.empty?
+          warning_message "No matching package found: #{arg}"
+          next
+        end
 
-	list -= $exclude_packages
+        list -= $exclude_packages
 
-	if list.empty?
+        if list.empty?
           warning_message "No matching packages left after exclusion: #{arg}"
-	  next
-	end
+          next
+        end
 
-	tasks |= list
+        tasks |= list
       end
     rescue OptionParser::ParseError => e
       STDERR.puts "#{MYNAME}: #{e}", usage

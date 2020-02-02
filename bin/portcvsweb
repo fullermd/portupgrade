@@ -73,30 +73,30 @@ module PortCvsWeb
       uri_info = check_cvs(file)
 
       if file
-	if !uri_info
-	  (uri_info = check_file(file, true)) \
-	  || (uri_info = check_makefile)
-	end
+        if !uri_info
+          (uri_info = check_file(file, true)) \
+          || (uri_info = check_makefile)
+        end
       else
-	uri_info = check_makefile
+        uri_info = check_makefile
       end
 
       if !uri_info
-	dir, rel = File.split(Dir.pwd)
+        dir, rel = File.split(Dir.pwd)
 
-	until dir == '/'
-	  Dir.chdir(dir)
-	  uri_info = check_makefile(rel) and break
+        until dir == '/'
+          Dir.chdir(dir)
+          uri_info = check_makefile(rel) and break
 
-	  dir, last = File.split(dir)
+          dir, last = File.split(dir)
 
-	  rel = File.join(last, rel)
-	end
+          rel = File.join(last, rel)
+        end
 
-	if !uri_info
-	  uri_info = UriInfo.new
-	  uri_info.path = file ? file.sub(/^\//, '') : ''
-	end
+        if !uri_info
+          uri_info = UriInfo.new
+          uri_info.path = file ? file.sub(/^\//, '') : ''
+        end
       end
 
       uri_info
@@ -110,22 +110,22 @@ module PortCvsWeb
       pwd = Dir.pwd if $verbose
 
       open('CVS/Repository') do |f|
-	puts "Reading #{pwd}/CVS/Repository..." if $verbose
-	uri_info.path = File.join(f.gets.chomp, file || '')
+        puts "Reading #{pwd}/CVS/Repository..." if $verbose
+        uri_info.path = File.join(f.gets.chomp, file || '')
       end rescue nil
 
       if file
-	open('CVS/Entries') do |f|
-	  puts "Reading #{pwd}/CVS/Entries..." if $verbose
-	  f.each do |line|
-	    ary = line.split('/')
+        open('CVS/Entries') do |f|
+          puts "Reading #{pwd}/CVS/Entries..." if $verbose
+          f.each do |line|
+            ary = line.split('/')
 
-	    if ary[1] == file
-	      uri_info.anchor = '#rev' + ary[2]
-	      break
-	    end
-	  end
-	end rescue nil
+            if ary[1] == file
+              uri_info.anchor = '#rev' + ary[2]
+              break
+            end
+          end
+        end rescue nil
       end
 
       uri_info
@@ -135,15 +135,15 @@ module PortCvsWeb
       uri_info = check_file(MAKEFILE)
 
       if uri_info
-	if subdir
-	  uri_info.path = 
-	    File.join(File.dirname(uri_info.path), subdir, file || '')
-	else
-	  uri_info.path = 
-	    File.join(File.dirname(uri_info.path), file || '')
-	end
+        if subdir
+          uri_info.path = 
+            File.join(File.dirname(uri_info.path), subdir, file || '')
+        else
+          uri_info.path = 
+            File.join(File.dirname(uri_info.path), file || '')
+        end
 
-	uri_info.anchor = nil if file.nil?
+        uri_info.anchor = nil if file.nil?
       end
 
       uri_info
@@ -153,30 +153,30 @@ module PortCvsWeb
       uri_info = nil
 
       IO::popen("/usr/bin/ident #{file} 2>/dev/null").each do |line|
-	puts "Checking ident of #{file}..." if $verbose
+        puts "Checking ident of #{file}..." if $verbose
 
-	if CVSTAG_RE =~ line
-	  uri_info = UriInfo.new
-	  uri_info.os = $1
-	  uri_info.anchor = '#rev' + $3 if set_anchor
+        if CVSTAG_RE =~ line
+          uri_info = UriInfo.new
+          uri_info.os = $1
+          uri_info.anchor = '#rev' + $3 if set_anchor
 
-	  if uri_info.path.nil?
-	    case uri_info.os
-	    when 'NetBSD'
-	      if %r:/([^/]+/[^/]+)$: =~ Dir.pwd
-		uri_info.path = File.join('pkgsrc', $1, file)
-	      end
-	    when 'OpenBSD'
-	      category = `make -V CATEGORIES`.split[0]
-	      if %r"/(#{Regexp.quote(category)}(?:/[^/]+){1,3})$" =~ Dir.pwd
-		uri_info.path = File.join('ports', $1, file)
-	      end
-	    else
-	      uri_info.path = $2
-	    end
-	    break
-	  end
-	end
+          if uri_info.path.nil?
+            case uri_info.os
+            when 'NetBSD'
+              if %r:/([^/]+/[^/]+)$: =~ Dir.pwd
+                uri_info.path = File.join('pkgsrc', $1, file)
+              end
+            when 'OpenBSD'
+              category = `make -V CATEGORIES`.split[0]
+              if %r"/(#{Regexp.quote(category)}(?:/[^/]+){1,3})$" =~ Dir.pwd
+                uri_info.path = File.join('ports', $1, file)
+              end
+            else
+              uri_info.path = $2
+            end
+            break
+          end
+        end
       end
 
       uri_info
@@ -192,18 +192,18 @@ module PortCvsWeb
 
       # search pkgdb
       if pattern = $pkgdb.strip(file)
-	begin
-	  pattern = parse_pattern(file)
+        begin
+          pattern = parse_pattern(file)
 
-	  puts "Searching pkgdb..." if $verbose
+          puts "Searching pkgdb..." if $verbose
 
-	  if pkg = $pkgdb.glob(pattern)[0]
-	    #puts "Inquiring the CVSweb site (ports)..." if $verbose
-	    ret = pkg.origin
-	  end
-	rescue RegexpError => e
-	  # warning_message e.message.capitalize
-	end
+          if pkg = $pkgdb.glob(pattern)[0]
+            #puts "Inquiring the CVSweb site (ports)..." if $verbose
+            ret = pkg.origin
+          end
+        rescue RegexpError => e
+          # warning_message e.message.capitalize
+        end
       end
 
       ret
@@ -216,16 +216,16 @@ module PortCvsWeb
       pattern = $portsdb.strip(file) || file    # allow pkgname_glob
 
       begin
-	pattern = parse_pattern(pattern)
+        pattern = parse_pattern(pattern)
       rescue RegexpError => e
-	# warning_message e.message.capitalize
-	return nil
+        # warning_message e.message.capitalize
+        return nil
       end
 
       puts "Searching portsdb..." if $verbose
 
       if port = $portsdb.glob(pattern)[0]
-	ret = port.origin
+        ret = port.origin
       end
 
       ret
@@ -240,20 +240,20 @@ module PortCvsWeb
       uri_info = nil
 
       if check_cvsinfo
-	savedir = Dir.pwd
-	Dir.chdir(arg.dir)
-	begin
-	  uri_info = GetCvsInfo::get_cvsinfo(arg.file)
-	  if !uri_info.os
-	    uri_info.os = guess_os(arg.file) || OS_DEFAULT
-	  end
-	ensure
-	  Dir.chdir(savedir)
-	end
+        savedir = Dir.pwd
+        Dir.chdir(arg.dir)
+        begin
+          uri_info = GetCvsInfo::get_cvsinfo(arg.file)
+          if !uri_info.os
+            uri_info.os = guess_os(arg.file) || OS_DEFAULT
+          end
+        ensure
+          Dir.chdir(savedir)
+        end
       else
-	uri_info = UriInfo.new
-	uri_info.os = guess_os(arg.file) || OS_DEFAULT
-	uri_info.path = arg
+        uri_info = UriInfo.new
+        uri_info.os = guess_os(arg.file) || OS_DEFAULT
+        uri_info.path = arg
       end
 
       uri_info
@@ -262,9 +262,9 @@ module PortCvsWeb
     private
     def Uri_Base.guess_tag(hint)
       CVSTAGS.each do |name|
-	if /#{name}/i =~ hint
-	  return name
-	end
+        if /#{name}/i =~ hint
+          return name
+        end
       end
 
       nil
@@ -291,36 +291,36 @@ module PortCvsWeb
 
     def Uri_CvsWeb.search_pkgdb(file)
       if origin = SearchDB::search_pkgdb(file)
-	uri_info = UriInfo.new
-	uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
-	uri_info.base = URI_BASE[uri_info.os]
+        uri_info = UriInfo.new
+        uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
+        uri_info.base = URI_BASE[uri_info.os]
         if uri_info.os == "FreeBSD"
           uri_info.path = File.join('ports/head', origin)
         else
           uri_info.path = File.join('ports', origin)  # XXX
         end
-	uri_info.uri = uri_info.base + uri_info.path
-	uri_info
+        uri_info.uri = uri_info.base + uri_info.path
+        uri_info
       else
-	nil
+        nil
       end
     end
 
     def Uri_CvsWeb.search_portsdb(file)
       ret = nil
       if origin = SearchDB::search_portsdb(file)
-	if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
-	  uri_info = UriInfo.new
-	  uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
-	  uri_info.base = URI_BASE[uri_info.os]
+        if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
+          uri_info = UriInfo.new
+          uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
+          uri_info.base = URI_BASE[uri_info.os]
           if uri_info.os == "FreeBSD"
             uri_info.path = File.join('ports/head', origin)
           else
             uri_info.path = File.join('ports', origin)  # XXX
           end
-	  uri_info.uri = uri_info.base + uri_info.path
-	  ret = uri_info
-	end
+          uri_info.uri = uri_info.base + uri_info.path
+          ret = uri_info
+        end
       end
       ret
     end
@@ -345,40 +345,40 @@ module PortCvsWeb
 
     def Uri_FreshPorts.date2uri
       if (DATESPEC_DAYBACK_RE =~ $datespec) || (DATESPEC_DATE_RE =~ $datespec)
-	uri_info = UriInfo.new
-	uri_info.base = URI_BASE
-	uri_info.os = 'FreeBSD'
-	uri_info.path = DATE_PATH + gettime.strftime(DATE_FMT)
-	uri_info.uri = uri_info.base + uri_info.path
-	uri_info
+        uri_info = UriInfo.new
+        uri_info.base = URI_BASE
+        uri_info.os = 'FreeBSD'
+        uri_info.path = DATE_PATH + gettime.strftime(DATE_FMT)
+        uri_info.uri = uri_info.base + uri_info.path
+        uri_info
       else
-	nil
+        nil
       end
     end
 
     def Uri_FreshPorts.search_pkgdb(file)
       if origin = SearchDB::search_pkgdb(file)
-	uri_info = UriInfo.new
-	uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
-	uri_info.base = URI_BASE
-	uri_info.path = origin
-	uri_info.uri = uri_info.base + uri_info.path
-	uri_info
+        uri_info = UriInfo.new
+        uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
+        uri_info.base = URI_BASE
+        uri_info.path = origin
+        uri_info.uri = uri_info.base + uri_info.path
+        uri_info
       else
-	nil
+        nil
       end
 
     def Uri_FreshPorts.search_portsdb(file)
       ret = nil
       if origin = SearchDB::search_portsdb(file)
-	if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
-	  uri_info = UriInfo.new
-	  uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
-	  uri_info.base = URI_BASE
-	  uri_info.path = origin
-	  uri_info.uri = uri_info.base + uri_info.path
-	  ret = uri_info
-	end
+        if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
+          uri_info = UriInfo.new
+          uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
+          uri_info.base = URI_BASE
+          uri_info.path = origin
+          uri_info.uri = uri_info.base + uri_info.path
+          ret = uri_info
+        end
       end
       ret
     end
@@ -391,9 +391,9 @@ module PortCvsWeb
       tz_back = ENV['TZ']
       ENV['TZ'] = TZ_FRESHPORTS
       if DATESPEC_DAYBACK_RE =~ $datespec
-	time = Time.at(Time.now + $datespec.to_i*24*60*60)
+        time = Time.at(Time.now + $datespec.to_i*24*60*60)
       else   # DATESPEC_DATE_RE =~ datespec
-	time = Time.parse($datespec)
+        time = Time.parse($datespec)
       end
       ENV['TZ'] = tz_back
 
@@ -450,10 +450,10 @@ usage: #{MYNAME} [-hqv] {pkgname_glob|portorigin_glob|file|directory}
       rest = opts.order(*argv)
 
       unless $noconfig
-	init_global
-	load_config
+        init_global
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false

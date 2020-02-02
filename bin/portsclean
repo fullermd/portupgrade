@@ -83,7 +83,7 @@ usage: #{MYNAME} [-hCDDiLnPPQQq]
 
     opts.def_option("-i", "--interactive", "Turn on interactive mode") {
       unless $noexecute
-	$interactive = true
+        $interactive = true
       end
     }
 
@@ -94,7 +94,7 @@ usage: #{MYNAME} [-hCDDiLnPPQQq]
     opts.def_option("-n", "--noexecute", "Do not actually delete files") { |v|
       $noexecute = v
       if $noexecute
-	$interactive = false
+        $interactive = false
       end
     }
 
@@ -108,11 +108,11 @@ usage: #{MYNAME} [-hCDDiLnPPQQq]
 
     opts.def_option("-Q", "--quiet", "Do not write anything to stdout;#{NEXTLINE}Specified twice, stderr neither") {
       if !$quiet
-	STDOUT.reopen(open('/dev/null', 'w')) unless dry_parse
-	$quiet = true
+        STDOUT.reopen(open('/dev/null', 'w')) unless dry_parse
+        $quiet = true
       elsif !$quieter
-	STDERR.reopen(open('/dev/null', 'w')) unless dry_parse
-	$quieter = true
+        STDERR.reopen(open('/dev/null', 'w')) unless dry_parse
+        $quieter = true
       end
     }
 
@@ -137,9 +137,9 @@ Environment Variables [default]:
 
       unless $noconfig
         init_global
-	load_config
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -147,8 +147,8 @@ Environment Variables [default]:
       opts.order!(argv)
 
       if !$workclean && $distclean.zero? && $pkgclean.zero? && !$libclean
-	print opts
-	exit 0
+        print opts
+        exit 0
       end
 
       workclean if $workclean
@@ -234,19 +234,19 @@ def distclean(level)
 
     if 2 <= level
       $pkgdb.installed_ports.each do |origin|
-	check_distinfo(origin).each do |file|
-	  i = distfiles.qinclude?(file) and distfiles.delete_at(i)
-	end
+        check_distinfo(origin).each do |file|
+          i = distfiles.qinclude?(file) and distfiles.delete_at(i)
+        end
 
-	throw :done if distfiles.empty?
+        throw :done if distfiles.empty?
       end
     else
       $portsdb.each_origin do |origin|
-	check_distinfo(origin, true).each do |file|
-	  i = distfiles.qinclude?(file) and distfiles.delete_at(i)
-	end
+        check_distinfo(origin, true).each do |file|
+          i = distfiles.qinclude?(file) and distfiles.delete_at(i)
+        end
 
-	throw :done if distfiles.empty?
+        throw :done if distfiles.empty?
       end
     end
   }
@@ -266,7 +266,7 @@ def distclean(level)
   Dir.chdir(dist_dir) do
     Find.find('.') do |path|
       if File.directory?(path) && path != '.'
-	dirs << path.sub(/^\./, dist_dir)
+        dirs << path.sub(/^\./, dist_dir)
       end
     end
   end
@@ -307,7 +307,7 @@ def libclean()
 
   compatlib_re = /^#{Regexp.quote(compatlibdir)}/
 
-  libpath_re = %r"^((#{Regexp.quote(localbase)}|#{Regexp.quote(x11base)})?(?:/.+)?)/lib([^/]+)\.so\.(\d+)$"	#"
+  libpath_re = %r"^((#{Regexp.quote(localbase)}|#{Regexp.quote(x11base)})?(?:/.+)?)/lib([^/]+)\.so\.(\d+)$"        #"
 
   libtable = {}
 
@@ -332,65 +332,65 @@ def libclean()
       pkgname = $pkgdb.which(path)
 
       if libtable.key?(libname)
-	hash = libtable[libname]
+        hash = libtable[libname]
 
-	if hash.key?(ver)
-	  prev_path, prev_dir, prev_prefix, prev_pkgname = hash[ver]
+        if hash.key?(ver)
+          prev_path, prev_dir, prev_prefix, prev_pkgname = hash[ver]
 
-	  next if prev_path == path
+          next if prev_path == path
 
-	  # Skip system libraries (/lib, /usr/lib)
-	  # XXX Warning on this?
-	  next if /^\/lib/ =~ prev_path || /^\/usr\/lib/ =~ prev_path
+          # Skip system libraries (/lib, /usr/lib)
+          # XXX Warning on this?
+          next if /^\/lib/ =~ prev_path || /^\/usr\/lib/ =~ prev_path
 
-	  puts "** #{path} is shadowed by #{prev_path}"
+          puts "** #{path} is shadowed by #{prev_path}"
 
-	  if dir == compatlibdir
-	    puts " --> The one in #{dir} is not used"
-	    delete_file(path)
-	    ldconfig_m(dir)
-	    puts ""
-	  elsif prev_dir == compatlibdir
-	    puts " --> Libraries in #{compatlibdir} should not shadow ones in other directories"
+          if dir == compatlibdir
+            puts " --> The one in #{dir} is not used"
+            delete_file(path)
+            ldconfig_m(dir)
+            puts ""
+          elsif prev_dir == compatlibdir
+            puts " --> Libraries in #{compatlibdir} should not shadow ones in other directories"
 
-	    if delete_file(prev_path)
-	      ldconfig_m(compatlibdir)
-	      hash[ver] = [path, dir, prefix, pkgname]
-	    end
+            if delete_file(prev_path)
+              ldconfig_m(compatlibdir)
+              hash[ver] = [path, dir, prefix, pkgname]
+            end
 
-	    puts ""
-	  elsif prefix
-	    puts "\t#{prev_path}\t<- #{prev_pkgname || '?'}"
-	    puts "\t#{path}\t<- #{pkgname || '?'}"
+            puts ""
+          elsif prefix
+            puts "\t#{prev_path}\t<- #{prev_pkgname || '?'}"
+            puts "\t#{path}\t<- #{pkgname || '?'}"
 
-	    if pkgname
-	      if prev_pkgname
-		puts " --> Two packages install the same library in different directories!"
-	      else
-		puts " --> This may be an undesirable situation"
+            if pkgname
+              if prev_pkgname
+                puts " --> Two packages install the same library in different directories!"
+              else
+                puts " --> This may be an undesirable situation"
 
-		# do not delete by default
-		if delete_file(prev_path, false)
-		  ldconfig_m(prev_dir)
-		  hash[ver] = [path, dir, prefix, pkgname]
-		end
-	      end
-	    else
-	      puts " --> #{path} is under #{prefix} but orphaned and unused."
+                # do not delete by default
+                if delete_file(prev_path, false)
+                  ldconfig_m(prev_dir)
+                  hash[ver] = [path, dir, prefix, pkgname]
+                end
+              end
+            else
+              puts " --> #{path} is under #{prefix} but orphaned and unused."
 
-	      # do not delete by default
-	      if delete_file(path, false)
-		ldconfig_m(dir)
-	      end
-	    end
+              # do not delete by default
+              if delete_file(path, false)
+                ldconfig_m(dir)
+              end
+            end
 
-	    puts ""
-	  end
-	else
-	  hash[ver] = [path, dir, prefix, pkgname]
-	end
+            puts ""
+          end
+        else
+          hash[ver] = [path, dir, prefix, pkgname]
+        end
       else
-	libtable[libname] = { ver => [path, dir, prefix, pkgname] }
+        libtable[libname] = { ver => [path, dir, prefix, pkgname] }
       end
     end
   end
@@ -412,8 +412,8 @@ def libclean()
 
     hash.each do |ver, (path, dir, prefix, pkgname)|
       if pkgname
-	pkgnames[ver] = pkgname
-	n -= 1
+        pkgnames[ver] = pkgname
+        n -= 1
       end
     end
 
@@ -436,8 +436,8 @@ def libclean()
       dir, symlink_libname, symlink_ver = parse_so(source)
 
       if dir
-	puts "and the symlink (#{symlink}) points to:"
-	puts "\t#{symlink_libname}.#{symlink_ver} (#{source})\t<- " + ($pkgdb.which(source) || "?")
+        puts "and the symlink (#{symlink}) points to:"
+        puts "\t#{symlink_libname}.#{symlink_ver} (#{source})\t<- " + ($pkgdb.which(source) || "?")
       end
     end
 
@@ -448,9 +448,9 @@ def libclean()
 
     vers.each do |ver|
       if ver.to_i > max_ver.to_i
-	puts " --> Skipping #{libname}.#{ver} because it is newer than what the packages provide"
-	puts ""
-	next
+        puts " --> Skipping #{libname}.#{ver} because it is newer than what the packages provide"
+        puts ""
+        next
       end
 
       next if pkgnames.key?(ver)
@@ -458,37 +458,37 @@ def libclean()
       path, = hash[ver]
 
       if !$interactive || prompt_yesno("Do you want to move #{File.basename(path)} to #{compatlibdir} ?", false)
-	hash.delete(ver)
+        hash.delete(ver)
 
-	if symlink && ver == symlink_ver
-	  if $interactive
-	    symlink_ver = choose_from_options("Change #{File.basename(symlink)} to point to which version?", hash.keys.sort.reverse, OPTIONS_SKIP)
-	    case symlink_ver
-	    when :abort
-	      puts "Abort."
-	      return
-	    when :skip
-	      puts "Skipped."
-	      break
-	    end
+        if symlink && ver == symlink_ver
+          if $interactive
+            symlink_ver = choose_from_options("Change #{File.basename(symlink)} to point to which version?", hash.keys.sort.reverse, OPTIONS_SKIP)
+            case symlink_ver
+            when :abort
+              puts "Abort."
+              return
+            when :skip
+              puts "Skipped."
+              break
+            end
 
-	    symlink_source = hash[symlink_ver][0]
+            symlink_source = hash[symlink_ver][0]
 
-	    if symlink_source && File.exist?(symlink_source)
-	      puts " --> Changing #{File.basename(symlink)} to point to #{libname}.#{symlink_ver}"
-	      system('/bin/ln', '-sf', symlink_source, symlink) unless $noexecute
-	    end
-	  else
-	    puts " --> Skipping #{libname}.#{symlink_ver} because #{File.basename(symlink)} to point to it"
-	    puts ""
-	    next
-	  end
-	end
+            if symlink_source && File.exist?(symlink_source)
+              puts " --> Changing #{File.basename(symlink)} to point to #{libname}.#{symlink_ver}"
+              system('/bin/ln', '-sf', symlink_source, symlink) unless $noexecute
+            end
+          else
+            puts " --> Skipping #{libname}.#{symlink_ver} because #{File.basename(symlink)} to point to it"
+            puts ""
+            next
+          end
+        end
 
-	puts " --> Moving #{File.basename(path)} to #{compatlibdir}"
-	system('/bin/mkdir', '-p', compatlibdir) unless $noexecute
-	system('/bin/mv', $interactive ? '-i' : '-f', path, compatlibdir) unless $noexecute
-	ldconfig_m(File.dirname(path), compatlibdir)
+        puts " --> Moving #{File.basename(path)} to #{compatlibdir}"
+        system('/bin/mkdir', '-p', compatlibdir) unless $noexecute
+        system('/bin/mv', $interactive ? '-i' : '-f', path, compatlibdir) unless $noexecute
+        ldconfig_m(File.dirname(path), compatlibdir)
       end
 
       puts ""
@@ -515,7 +515,7 @@ def pkgclean(level)
         when /^Information for +\.\/((\S+-\S+)\.t[bgx]z):/
           pkgfile = $1
           pkgname = $2
-        when /^(\S+\/\S+)$/		# /
+        when /^(\S+\/\S+)$/                # /
           origin = $1
 
           if pkgfile
@@ -535,7 +535,7 @@ def pkgclean(level)
         when /^Information for +\.\/((\S+-\S+)\.t[bgx]z):/
           pkgfile = $1
           pkgname = $2
-        when /^(\S+\/\S+)$/		# /
+        when /^(\S+\/\S+)$/                # /
           origin = $1
 
           if pkgfile
@@ -573,8 +573,8 @@ def pkgclean(level)
     r.each do |line|
       pkgfile = line.chomp
 
-      if not File.exist?(pkgfile)	# dead link
-	delete_file(pkgfile)
+      if not File.exist?(pkgfile)        # dead link
+        delete_file(pkgfile)
       end
     end
   end
@@ -598,9 +598,9 @@ def find_so_link(libname, libdirs)
 
     if File.file?(f)
       if File.symlink?(f)
-	return f
+        return f
       else
-	return nil
+        return nil
       end
     end
   end
@@ -626,9 +626,9 @@ def scan_distfiles(dist_dir)
       next if not File.file?(f)
 
       if f[1] == ?/
-	f.slice!(0,2)
+        f.slice!(0,2)
 
-	distfiles << f
+        distfiles << f
       end
     end
   end
@@ -644,7 +644,7 @@ def parse_distinfo(file)
   open(file) do |f|
     f.each do |line|
       if /^SHA256 \((.*)\) = / =~ line
-	distfiles << $1
+        distfiles << $1
       end
     end
 

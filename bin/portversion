@@ -100,7 +100,7 @@ usage: #{MYNAME} [-hOqv] [-l limit_chars] [-L inv_limit_chars]
     }
 
     opts.def_option("--ignore-moved",
-		    "Ignore MOVED file") { |v|
+                    "Ignore MOVED file") { |v|
       $ignore_moved = v
     }
 
@@ -108,7 +108,7 @@ usage: #{MYNAME} [-hOqv] [-l limit_chars] [-L inv_limit_chars]
       $limit_chars = v
       # XXX: workaround: optparse treats `-l=' as '-l ""'
       if $limit_chars.empty?
-	$limit_chars = '='
+        $limit_chars = '='
       end
     }
 
@@ -116,7 +116,7 @@ usage: #{MYNAME} [-hOqv] [-l limit_chars] [-L inv_limit_chars]
       $inv_limit_chars = v
       # XXX: workaround: optparse treats `-L=' as '-L ""'
       if $inv_limit_chars.empty?
-	$inv_limit_chars = '='
+        $inv_limit_chars = '='
       end
     }
 
@@ -157,10 +157,10 @@ usage: #{MYNAME} [-hOqv] [-l limit_chars] [-L inv_limit_chars]
 
     opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") { |arg|
       begin
-	pattern = parse_pattern(arg)
+        pattern = parse_pattern(arg)
       rescue RegexpError => e
-	warning_message e.message.capitalize
-	break
+        warning_message e.message.capitalize
+        break
       end
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
@@ -193,10 +193,10 @@ Environment Variables [default]:
       rest = opts.order(*argv)
 
       unless $noconfig
-	init_global
-	load_config
+        init_global
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -204,73 +204,73 @@ Environment Variables [default]:
       opts.order!(argv)
 
       opts.order(*argv) do |arg|
-	next if arg.empty?
+        next if arg.empty?
 
-	if arg.equal? all
-	  pattern = arg
+        if arg.equal? all
+          pattern = arg
 
-	  $recursive = false
-	  $upward_recursive = false
-	else
-	  all.replace ''
+          $recursive = false
+          $upward_recursive = false
+        else
+          all.replace ''
 
-	  pattern = $pkgdb.strip(arg, true)
+          pattern = $pkgdb.strip(arg, true)
 
-	  if pattern.nil?
-	    pattern = arg
+          if pattern.nil?
+            pattern = arg
 
-	    if pattern.include?('/')
-	      # `|| arg' just in case
-	      pattern = $pkgdb.strip(pattern) || arg
-	    end
-	  end
+            if pattern.include?('/')
+              # `|| arg' just in case
+              pattern = $pkgdb.strip(pattern) || arg
+            end
+          end
 
-	  begin
-	    pattern = parse_pattern(pattern)
-	  rescue RegexpError => e
-	    warning_message e.message.capitalize
-	    next
-	  end
+          begin
+            pattern = parse_pattern(pattern)
+          rescue RegexpError => e
+            warning_message e.message.capitalize
+            next
+          end
 
-	  if $test_version
-	    version = PkgVersion.new(arg)
-	    x = $test_version <=> version
-	    sign = if x < 0 then ?< elsif x == 0 then ?= else ?> end
+          if $test_version
+            version = PkgVersion.new(arg)
+            x = $test_version <=> version
+            sign = if x < 0 then ?< elsif x == 0 then ?= else ?> end
 
-	    if $verbose
-	      printf "%s %c %s\n", $test_version, sign, version
-	    else
-	      printf "%c\n", sign
-	    end
-	    
-	    next
-	  end
-	end
+            if $verbose
+              printf "%s %c %s\n", $test_version, sign, version
+            else
+              printf "%c\n", sign
+            end
+            
+            next
+          end
+        end
 
-	list = []
+        list = []
 
-	begin
-	  $pkgdb.glob(pattern, false).each do |pkgname|
-	    list |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
-	  end
-	rescue => e
-	  STDERR.puts e.message
-	  exit 1
-	end
+        begin
+          $pkgdb.glob(pattern, false).each do |pkgname|
+            list |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
+          end
+        rescue => e
+          STDERR.puts e.message
+          exit 1
+        end
 
-	if list.empty?
-	  warning_message "No matching package found: #{arg}"
-	  next
-	end
+        if list.empty?
+          warning_message "No matching package found: #{arg}"
+          next
+        end
 
-	list -= $exclude_packages
+        list -= $exclude_packages
 
-	if list.empty?
+        if list.empty?
           warning_message "No matching packages left after exclusion: #{arg}"
-	  next
-	end
+          next
+        end
 
-	tasks |= list
+        tasks |= list
       end
     rescue OptionParser::ParseError => e
       STDERR.puts "#{MYNAME}: #{e}", usage
@@ -303,7 +303,7 @@ def check_pkg(pkg, origin = nil)
     newpkg = portinfo.pkgname
   elsif $portsdb.exist?(origin, true)
     pkgname = $portsdb.exist?(origin) or return nil, ?!
-    newpkg = PkgInfo.new(pkgname)	# raises ArgumentError
+    newpkg = PkgInfo.new(pkgname)        # raises ArgumentError
   else
     return nil, ??
   end
@@ -349,25 +349,25 @@ def check_pkgs(pkgs)
 
     if $command_output
       printf %Q`#\n#  %s%s\n#  %s\n#\n%spkgs="$pkgs %s"\n\n`,
-	pkg.name,
-	held ? ' [held]' : '',
-	suggestion,
-	held ? '# ' : '',
-	pkg.fullname
+        pkg.name,
+        held ? ' [held]' : '',
+        suggestion,
+        held ? '# ' : '',
+        pkg.fullname
     else
-	  case $verbose_output
-	  when :verbose then
-	printf "%-26s  %c  %s %s\n",
-	  pkg.send($display),
-	  sign,
-	  suggestion,
-	  (origin != pkg.origin) ? "(=> '#{origin}')" : ''
-	  when :default then
-	printf "%-26s  %c\n",
-	  pkg.send($display),
-	  sign
-	  when :quiet then
-	printf "%s\n", pkg.send($display)
+          case $verbose_output
+          when :verbose then
+        printf "%-26s  %c  %s %s\n",
+          pkg.send($display),
+          sign,
+          suggestion,
+          (origin != pkg.origin) ? "(=> '#{origin}')" : ''
+          when :default then
+        printf "%-26s  %c\n",
+          pkg.send($display),
+          sign
+          when :quiet then
+        printf "%s\n", pkg.send($display)
       end
     end
   end

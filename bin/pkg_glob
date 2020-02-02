@@ -119,7 +119,7 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
     opts.def_option("-i", "--interactive", "Request confirmation for each package removal [*]") { |v|
       $interactive = v
       if $interactive
-	$verbose = true
+        $verbose = true
       end
 
       $pkg_delete_args.push '-i'
@@ -128,8 +128,8 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
     opts.def_option("-n", "--noexecute", "Do not actually deinstall a package, just report the#{NEXTLINE}steps that would be taken if it were [*]") { |v|
       $noexecute = v
       if $noexecute
-	$verbose = true
-	$interactive = false
+        $verbose = true
+        $interactive = false
       end
 
       $pkg_delete_args.push '-n'
@@ -171,10 +171,10 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
 
     opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") { |arg|
       begin
-	pattern = parse_pattern(arg)
+        pattern = parse_pattern(arg)
       rescue RegexpError => e
-	warning_message e.message.capitalize
-	break
+        warning_message e.message.capitalize
+        break
       end
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
@@ -199,10 +199,10 @@ Environment Variables [default]:
       rest = opts.order(*argv)
 
       unless $noconfig
-	init_global
-	load_config
+        init_global
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -210,40 +210,40 @@ Environment Variables [default]:
       opts.order!(argv)
 
       if argv.empty? && !$all
-	print opts
-	return 0
+        print opts
+        return 0
       end
 
       all = '*'
       argv << all
 
       opts.order(*argv) do |arg|
-	if arg.equal? all
-	  next unless $all
+        if arg.equal? all
+          next unless $all
 
-	  pattern = arg
-	else
-	  pattern = $pkgdb.strip(arg)
+          pattern = arg
+        else
+          pattern = $pkgdb.strip(arg)
 
-	  next if pattern.nil?
+          next if pattern.nil?
 
-	  begin
-	    pattern = parse_pattern(pattern)
-	  rescue RegexpError => e
-	    warning_message e.message.capitalize
-	    next
-	  end
-	end
+          begin
+            pattern = parse_pattern(pattern)
+          rescue RegexpError => e
+            warning_message e.message.capitalize
+            next
+          end
+        end
 
-	begin
-	  $pkgdb.glob(pattern, false).each do |pkgname|
-	    tasks |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
-	  end
-	rescue => e
+        begin
+          $pkgdb.glob(pattern, false).each do |pkgname|
+            tasks |= $pkgdb.recurse(pkgname, $recursive, $upward_recursive, $sanity_check)
+          end
+        rescue => e
           raise e if e.class == PkgDB::NeedsPkgNGSupport
-	  STDERR.puts e.message
-	  exit 1
-	end
+          STDERR.puts e.message
+          exit 1
+        end
       end
     rescue OptionParser::ParseError => e
       STDERR.puts "#{MYNAME}: #{e}", usage
@@ -265,8 +265,8 @@ Environment Variables [default]:
     case $service
     when :deinstall
       if tasks.empty?
-	warning_message "No matching package found."
-	exit 255
+        warning_message "No matching package found."
+        exit 255
       end
 
       $pkgdb.sort!(tasks)
@@ -274,9 +274,9 @@ Environment Variables [default]:
       results = PkgResultSet.new
 
       result_proc = proc {
-	$pkgdb.update_db
+        $pkgdb.update_db
 
-	results.show('deinstalled')
+        results.show('deinstalled')
       }
 
       $interrupt_proc = result_proc
@@ -284,16 +284,16 @@ Environment Variables [default]:
       $compatlibdir = File.join($portsdb.localbase, 'lib/compat/pkg')
 
       tasks.reverse_each do |pkgname|
-	begin
-	  if deinstall_pkg(pkgname)
-	    results << PkgResult.new(pkgname, :done)
-	  else
-	    results << PkgResult.new(pkgname, :skipped)
-	  end
-	rescue => e
+        begin
+          if deinstall_pkg(pkgname)
+            results << PkgResult.new(pkgname, :done)
+          else
+            results << PkgResult.new(pkgname, :skipped)
+          end
+        rescue => e
           raise e if e.class == PkgDB::NeedsPkgNGSupport
-	  results << PkgResult.new(pkgname, e)
-	end
+          results << PkgResult.new(pkgname, e)
+        end
       end
 
       return result_proc.call
@@ -308,7 +308,7 @@ end
 def get_beforedeinstall_command(origin)
   commands = []
 
-  commands[commands.size, 0] = config_beforedeinstall(origin)	# maybe nil
+  commands[commands.size, 0] = config_beforedeinstall(origin)        # maybe nil
 
   commands.uniq!
   commands.each { |cmd| cmd.sub!(/^[;\s]+/, '') if !cmd.nil? }
@@ -337,19 +337,19 @@ def deinstall_pkg(pkgname)
 
     begin
       filelist.each do |path|
-	owners = $pkgdb.which_m(path) or
-	  raise PkgDB::DBError, "The file #{path} is not properly recorded as installed"
+        owners = $pkgdb.which_m(path) or
+          raise PkgDB::DBError, "The file #{path} is not properly recorded as installed"
 
-	i = owners.index(pkgname) or
-	  raise PkgDB::DBError, "The file #{path} is not properly recorded as installed by #{pkgname}"
+        i = owners.index(pkgname) or
+          raise PkgDB::DBError, "The file #{path} is not properly recorded as installed by #{pkgname}"
 
-	if i != owners.size - 1
-	  overwriters = owners[(i + 1)..-1]
+        if i != owners.size - 1
+          overwriters = owners[(i + 1)..-1]
 
-	  puts "\t#{path}: overwritten by: #{overwriters.join(' ')}"	#
+          puts "\t#{path}: overwritten by: #{overwriters.join(' ')}"        #
 
-	  possible_successors |= overwriters
-	end
+          possible_successors |= overwriters
+        end
       end
     rescue => e
       raise e if e.class == PkgDB::NeedsPkgNGSupport
@@ -361,7 +361,7 @@ def deinstall_pkg(pkgname)
     else
       puts " -> The package may have been succeeded by some of the following package(s)."
       possible_successors.each do |s|
-	puts "\t#{s}"
+        puts "\t#{s}"
       end
 
       progress_message "Skipping '#{pkgname}'"
@@ -372,38 +372,38 @@ def deinstall_pkg(pkgname)
   if $preserve_shlib
     unless $noexecute
       if !system('/bin/mkdir', '-p', $compatlibdir)
-	STDERR.puts "Cannot create directory: #{$compatlibdir}"
-	raise "mkdir failed"
+        STDERR.puts "Cannot create directory: #{$compatlibdir}"
+        raise "mkdir failed"
       end
     end
 
     IO.popen("/usr/bin/file -bnf-", "r+") do |pipe|
       filelist.each do |file|
-	%r"^[^@\s]\S*/([^/\s]+\.so(?:\.\d+)+)$" =~ file or next
+        %r"^[^@\s]\S*/([^/\s]+\.so(?:\.\d+)+)$" =~ file or next
 
-	base = $1
+        base = $1
 
-	pipe.puts(file)
+        pipe.puts(file)
 
-	filetype = pipe.gets
+        filetype = pipe.gets
 
-	if /\bELF\b.*\bshared object\b.*\bFreeBSD\b/ !~ filetype and
-	   /\bsymbolic link to\b/ !~ filetype
-		next
-	end
+        if /\bELF\b.*\bshared object\b.*\bFreeBSD\b/ !~ filetype and
+           /\bsymbolic link to\b/ !~ filetype
+                next
+        end
 
-	dest = File.join($compatlibdir, base)
+        dest = File.join($compatlibdir, base)
 
-	progress_message "Preserving #{file} as #{dest}"
+        progress_message "Preserving #{file} as #{dest}"
 
-	next if $noexecute
+        next if $noexecute
 
-	if system('/bin/cp', '-Rpf', file, dest)
-	  preserved_files << dest
-	else
-	  STDERR.puts "Copy failed!"
-	  raise "copy failed"
-	end
+        if system('/bin/cp', '-Rpf', file, dest)
+          preserved_files << dest
+        else
+          STDERR.puts "Copy failed!"
+          raise "copy failed"
+        end
       end
     end
   end
@@ -428,7 +428,7 @@ def deinstall_pkg(pkgname)
 
   $pkgdb.close_db
 
-  sleep 1	# timestamp hack - let PkgDB detect the update
+  sleep 1        # timestamp hack - let PkgDB detect the update
 
   if !system(*cmdargs)
     preserved_files.each do |file|

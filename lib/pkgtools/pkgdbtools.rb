@@ -48,7 +48,7 @@ module PkgDBTools
 
   def db_dir()
     unless @db_dir
-      set_db_dir(nil)	# initialize with the default value
+      set_db_dir(nil)        # initialize with the default value
     end
 
     @db_dir
@@ -56,7 +56,7 @@ module PkgDBTools
 
   def db_driver()
     unless @db_driver
-      set_db_driver(nil)	# initialize with the default value
+      set_db_driver(nil)        # initialize with the default value
     end
 
     @db_driver
@@ -68,43 +68,43 @@ module PkgDBTools
       when 'pkg'
         @db_driver = :pkg
       when 'bdb_btree'
-	@db_driver = :bdb_btree
+        @db_driver = :bdb_btree
       when 'bdb_hash', 'bdb'
-	@db_driver = :bdb_hash
+        @db_driver = :bdb_hash
       when 'bdb1_btree', 'btree'
-	@db_driver = :bdb1_btree
+        @db_driver = :bdb1_btree
       when 'bdb1_hash', 'hash', 'bdb1'
-	@db_driver = :bdb1_hash
+        @db_driver = :bdb1_hash
       else
-	@db_driver = :dbm_hash
+        @db_driver = :dbm_hash
       end
 
       case @db_driver
       when :pkg
         next_driver = nil
       when :bdb_btree
-	next_driver = 'bdb1_btree'
-	require 'bdb'
-	@db_params = ["set_pagesize" => 1024, "set_cachesize" => [0, 32 * 1024, 0]]
+        next_driver = 'bdb1_btree'
+        require 'bdb'
+        @db_params = ["set_pagesize" => 1024, "set_cachesize" => [0, 32 * 1024, 0]]
       when :bdb_hash
-	next_driver = 'bdb1_hash'
-	require 'bdb'
-	@db_params = ["set_pagesize" => 1024, "set_cachesize" => [0, 32 * 1024, 0]]
+        next_driver = 'bdb1_hash'
+        require 'bdb'
+        @db_params = ["set_pagesize" => 1024, "set_cachesize" => [0, 32 * 1024, 0]]
       when :bdb1_btree
-	next_driver = 'dbm'
-	require 'bdb1'
-	@db_params = ["set_pagesize" => 1024, "set_cachesize" => 32 * 1024]
+        next_driver = 'dbm'
+        require 'bdb1'
+        @db_params = ["set_pagesize" => 1024, "set_cachesize" => 32 * 1024]
       when :bdb1_hash
-	next_driver = 'dbm'
-	require 'bdb1'
-	@db_params = ["set_pagesize" => 1024, "set_cachesize" => 32 * 1024]
+        next_driver = 'dbm'
+        require 'bdb1'
+        @db_params = ["set_pagesize" => 1024, "set_cachesize" => 32 * 1024]
       else
-	next_driver = nil
-	require 'dbm'
+        next_driver = nil
+        require 'dbm'
       end
     rescue LoadError
       if next_driver.nil?
-	raise DBError, "No driver is available!"
+        raise DBError, "No driver is available!"
       end
 
       new_db_driver = next_driver
@@ -133,27 +133,27 @@ module PkgDBTools
     count = 0
     while FileTest.exist?(@lock_file)
       if Time::now() - File.stat(@lock_file).mtime > 120
-	puts "** Stale lock file was found. Removed."
-	PkgDBTools.remove_lock(@lock_file, true)
-	break
+        puts "** Stale lock file was found. Removed."
+        PkgDBTools.remove_lock(@lock_file, true)
+        break
       end
       sleep 1 if File.zero?(@lock_file)
       file = File.open(@lock_file)
       pid, mode = file.gets.chomp.split(' ')
       file.close
       if mode == 'w' 
-	if count == 0
-	  puts "** Database file locked for writing. Waiting."
-	end
-	sleep 1
-	count += 1
-	if count > 120
-	  puts "** Timeout. The lock looks dead. Remove it."
-	  PkgDBTools.remove_lock(@lock_file, true)
-	end
+        if count == 0
+          puts "** Database file locked for writing. Waiting."
+        end
+        sleep 1
+        count += 1
+        if count > 120
+          puts "** Timeout. The lock looks dead. Remove it."
+          PkgDBTools.remove_lock(@lock_file, true)
+        end
       else
-	# ignore read lock
-	break
+        # ignore read lock
+        break
       end
     end
 
@@ -167,18 +167,18 @@ module PkgDBTools
     count = 0
     while FileTest.exist?(@lock_file)
       if Time::now() - File.stat(@lock_file).mtime > 120
-	STDERR.puts "** Stale lock file was found. Removed."
-	PkgDBTools.remove_lock(@lock_file, true)
-	break
+        STDERR.puts "** Stale lock file was found. Removed."
+        PkgDBTools.remove_lock(@lock_file, true)
+        break
       end
       if count == 0
-	STDERR.puts "** Database file locked. Waiting."
+        STDERR.puts "** Database file locked. Waiting."
       end
       sleep 1
       count += 1
       if count > 120
-	STDERR.puts "** Timeout. The lock looks dead. Remove it."
-	PkgDBTools.remove_lock(@lock_file, true)
+        STDERR.puts "** Timeout. The lock looks dead. Remove it."
+        PkgDBTools.remove_lock(@lock_file, true)
       end
     end
 
@@ -205,7 +205,7 @@ module PkgDBTools
       db = BDB1::Hash.open @db_file, mode, perm, *@db_params
     else
       if mode == 'w+'
-	File.unlink(@db_file) if File.exist?(@db_file)
+        File.unlink(@db_file) if File.exist?(@db_file)
       end
       db = DBM.open(@db_filebase)
     end

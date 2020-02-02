@@ -147,7 +147,7 @@ def config_make_env(origin, pkgname = nil)
       make_env << String.new(envs.call(origin)) rescue nil
     elsif envs.is_a?(Array)
       envs.each do |entry|
-	make_env << entry
+        make_env << entry
       end
     else
       make_env << envs
@@ -211,17 +211,17 @@ def config_include?(key, p)
 
     if a = config_value(key)
       a.each do |pattern|
-	$portsdb.glob(pattern) do |portinfo|
-	  set << portinfo.origin
-	end
+        $portsdb.glob(pattern) do |portinfo|
+          set << portinfo.origin
+        end
 
-	if pkgnames = $pkgdb.deorigin_glob(pattern)
-	  pkgnames.each do |pkgname|
-	    set << pkgname
-	  end
-	end
+        if pkgnames = $pkgdb.deorigin_glob(pattern)
+          pkgnames.each do |pkgname|
+            set << pkgname
+          end
+        end
 
-	set.merge($pkgdb.glob(pattern, false))
+        set.merge($pkgdb.glob(pattern, false))
       end
     end
   end
@@ -381,17 +381,17 @@ def input_file(prompt, dir, add_history = nil)
   }
 end
 
-OPTIONS_NONE	= 0x00
-OPTIONS_SKIP	= 0x01
-OPTIONS_DELETE	= 0x02
-OPTIONS_ALL	= 0x04
-OPTIONS_HISTORY	= 0x08
+OPTIONS_NONE        = 0x00
+OPTIONS_SKIP        = 0x01
+OPTIONS_DELETE        = 0x02
+OPTIONS_ALL        = 0x04
+OPTIONS_HISTORY        = 0x08
 
 def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
-  skip		= (flags & OPTIONS_SKIP).nonzero?
-  delete	= (flags & OPTIONS_DELETE).nonzero?
-  all		= (flags & OPTIONS_ALL).nonzero?
-  history	= (flags & OPTIONS_HISTORY).nonzero?
+  skip                = (flags & OPTIONS_SKIP).nonzero?
+  delete        = (flags & OPTIONS_DELETE).nonzero?
+  all                = (flags & OPTIONS_ALL).nonzero?
+  history        = (flags & OPTIONS_HISTORY).nonzero?
 
   completion_proc = nil
 
@@ -401,8 +401,8 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
       return :skip
     else
       completion_proc = proc { |head|
-	len = head.size
-	options.select { |option| head == option[0, len] }
+        len = head.size
+        options.select { |option| head == option[0, len] }
       }
     end
   end
@@ -416,15 +416,15 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
       next if not delete
 
       if all
-	ans = prompt_yesnoall("Delete this?", true)
+        ans = prompt_yesnoall("Delete this?", true)
       else
-	ans = prompt_yesno("Delete this?", true)
+        ans = prompt_yesno("Delete this?", true)
       end
 
       if ans == :all
-	return :delete_all
+        return :delete_all
       elsif ans
-	return :delete
+        return :delete
       end
 
       next
@@ -443,31 +443,31 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
       next
     when ''
       if skip
-	if all
-	  ans = prompt_yesnoall("Skip this?", true)
-	else
-	  ans = prompt_yesno("Skip this?", true)
-	end
+        if all
+          ans = prompt_yesnoall("Skip this?", true)
+        else
+          ans = prompt_yesno("Skip this?", true)
+        end
 
-	if ans == :all
-	  return :skip_all
-	elsif ans
-	  return :skip
-	end
+        if ans == :all
+          return :skip_all
+        elsif ans
+          return :skip
+        end
       end
 
       next
     else
       if options.include?(input)
-	return input
+        return input
       end
 
       print "Please choose one of these:\n"
 
       if options.size <= 20
-	puts options.join('  ')
+        puts options.join('  ')
       else
-	puts options[0, 20].join('  ') + "  ..."
+        puts options[0, 20].join('  ') + "  ..."
       end
     end
   end
@@ -500,7 +500,7 @@ def __sudo(x, *args)
       args = $sudo_args + args
     else
       args = $sudo_args.map { |arg|
-	format(arg, shelljoin(*args)) rescue arg
+        format(arg, shelljoin(*args)) rescue arg
       }
     end
 
@@ -603,7 +603,7 @@ def __backquote(x, sudo, *args)
       args = $sudo_args + args
     else
       args = $sudo_args.map { |arg|
-	format(arg, shelljoin(*args)) rescue arg
+        format(arg, shelljoin(*args)) rescue arg
       }
     end
 
@@ -674,18 +674,18 @@ def alt_dep(dep, origin = nil)
       return [alt]
     else
       begin
-	alt = parse_pattern(alt)
+        alt = parse_pattern(alt)
       rescue RegexpError => e
-	warning_message e.message.capitalize
-	next
+        warning_message e.message.capitalize
+        next
       end
 
       pkgnames = $pkgdb.glob(alt, false)
 
       if pkgnames.empty?
-	return nil
+        return nil
       else
-	return pkgnames
+        return pkgnames
       end
     end
   end
@@ -718,7 +718,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
 
   pkgdeps = Set.new
 
-  deporigin = nil	# what to do with the next DEPORIGIN
+  deporigin = nil        # what to do with the next DEPORIGIN
 
   head_lines = []
   depends_lines = []
@@ -735,76 +735,76 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
 
       pkgdep = $1
 
-      if pkgdeps.include?(pkgdep)	# remove duplicates
-	deporigin = :delete
-	changed = true
-	next
+      if pkgdeps.include?(pkgdep)        # remove duplicates
+        deporigin = :delete
+        changed = true
+        next
       end
 
       pkgdeps << pkgdep
 
       if $1 == dep
-	if newdep == :delete
-	  depends_lines << "@comment DELETED:pkgdep #{pkgdep}\n"
-	  deporigin = :commentout
-	else
-	  depends_lines << "@pkgdep #{newdep}\n"
+        if newdep == :delete
+          depends_lines << "@comment DELETED:pkgdep #{pkgdep}\n"
+          deporigin = :commentout
+        else
+          depends_lines << "@pkgdep #{newdep}\n"
 
-	  if neworigin
-	    depends_lines << "@comment DEPORIGIN:#{neworigin}\n"
-	  end
+          if neworigin
+            depends_lines << "@comment DEPORIGIN:#{neworigin}\n"
+          end
 
-	  deporigin = :delete
+          deporigin = :delete
 
-	  pkgdeps << newdep
-	end
-	changed = true
+          pkgdeps << newdep
+        end
+        changed = true
       else
-	depends_lines << line
+        depends_lines << line
       end
     when /^@comment\s+DEPORIGIN:(\S+)/
       case deporigin
       when :commentout
-	depends_lines << "@comment DELETED:DEPORIGIN:#{$1}\n"
-	changed = true
+        depends_lines << "@comment DELETED:DEPORIGIN:#{$1}\n"
+        changed = true
       when :keep
-	depends_lines << line
+        depends_lines << line
       else # :delete, nil
-	# no output
-	changed = true
+        # no output
+        changed = true
       end
 
       deporigin = nil
     when /^@comment\s+DELETED:(pkgdep |DEPORIGIN:)(\S+)/
       # Undelete it if requested
       if newdep == :add
-	keyword = $1
-	data = $2
-	if keyword == "pkgdep " && 
-	  		data.sub(pkgver_re,'') == dep.sub(pkgver_re,'')
-	  depends_lines << "@pkgdep #{dep}\n"
-	  pkgdep_undeleted = true
-	  last_correct = true
-	  changed = true
-	  next
-	elsif keyword == "DEPORIGIN:" && data == neworigin
-	  # Undelete DEPORIGIN only if we sure the last line is correct
-	  if last_correct
-	    depends_lines << "@comment DEPORIGIN:#{neworigin}\n"
-	    deporigin_undeleted = true
-	    changed = true
-	    next
-	  end
-	end
-	depends_lines << line
+        keyword = $1
+        data = $2
+        if keyword == "pkgdep " && 
+                          data.sub(pkgver_re,'') == dep.sub(pkgver_re,'')
+          depends_lines << "@pkgdep #{dep}\n"
+          pkgdep_undeleted = true
+          last_correct = true
+          changed = true
+          next
+        elsif keyword == "DEPORIGIN:" && data == neworigin
+          # Undelete DEPORIGIN only if we sure the last line is correct
+          if last_correct
+            depends_lines << "@comment DEPORIGIN:#{neworigin}\n"
+            deporigin_undeleted = true
+            changed = true
+            next
+          end
+        end
+        depends_lines << line
       else
-	depends_lines << line
+        depends_lines << line
       end
     else
       if depends_lines.empty?
-	head_lines << line
+        head_lines << line
       else
-	tail_lines << line
+        tail_lines << line
       end
 
       deporigin = nil
@@ -896,7 +896,7 @@ def identify_pkg(path)
           pkgname = $1
         when /^@pkgdep\s+(\S*)/
           pkgdep << $1
-        when /^(\S+\/\S+)$/		# /
+        when /^(\S+\/\S+)$/                # /
           origin = $1
         end
       end
@@ -1137,16 +1137,16 @@ class PkgResultSet < SimpleDelegator
   def show(done_service = 'done', verbose = $verbose)
     if verbose
       if empty?
-	warning_message "None has been #{done_service}."
-	return 0
+        warning_message "None has been #{done_service}."
+        return 0
       end
 
       progress_message "Listing the results (" <<
-	PkgResult.legend(true) << ")"
+        PkgResult.legend(true) << ")"
     else
       if find { |r| r.ignored? || r.failed? }
-	warning_message "Listing the failed packages (" <<
-	  PkgResult.legend() << ")"
+        warning_message "Listing the failed packages (" <<
+          PkgResult.legend() << ")"
       end
     end
 
@@ -1185,11 +1185,11 @@ module PkgConfig
     OS_PATCHLEVEL = os_patchlevel || ""
 
     case OS_BRANCH
-    when /^CURRENT$/	# <n>-current
+    when /^CURRENT$/        # <n>-current
       OS_PKGBRANCH = sprintf('%s-%s', OS_MAJOR, OS_BRANCH.downcase)
-    when /^RELEASE$/	# <n>.<m>-release
+    when /^RELEASE$/        # <n>.<m>-release
       OS_PKGBRANCH = sprintf('%s-%s', OS_REVISION, OS_BRANCH.downcase)
-    else		# <n>-stable
+    else                # <n>-stable
       # when /^(PRERELEASE|RC\d*|ALPHA|BETA)$/
       OS_PKGBRANCH = sprintf('%s-%s', OS_MAJOR, 'stable')
     end
@@ -1199,7 +1199,7 @@ module PkgConfig
 
   def pkg_site_mirror(root = ENV['PACKAGEROOT'] || 'ftp://ftp.FreeBSD.org/')
     sprintf('%s/pub/FreeBSD/ports/%s/packages-%s/',
-	    root, OS_PLATFORM, OS_PKGBRANCH)
+            root, OS_PLATFORM, OS_PKGBRANCH)
   end
 
   def pkg_site_primary()
@@ -1212,10 +1212,10 @@ module PkgConfig
     case OS_PLATFORM
     when 'i386', 'sparc64', 'amd64', 'ia64'
       sprintf('http://pointyhat.FreeBSD.org/errorlogs/%s-%s-packages-%s/',
-	      OS_PLATFORM, OS_MAJOR, run)
+              OS_PLATFORM, OS_MAJOR, run)
     else
       raise sprintf('There is no official package builder site yet for the %s platform.',
-		    OS_PLATFORM)
+                    OS_PLATFORM)
     end
   end
 
@@ -1305,7 +1305,7 @@ module PkgConfig
       load file
     rescue Exception => e
       STDERR.puts "** Error occured reading #{file}:",
-	e.message.gsub(/^/, "\t")
+        e.message.gsub(/^/, "\t")
       exit 1
     end
   end
@@ -1314,21 +1314,21 @@ module PkgConfig
     hash = Hash.new
     Dir.glob(File.join(PREFIX, glob)) do |f|
       if FileTest.file?(f)
-	File.open(f) do |file|
-	  file.each_line do |line|
-	    next if /^#/ =~ line
-	    if /=>/ =~ line
-	      key, val = line.split('=>')
-	      key.strip!.gsub!(/['"]/, '')
-	      val.strip!.gsub!(/['",]/, '')
-	      hash[key] = val
-	    else
-	      unless line.empty?
-		raise "File #{f}: syntax error in line: #{line}"
-	      end
-	    end
-	  end
-	end
+        File.open(f) do |file|
+          file.each_line do |line|
+            next if /^#/ =~ line
+            if /=>/ =~ line
+              key, val = line.split('=>')
+              key.strip!.gsub!(/['"]/, '')
+              val.strip!.gsub!(/['",]/, '')
+              hash[key] = val
+            else
+              unless line.empty?
+                raise "File #{f}: syntax error in line: #{line}"
+              end
+            end
+          end
+        end
       end
     end
 

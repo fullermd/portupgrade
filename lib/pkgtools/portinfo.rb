@@ -62,25 +62,25 @@ class PortInfo
 
       case field
       when :pkgname
-	begin
-	  value = PkgInfo.new(value)
-	rescue => e
-	  raise ArgumentError, e.message
-	end
+        begin
+          value = PkgInfo.new(value)
+        rescue => e
+          raise ArgumentError, e.message
+        end
       when :origin
-	if value.sub!(%r`^(.*)/([^/]+/[^/]+)$`, '\\2')
-	  ports_dir = $1
-	else
-	  raise ArgumentError, "#{@attr[:pkgname]}: #{value}: malformed origin"
-	end
+        if value.sub!(%r`^(.*)/([^/]+/[^/]+)$`, '\\2')
+          ports_dir = $1
+        else
+          raise ArgumentError, "#{@attr[:pkgname]}: #{value}: malformed origin"
+        end
       when :descr_file
-	value.sub!(%r`^#{Regexp.quote(ports_dir)}/`, '')
+        value.sub!(%r`^#{Regexp.quote(ports_dir)}/`, '')
       when *LIST_FIELDS
-	value = value.split
+        value = value.split
       else
-	if value.empty?
-	  value = nil
-	end
+        if value.empty?
+          value = nil
+        end
       end
 
       @attr[field] = value
@@ -100,18 +100,18 @@ class PortInfo
       value = @attr[field]
 
       if value.nil?
-	''
+        ''
       else
-	case field
-	when :pkgname
-	  value = value.to_s
-	when :origin, :descr_file
-	  value = File.join(ports_dir, value)
-	when *LIST_FIELDS
-	  value.join ' '
-	else
-	  value
-	end
+        case field
+        when :pkgname
+          value = value.to_s
+        when :origin, :descr_file
+          value = File.join(ports_dir, value)
+        when *LIST_FIELDS
+          value.join ' '
+        else
+          value
+        end
       end
     }.join(FIELD_SEPARATOR) + "\n"
   end

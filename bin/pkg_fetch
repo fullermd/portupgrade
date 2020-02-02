@@ -121,10 +121,10 @@ Environment Variables [default]:
       rest = opts.order(*argv)
 
       unless $noconfig
-	init_global
-	load_config
+        init_global
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -132,8 +132,8 @@ Environment Variables [default]:
       opts.order!(argv)
 
       if argv.empty?
-	print opts
-	return 0
+        print opts
+        return 0
       end
 
       results = PkgResultSet.new
@@ -143,11 +143,11 @@ Environment Variables [default]:
       end
 
       opts.order(*argv) do |arg|
-	set_uri_base(arg)
+        set_uri_base(arg)
 
-	arg = File.basename(arg).sub(/\.t[bg]z$/, '')
+        arg = File.basename(arg).sub(/\.t[bg]z$/, '')
 
-	fetch_pkg(arg, $upward_recursive, results)
+        fetch_pkg(arg, $upward_recursive, results)
       end
 
       return results.show('downloaded')
@@ -240,8 +240,8 @@ def do_fetch_pkg(pkgname)
       tar = temp_path.sub(/\.tgz$/, '.tar')
       targz = tar + '.gz'
       system([shelljoin('mv', temp_path, tar),
-	       shelljoin('gzip', tar),
-	       shelljoin('mv', targz, temp_path)].join(' && '))
+               shelljoin('gzip', tar),
+               shelljoin('mv', targz, temp_path)].join(' && '))
     end
   when /\.tbz2?$/
     if /tar archive$/ =~ `file #{shelljoin(temp_path)}`
@@ -251,8 +251,8 @@ def do_fetch_pkg(pkgname)
       tar = temp_path.sub(/\.tbz2?$/, '.tar')
       tarbz2 = tar + '.bz2'
       system([shelljoin('mv', temp_path, tar),
-	       shelljoin('bzip2', tar),
-	       shelljoin('mv', tarbz2, temp_path)].join(' && '))
+               shelljoin('bzip2', tar),
+               shelljoin('mv', tarbz2, temp_path)].join(' && '))
     end
   end
 
@@ -291,10 +291,10 @@ def set_uri_base(uri_s)
 
       case $subdir
       when 'All', 'Latest'
-	$pkg_site_uris = [uri + '../']
+        $pkg_site_uris = [uri + '../']
       else
-	$subdir = '.'
-	$pkg_site_uris = [uri]
+        $subdir = '.'
+        $pkg_site_uris = [uri]
       end
 
       return true

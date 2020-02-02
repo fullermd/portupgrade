@@ -82,9 +82,9 @@ Environment Variables [default]:
 
       unless $noconfig
         init_global
-	load_config
+        load_config
       else
-	argv = rest
+        argv = rest
       end
 
       dry_parse = false
@@ -101,9 +101,9 @@ Environment Variables [default]:
       pkg = line.chomp
 
       if $pkgdb.installed?(pkg)
-	pkgs << pkg
+        pkgs << pkg
       else
-	STDERR.puts "No such package is installed: #{pkg}"
+        STDERR.puts "No such package is installed: #{pkg}"
       end
     }
 

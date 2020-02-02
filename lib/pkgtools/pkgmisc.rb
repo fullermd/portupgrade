@@ -40,9 +40,9 @@ class Array
       cmp.zero? and return mid
 
       if cmp < 0
-	lower = mid
+        lower = mid
       else
-	upper = mid
+        upper = mid
       end
     end
 
@@ -62,21 +62,21 @@ def shellwords(line)
     field = ''
     while true
       if line.sub!(/\A"(([^"\\]|\\.)*)"/, '') then #"
-	snippet = $1
-	snippet.gsub!(/\\(.)/, '\1')
+        snippet = $1
+        snippet.gsub!(/\\(.)/, '\1')
       elsif line =~ /\A"/ then #"
-	raise ArgumentError, "Unmatched double quote: #{line}"
+        raise ArgumentError, "Unmatched double quote: #{line}"
       elsif line.sub!(/\A'([^']*)'/, '') then #'
-	snippet = $1
+        snippet = $1
       elsif line =~ /\A'/ then #'
-	raise ArgumentError, "Unmatched single quote: #{line}"
+        raise ArgumentError, "Unmatched single quote: #{line}"
       elsif line.sub!(/\A\\(.)/, '') then
-	snippet = $1
+        snippet = $1
       elsif line.sub!(/\A([^\s\\'"]+)/, '') then #'
-	snippet = $1
+        snippet = $1
       else
-	line.sub!(/\A\s+/, '')
-	break
+        line.sub!(/\A\s+/, '')
+        break
       end
       field.concat(snippet)
     end
