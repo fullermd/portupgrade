@@ -119,6 +119,6 @@ def init_tmpdir
     rescue
       warning_message "Could not clean up temporary directory: " + $!
     end
-    }
+  }
   $tmpdir=tmpdir
 end
