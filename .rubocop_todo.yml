@@ -149,11 +149,6 @@ Lint/Void:
     - 'lib/pkgtools/pkgdbtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 3
-Naming/ClassAndModuleCamelCase:
-  Exclude:
-    - 'bin/portcvsweb'
-
 # Offense count: 1
 Naming/ConstantName:
   Exclude:
