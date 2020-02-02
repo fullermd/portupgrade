@@ -32,4 +32,9 @@ Style/SpecialGlobalVars:
   Enabled: false
   #EnforcedStyle: use_perl_names
 
+# It might be nice to have this more automatic, but forcing it always and
+# everywhere is probably a terrible idea.
+Layout/AlignHash:
+  Enabled: false
+
 inherit_from: .rubocop_todo.yml
