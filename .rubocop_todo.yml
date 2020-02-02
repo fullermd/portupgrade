@@ -19,32 +19,12 @@ Layout/CommentIndentation:
     - 'lib/pkgtools/pkgversion.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 58
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdb'
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkgmisc.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/pkgversion.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
 Layout/EmptyLineBetweenDefs:
   Exclude:
     - 'lib/pkgtools/pkgtools.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/EmptyLines:
-  Exclude:
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
 
 # Offense count: 6
 # Cop supports --auto-correct.

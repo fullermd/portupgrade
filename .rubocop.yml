@@ -18,6 +18,10 @@ Layout/AlignParameters:
 # We'll probably never care about these
 Style/StringLiterals:
   Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/EmptyLines:
+  Enabled: false
 
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...

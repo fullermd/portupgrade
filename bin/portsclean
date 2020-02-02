@@ -568,7 +568,6 @@ def pkgclean(level)
     end
   end
 
-
   IO.popen("find -H #{$packages_base} -type l -name '*.t[bgx]z'") do |r|
     r.each do |line|
       pkgfile = line.chomp
