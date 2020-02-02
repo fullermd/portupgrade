@@ -29,6 +29,10 @@ Layout/EmptyLineBetweenDefs:
   Enabled: false
 Layout/EmptyLinesAroundAccessModifier:
   Enabled: false
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
 
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...
