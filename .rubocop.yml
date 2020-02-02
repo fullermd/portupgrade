@@ -7,4 +7,13 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: 'comma'
 
+# These are reasonable to ignore wholesale for now.  Maybe we'll revisit
+# if we do a massive restyle...
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/SymbolProc:
+  Enabled: false
+
 inherit_from: .rubocop_todo.yml
