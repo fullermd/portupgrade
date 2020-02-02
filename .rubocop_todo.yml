@@ -63,14 +63,6 @@ Layout/IndentHeredoc:
     - 'bin/portupgrade'
     - 'bin/portversion'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'bin/portcvsweb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/LeadingBlankLines:
