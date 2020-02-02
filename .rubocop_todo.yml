@@ -63,14 +63,6 @@ Layout/IndentHeredoc:
     - 'bin/portupgrade'
     - 'bin/portversion'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Layout/LeadingBlankLines:
-  Exclude:
-    - 'lib/pkgtools/pkg.rb'
-    - 'lib/pkgtools/ports.rb'
-    - 'tests/test_all.rb'
-
 # Offense count: 19
 # Cop supports --auto-correct.
 Layout/LeadingCommentSpace:
