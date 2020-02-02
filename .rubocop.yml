@@ -111,4 +111,9 @@ Lint/RescueException:
   Exclude:
     - 'lib/pkgtools/pkgtools.rb'
 
+# This is _probably_ OK?
+Security/MarshalLoad:
+  Exclude:
+    - 'lib/pkgtools/pkgdbtools.rb'
+
 inherit_from: .rubocop_todo.yml

@@ -156,11 +156,6 @@ Performance/RedundantBlockCall:
     - 'lib/pkgtools/pkgtsort.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 1
-Security/MarshalLoad:
-  Exclude:
-    - 'lib/pkgtools/pkgdbtools.rb'
-
 # Offense count: 4
 Security/Open:
   Exclude:
