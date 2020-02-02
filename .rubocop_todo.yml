@@ -113,12 +113,6 @@ Lint/IneffectiveAccessModifier:
   Exclude:
     - 'bin/portcvsweb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Lint/NonDeterministicRequireOrder:
-  Exclude:
-    - 'tests/test_all.rb'
-
 # Offense count: 4
 Lint/NonLocalExitFromIterator:
   Exclude:
