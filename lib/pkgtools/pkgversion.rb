@@ -136,7 +136,7 @@ class PkgVersion
     s2 = nil
 
     # Look for first different subnumber
-    begin
+    loop do
       break if a1.empty? && a2.empty?
 
       s1 = a1.shift
@@ -144,7 +144,9 @@ class PkgVersion
       # Magic for missing '0's: 1.0 == 1.0.0
       s1 ||= '0'
       s2 ||= '0'
-    end while s1 == s2
+
+      break unless s1 == s2
+    end
 
     # Short-cut in case of equality
     if s1 == s2
@@ -165,12 +167,13 @@ class PkgVersion
     end
 
     # Look for first different sub-subnumber
-    begin
+    loop do
       break if a1.empty? && a2.empty?
 
       x1 = a1.shift
       x2 = a2.shift
-    end while x1 == x2
+      break unless x1 == x2
+    end
 
     x1 ||= ''
     x2 ||= ''

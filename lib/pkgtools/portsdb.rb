@@ -131,7 +131,7 @@ class PortsDB
       t = []
       me = port
 
-      while true
+      loop do
         if moved = @moved[me]
           t << moved if t.empty? or t.last.seq < moved.seq
           if me.nil? or t.map { |p| p.to }.include?(me)

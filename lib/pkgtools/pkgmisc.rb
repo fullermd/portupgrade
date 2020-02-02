@@ -60,7 +60,7 @@ def shellwords(line)
   words = []
   while line != ''
     field = ''
-    while true
+    loop do
       if line.sub!(/\A"(([^"\\]|\\.)*)"/, '') then #"
         snippet = $1
         snippet.gsub!(/\\(.)/, '\1')

@@ -98,18 +98,6 @@ Lint/IneffectiveAccessModifier:
   Exclude:
     - 'bin/portcvsweb'
 
-# Offense count: 3
-Lint/LiteralAsCondition:
-  Exclude:
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkgmisc.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
-# Offense count: 2
-Lint/Loop:
-  Exclude:
-    - 'lib/pkgtools/pkgversion.rb'
-
 # Offense count: 1
 Lint/NestedMethodDefinition:
   Exclude:

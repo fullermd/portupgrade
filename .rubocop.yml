@@ -48,6 +48,12 @@ Style/SpecialGlobalVars:
   Enabled: false
   #EnforcedStyle: use_perl_names
 
+# The things this caught in the existing codebase were all better written
+# elsewise, so I'm leaving it enabled for now.  But it's a thing that
+# could plausibly be used in proper code, so maybe we'll revisit...
+Lint/LiteralAsCondition:
+  Enabled: true
+
 # It might be nice to have this more automaticly done, but forcing it
 # always and everywhere to a single style (key vs table) is a terrible
 # idea.

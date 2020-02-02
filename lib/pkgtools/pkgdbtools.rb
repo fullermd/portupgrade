@@ -64,7 +64,9 @@ module PkgDBTools
 
   def db_driver=(new_db_driver)
     begin
+      # rubocop:disable Lint/LiteralAsCondition
       case new_db_driver || ENV['PKG_DBDRIVER'] || 'bdb_btree'
+      # rubocop:enable Lint/LiteralAsCondition
       when 'pkg'
         @db_driver = :pkg
       when 'bdb_btree'
