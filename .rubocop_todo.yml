@@ -19,14 +19,6 @@ Layout/CommentIndentation:
     - 'lib/pkgtools/pkgversion.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowBorderComment, AllowMarginComment.
-Layout/EmptyComment:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdb'
-
 # Offense count: 58
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterGuardClause:

@@ -574,7 +574,7 @@ def fix_origin(pkg)
       if i != owners.size - 1
         overwriters = owners[(i + 1)..-1]
 
-        puts "\t#{path}: overwritten by: #{overwriters.join(' ')}"        #
+        puts "\t#{path}: overwritten by: #{overwriters.join(' ')}"
 
         possible_successors |= overwriters
       end
