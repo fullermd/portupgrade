@@ -7,6 +7,10 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: 'comma'
 
+# We'll probably never care about these
+Style/StringLiterals:
+  Enabled: false
+
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...
 Style/StringLiteralsInInterpolation:
