@@ -77,7 +77,7 @@ usage: #{MYNAME} [-hOqv] [-l limit_chars] [-L inv_limit_chars]
 #{MYNAME} #{Version} (#{PkgTools::DATE})
 
 #{usage}
-    EOF
+  EOF
 
   dry_parse = true
 

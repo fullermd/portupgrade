@@ -409,7 +409,7 @@ end
 def main(argv)
   usage = <<-"EOF"
 usage: #{MYNAME} [-hqv] {pkgname_glob|portorigin_glob|file|directory}
-    EOF
+  EOF
 
   banner = <<-"EOF"
 #{MYNAME} #{Version} (#{PkgTools::DATE})

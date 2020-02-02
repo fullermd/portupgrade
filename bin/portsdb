@@ -57,7 +57,7 @@ end
 def main(argv)
   usage = <<-"EOF"
 usage: #{MYNAME} [-hfFMqrRuU] [-x port_glob] [port_glob ...]
-    EOF
+  EOF
 
   banner = <<-"EOF"
 #{MYNAME} #{Version} (#{PkgTools::DATE})

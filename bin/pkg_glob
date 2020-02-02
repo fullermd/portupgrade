@@ -71,11 +71,11 @@ def main(argv)
     usage = <<-"EOF"
 usage: #{MYNAME} [-hacdDfinOPqrRv] [-e args] [-p prefix] [-x pkgname_glob]
         [pkgname_glob ...]
-  EOF
+    EOF
   else
     usage = <<-"EOF"
 usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
-  EOF
+    EOF
   end
 
   banner = <<-"EOF"
@@ -167,7 +167,7 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
     opts.def_tail_option <<-"EOF".chomp if $service == :deinstall
 
 [*] These options are transparently passed to pkg_delete(1).
-      EOF
+    EOF
 
     opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") { |arg|
       begin

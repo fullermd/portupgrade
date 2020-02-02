@@ -60,7 +60,7 @@ end
 def main(argv)
   usage = <<-"EOF"
 usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new_pkgname/] [file ...]
-    EOF
+  EOF
 
   banner = <<-"EOF"
 #{MYNAME} #{Version} (#{PkgTools::DATE})
