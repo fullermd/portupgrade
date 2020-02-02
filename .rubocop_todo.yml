@@ -106,6 +106,7 @@ Lint/NonLocalExitFromIterator:
     - 'bin/portupgrade'
 
 # Offense count: 5
+# XXX Some of these DO appear to be bugs!
 Lint/ShadowingOuterLocalVariable:
   Exclude:
     - 'bin/pkg_fetch'
