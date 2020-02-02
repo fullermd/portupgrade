@@ -105,11 +105,6 @@ Lint/NonLocalExitFromIterator:
     - 'bin/portsclean'
     - 'bin/portupgrade'
 
-# Offense count: 2
-Lint/RescueException:
-  Exclude:
-    - 'lib/pkgtools/pkgtools.rb'
-
 # Offense count: 5
 Lint/ShadowingOuterLocalVariable:
   Exclude:

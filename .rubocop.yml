@@ -72,4 +72,11 @@ Lint/HandleExceptions:
     - 'bin/pkg_fetch'
     - 'bin/portcvsweb'
 
+# Do seem to be wrong, and catching StandardError is probably fine, but
+# I'm leaving alone for now.  Both uses are in loading config or the
+# like, so...
+Lint/RescueException:
+  Exclude:
+    - 'lib/pkgtools/pkgtools.rb'
+
 inherit_from: .rubocop_todo.yml
