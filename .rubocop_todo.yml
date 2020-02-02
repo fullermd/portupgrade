@@ -19,20 +19,6 @@ Layout/CommentIndentation:
     - 'lib/pkgtools/pkgversion.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Exclude:
-    - 'lib/pkgtools/pkgtools.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'bin/portcvsweb'
-    - 'lib/pkgtools/pkgtsort.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

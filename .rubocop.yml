@@ -22,6 +22,10 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EmptyLines:
   Enabled: false
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
 
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...
