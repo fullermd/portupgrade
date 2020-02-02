@@ -240,8 +240,8 @@ def do_fetch_pkg(pkgname)
       tar = temp_path.sub(/\.tgz$/, '.tar')
       targz = tar + '.gz'
       system([shelljoin('mv', temp_path, tar),
-               shelljoin('gzip', tar),
-               shelljoin('mv', targz, temp_path)].join(' && '))
+              shelljoin('gzip', tar),
+              shelljoin('mv', targz, temp_path)].join(' && '))
     end
   when /\.tbz2?$/
     if /tar archive$/ =~ `file #{shelljoin(temp_path)}`
@@ -251,8 +251,8 @@ def do_fetch_pkg(pkgname)
       tar = temp_path.sub(/\.tbz2?$/, '.tar')
       tarbz2 = tar + '.bz2'
       system([shelljoin('mv', temp_path, tar),
-               shelljoin('bzip2', tar),
-               shelljoin('mv', tarbz2, temp_path)].join(' && '))
+              shelljoin('bzip2', tar),
+              shelljoin('mv', tarbz2, temp_path)].join(' && '))
     end
   end
 

@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 29
-# Cop supports --auto-correct.
-Layout/AlignArray:
-  Exclude:
-    - 'bin/pkg_fetch'
-    - 'bin/portupgrade'
-    - 'tests/test_portinfo.rb'
-
 # Offense count: 40
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
