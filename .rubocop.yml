@@ -63,6 +63,8 @@ Lint/LiteralAsCondition:
 # idea.
 Layout/HashAlignment:
   Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
 
 # Metrics are mostly stupid...
 Metrics/AbcSize:
