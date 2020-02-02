@@ -76,20 +76,6 @@ Layout/LeadingCommentSpace:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkgmisc.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Exclude:
-    - 'lib/pkgtools/pkgdbtools.rb'
-
-# Offense count: 38
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Enabled: false
-
 # Offense count: 2
 Lint/AmbiguousBlockAssociation:
   Exclude:

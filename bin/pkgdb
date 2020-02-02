@@ -251,7 +251,7 @@ Environment Variables [default]:
       fix_db() if $fix_db
 
       list = []
-      
+
       opts.order(*argv) do |arg|
         if arg[0, 1] == '/' || File.exist?(arg)
           path = arg
@@ -317,7 +317,7 @@ def check_lost_deps()
     # Ignore bsdpan- pseudo ports
     if /^bsdpan-/ =~ pkgname
       puts "#{pkgname}: ignored"
-      next 
+      next
     end
     deps = $pkgdb.pkgdep(pkgname, true) or return
     real_deps = get_real_run_deps(pkgname)
@@ -546,7 +546,7 @@ def fix_origin(pkg)
     return false
   when :delete
     if $automatic
-      puts "Skipped. (running in non-interactive mode; specify -i to ask)"    
+      puts "Skipped. (running in non-interactive mode; specify -i to ask)"
       return false
     end
 
@@ -824,7 +824,7 @@ def query_dep_fix(dep, fix, fix_score)
     end
 
     if $automatic
-      puts "Skipped. (running in non-interactive mode; specify -i to ask)"    
+      puts "Skipped. (running in non-interactive mode; specify -i to ask)"
       return :skip
     end
 
@@ -870,7 +870,7 @@ def query_dep_fix(dep, fix, fix_score)
     end
   else
     if $automatic
-      puts "Skipped. (running in non-interactive mode; specify -i to ask)"    
+      puts "Skipped. (running in non-interactive mode; specify -i to ask)"
       return :skip
     end
   end
@@ -909,7 +909,7 @@ def fix_cycles(tsort)
     puts "Cyclic dependencies: #{cycle.join(' -> ')} -> (#{cycle[0]})"
 
     if $automatic
-      puts "Skipped. (running in non-interactive mode; specify -i to ask)"    
+      puts "Skipped. (running in non-interactive mode; specify -i to ask)"
       next
     end
 
@@ -963,7 +963,7 @@ def fix_cycles(tsort)
                 else # :delete, nil
                   # no output
                 end
-                
+
                 deporigin = nil
               else
                 lines << line

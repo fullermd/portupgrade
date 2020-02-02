@@ -315,7 +315,7 @@ end
 def yesno_str(yes)
   if yes then 'yes' else 'no' end
 end
-  
+
 def prompt_yesno(message = "OK?", yes_by_default = false)
   if $automatic
     input = yesno_str(yes_by_default)
@@ -533,7 +533,7 @@ def script_path
 end
 
 def logged_command(file, args)
-  if !file  
+  if !file
     args
   else
     [script_path(), '-qa', file, *args]
@@ -780,7 +780,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
       if newdep == :add
         keyword = $1
         data = $2
-        if keyword == "pkgdep " && 
+        if keyword == "pkgdep " &&
             data.sub(pkgver_re, '') == dep.sub(pkgver_re, '')
           depends_lines << "@pkgdep #{dep}\n"
           pkgdep_undeleted = true
@@ -981,7 +981,7 @@ class PkgResult
   def done?
     @result == :done
   end
-  
+
   def ignored?
     @result == :ignored
   end
@@ -1068,7 +1068,7 @@ class PkgResult
 
     io.puts line
   end
-  
+
   def self.legend(long = false)
     if long
       [:done, :ignored, :skipped, :error]
@@ -1102,7 +1102,7 @@ class PkgResultSet < SimpleDelegator
 
   def summary
     count = Hash.new(0)
-    
+
     each do |result|
       if result.done?
         count[:done] += 1

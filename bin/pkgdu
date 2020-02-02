@@ -105,7 +105,7 @@ usage: #{MYNAME} [-hbkmRrqs] [pkgname_glob ...]
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
     }
-    
+
     opts.def_tail_option '
 pkgname_glob is one of these: a full pkgname, a pkgname w/o version,
 a shell glob pattern in which you can use wildcards *, ?, and [..],

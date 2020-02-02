@@ -34,7 +34,7 @@ class PkgVersion
   attr_accessor :version, :revision, :epoch
 
   def initialize(pkgversion)
-    if /[\s-]/ =~ pkgversion    
+    if /[\s-]/ =~ pkgversion
       raise ArgumentError, "#{pkgversion}: Must not contain a '-' or whitespace."
     end
 
@@ -155,7 +155,7 @@ class PkgVersion
     a1 = s1.split(/(\D+)/)
     a2 = s2.split(/(\D+)/)
 
-    # If a string starts with a splitter, split() returns 
+    # If a string starts with a splitter, split() returns
     # an empty first element. Adjust it.
     if /^\D/ =~ s1
       a1.shift
@@ -179,7 +179,7 @@ class PkgVersion
     if x1 == x2
       return 0
     end
- 
+
     # Specail case - pl. It always lose.
     if x1 == "pl"
       return -1

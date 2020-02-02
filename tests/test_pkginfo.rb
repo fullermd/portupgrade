@@ -48,7 +48,6 @@ class TestPkgInfo < Test::Unit::TestCase
   end
 
   def test_s_get_info
-    
   end
 
   def test_match

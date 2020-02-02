@@ -86,7 +86,7 @@ class PortInfo
       @attr[field] = value
     end
   end
-  
+
   FIELDS.each do |field|
     module_eval %`
     def #{field.to_s}

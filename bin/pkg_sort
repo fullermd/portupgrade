@@ -107,7 +107,7 @@ Environment Variables [default]:
       end
     }
 
-    list = $pkgdb.sort_build!(pkgs) 
+    list = $pkgdb.sort_build!(pkgs)
 
     puts(*list) unless list.empty?
 

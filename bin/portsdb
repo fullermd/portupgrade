@@ -166,7 +166,7 @@ Environment Variables [default]:
       end
 
       list = []
-      
+
       opts.order(*argv) do |arg|
         pattern = $portsdb.strip(arg) || arg        # allow pkgname_glob
 

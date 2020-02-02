@@ -889,7 +889,7 @@ class PkgDB
         else
           return [want_pkg_info ? pkg : pattern]
         end
-      end      
+      end
 
       if pattern.include?('/')
         is_origin = true

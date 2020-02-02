@@ -588,7 +588,7 @@ class PortsDB
                 @origins_by_categories[category] = [origin]
               end
             end
-            
+
             @ignore_categories.each do |category|
               @origins_by_categories.delete(category)
             end

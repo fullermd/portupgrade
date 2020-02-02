@@ -136,10 +136,10 @@ module PortCvsWeb
 
       if uri_info
         if subdir
-          uri_info.path = 
+          uri_info.path =
             File.join(File.dirname(uri_info.path), subdir, file || '')
         else
-          uri_info.path = 
+          uri_info.path =
             File.join(File.dirname(uri_info.path), file || '')
         end
 
@@ -258,7 +258,7 @@ module PortCvsWeb
 
       uri_info
     end
-    
+
     private
     def Uri_Base.guess_tag(hint)
       CVSTAGS.each do |name|
@@ -339,7 +339,7 @@ module PortCvsWeb
     def Uri_FreshPorts.path2uri(arg, check_cvsinfo)
       uri_info = Uri_Base::path2uri(arg, check_cvsinfo)
       uri_info.base = URI_BASE
-      uri_info.uri = uri_info.base + uri_info.path 
+      uri_info.uri = uri_info.base + uri_info.path
       uri_info
     end
 
@@ -433,7 +433,7 @@ usage: #{MYNAME} [-hqv] {pkgname_glob|portorigin_glob|file|directory}
       $verbose = v
     }
 
-    opts.def_option("-F", "--freshports", 
+    opts.def_option("-F", "--freshports",
                     "View FreshPorts.org instead of cvsweb") { |v|
       $freshports = v
     }

@@ -242,7 +242,7 @@ Environment Variables [default]:
             else
               printf "%c\n", sign
             end
-            
+
             next
           end
         end

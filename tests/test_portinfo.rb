@@ -29,7 +29,7 @@ class TestPortInfo < Test::Unit::TestCase
                   portinfo.categories,
                   portinfo.build_depends, portinfo.run_depends,
                   portinfo.www])
-    
+
     portinfo = PortInfo.new(SAMPLE2)
     assert_equal(['ruby-byaccr', '0.0_1',
                   'devel/ruby-byaccr', 'devel/ruby-byaccr/pkg-descr',
@@ -46,7 +46,7 @@ class TestPortInfo < Test::Unit::TestCase
                   portinfo.build_depends, portinfo.run_depends,
                   portinfo.www])
   end
-  
+
   def test_to_s
     assert_equal(SAMPLE1, PortInfo.new(SAMPLE1).to_s)
     assert_equal(SAMPLE2, PortInfo.new(SAMPLE2).to_s)

@@ -51,7 +51,7 @@ COLUMNSIZE = 24
 NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
 
 if PkgConfig::OS_MAJOR.to_i >= 8
-  PKG_SUFFIXES = ['.tbz', '.txz', '.tgz']  
+  PKG_SUFFIXES = ['.tbz', '.txz', '.tgz']
 elsif PkgConfig::OS_MAJOR.to_i >= 5
   PKG_SUFFIXES = ['.tbz', '.tgz']
 else

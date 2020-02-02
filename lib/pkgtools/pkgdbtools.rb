@@ -141,7 +141,7 @@ module PkgDBTools
       file = File.open(@lock_file)
       pid, mode = file.gets.chomp.split(' ')
       file.close
-      if mode == 'w' 
+      if mode == 'w'
         if count == 0
           puts "** Database file locked for writing. Waiting."
         end
@@ -246,4 +246,3 @@ module PkgDBTools
     :open_db_for_rebuild!, :close_db
   public :db_dir, :close_db
 end
-
