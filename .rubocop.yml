@@ -15,7 +15,7 @@ Layout/MultilineOperationIndentation:
 
 # There's a lot of garbage here, but forced anything isn't great, so deal
 # with it manually as it comes up
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 # We'll probably never care about these
@@ -31,7 +31,7 @@ Layout/EmptyLinesAroundAccessModifier:
   Enabled: false
 Naming/HeredocDelimiterNaming:
   Enabled: false
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
@@ -61,7 +61,7 @@ Lint/LiteralAsCondition:
 # It might be nice to have this more automaticly done, but forcing it
 # always and everywhere to a single style (key vs table) is a terrible
 # idea.
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 # Metrics are mostly stupid...
@@ -91,7 +91,7 @@ Lint/EmptyWhen:
     - 'lib/pkgtools/pkgversion.rb'
 
 # May be a better way to handle this, but for now...
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'bin/pkg_fetch'
     - 'bin/portcvsweb'
