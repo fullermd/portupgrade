@@ -10,6 +10,9 @@ Style/TrailingCommaInHashLiteral:
 Style/Semicolon:
   AllowAsExpressionSeparator: true
 
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: 'indented'
+
 # There's a lot of garbage here, but forced anything isn't great, so deal
 # with it manually as it comes up
 Layout/AlignParameters:

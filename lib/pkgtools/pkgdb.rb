@@ -1014,9 +1014,9 @@ class PkgDB
       if origin = pkg.origin
         # Check if this origin has been MOVED and automatically replace the origin
         if !$ignore_moved and \
-          !config_ignore_moved?(pkg) and \
-          (moved = $portsdb.moved.trace(pkg.origin)) and \
-          moved.last.to
+            !config_ignore_moved?(pkg) and \
+            (moved = $portsdb.moved.trace(pkg.origin)) and \
+            moved.last.to
           origin = moved.last.to
         end
         # ..and ports dependencies

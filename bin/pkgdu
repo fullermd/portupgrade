@@ -242,9 +242,9 @@ def pkgs_size(pkgs)
   else
     pkgs.each do |pkg|
       if !$ignore_moved and \
-        !config_ignore_moved?(pkg) and \
-        (moved = $portsdb.moved.trace(pkg.origin)) and \
-        (o = moved.last.to)
+          !config_ignore_moved?(pkg) and \
+          (moved = $portsdb.moved.trace(pkg.origin)) and \
+          (o = moved.last.to)
         origin = o
       else
         origin = pkg.origin

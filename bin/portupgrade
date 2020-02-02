@@ -626,9 +626,9 @@ Environment Variables [default]:
                 origin = $pkgdb.origin(task)
                 # Check if this origin has been MOVED and automatically replace the origin
                 if !$ignore_moved and \
-                  !config_ignore_moved?(pkg) and \
-                  (moved = $portsdb.moved.trace(pkg.origin)) and \
-                  moved.last.to
+                    !config_ignore_moved?(pkg) and \
+                    (moved = $portsdb.moved.trace(pkg.origin)) and \
+                    moved.last.to
                   origin = moved.last.to
                 end
               end
@@ -975,8 +975,8 @@ def do_upgrade(pkgname)
 
   if !origin || !File.directory?($portsdb.ports_dir() + '/' + origin)
     if !$ignore_moved and \
-       !config_ignore_moved?(pkg) and \
-       (moved = $portsdb.moved.trace(pkg.origin))
+        !config_ignore_moved?(pkg) and \
+        (moved = $portsdb.moved.trace(pkg.origin))
       if origin = moved.last.to
         if pkg.origin != origin
           warning_message "Package origin of '#{pkg.name}' has been changed: '#{pkg.origin}' -> '#{origin}'"
@@ -1548,8 +1548,8 @@ end
 def get_pkgname(origin)
   # Check if this origin has been deleted
   if !$ignore_moved and \
-    !config_ignore_moved?(origin) and \
-    (moved = $portsdb.moved.trace(origin))
+      !config_ignore_moved?(origin) and \
+      (moved = $portsdb.moved.trace(origin))
     unless moved.last.to
       warning_message "Port deleted on #{moved.last.date}: #{origin}"
       STDERR.puts "\t" + moved.last.why

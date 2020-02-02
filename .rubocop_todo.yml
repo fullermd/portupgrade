@@ -76,22 +76,6 @@ Layout/LeadingCommentSpace:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkgmisc.rb'
 
-# Offense count: 23
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdb'
-    - 'bin/pkgdu'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:

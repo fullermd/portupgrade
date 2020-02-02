@@ -33,7 +33,7 @@ module PkgDBTools
     return if file_name.nil?
 
     if !file_name.nil? && File.exist?(file_name) && !File.zero?(file_name) &&
-      file = File.open(file_name)
+        file = File.open(file_name)
 
       pid, mode = file.gets.split(' ')
       file.close

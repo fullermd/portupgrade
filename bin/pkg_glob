@@ -388,7 +388,7 @@ def deinstall_pkg(pkgname)
         filetype = pipe.gets
 
         if /\bELF\b.*\bshared object\b.*\bFreeBSD\b/ !~ filetype and
-           /\bsymbolic link to\b/ !~ filetype
+            /\bsymbolic link to\b/ !~ filetype
           next
         end
 

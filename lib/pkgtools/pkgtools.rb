@@ -781,7 +781,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
         keyword = $1
         data = $2
         if keyword == "pkgdep " && 
-                          data.sub(pkgver_re,'') == dep.sub(pkgver_re,'')
+            data.sub(pkgver_re,'') == dep.sub(pkgver_re,'')
           depends_lines << "@pkgdep #{dep}\n"
           pkgdep_undeleted = true
           last_correct = true
