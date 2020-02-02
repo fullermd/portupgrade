@@ -1165,13 +1165,6 @@ Style/RescueModifier:
     - 'lib/pkgtools/pkgtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 66
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Enabled: false
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowSafeAssignment.
