@@ -149,12 +149,6 @@ Lint/Void:
     - 'lib/pkgtools/pkgdbtools.rb'
     - 'lib/pkgtools/portsdb.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/InefficientHashSearch:
-  Exclude:
-    - 'bin/pkgdb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Performance/RedundantBlockCall:

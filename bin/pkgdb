@@ -661,7 +661,7 @@ def fix_dependencies(pkgname)
   deps.each do |dep, origin|
     unless $pkgnames.include?(dep)
       puts "Stale dependency: #{pkgname} -> #{dep} (#{origin}):"
-      if !$omit_check && !get_real_run_deps(pkgname).values.include?(origin)
+      if !$omit_check && !get_real_run_deps(pkgname).value?(origin)
         # Ignore dependencies which exist in ALG_PKGDEP
         unless alt_dep(dep, origin)
           puts "-> Deleted. (irrelevant)"
