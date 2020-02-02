@@ -423,7 +423,7 @@ class PortsDB
     end
 
     if not system('/bin/mv', '-f', tmp, index_file)
-      STDERR.puts 'failed to overwrite #{index_file}!"'
+      STDERR.puts "failed to overwrite #{index_file}!"
       raise IndexFileError, "index overwrite error"
     end
 
