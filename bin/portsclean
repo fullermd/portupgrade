@@ -581,7 +581,7 @@ end
 def read_link(f)
   l = File.readlink(f)
 
-  if l[0] != ?/
+  if l[0] != '/'
     l = File.join(File.dirname(f), l)
   end
 
@@ -623,7 +623,7 @@ def scan_distfiles(dist_dir)
     Find.find('.') do |f|
       next if not File.file?(f)
 
-      if f[1] == ?/
+      if f[1] == '/'
         f.slice!(0, 2)
 
         distfiles << f

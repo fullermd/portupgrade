@@ -336,7 +336,7 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
                     "log file name for each port; '%s::%s' is appended" << NEXTLINE <<
                     "if it does not contain a %; category and portname" << NEXTLINE <<
                     "are given as arguments (default: do not save logs)") do |fmt|
-      fmt.include?(?%) or fmt << '%s::%s'
+      fmt.include?('%') or fmt << '%s::%s'
 
       $logfilename_format = File.expand_path(fmt)
     end

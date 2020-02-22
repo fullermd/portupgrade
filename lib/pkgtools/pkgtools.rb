@@ -275,7 +275,7 @@ def init_pkgtools_global
 end
 
 def parse_pattern(str, regex = false)
-  if str[0] == ?:
+  if str[0] == ':'
     regex = true
     str = str[1..-1]
   end

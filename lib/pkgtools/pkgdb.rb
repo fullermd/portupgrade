@@ -527,7 +527,7 @@ class PkgDB
 
         # NOTE: you cannot delete keys while you enumerate the database elements
         @db.select do |path, pkgs|
-          path[0] == ?/ && pkgs.split.find { |pkg| deleted_pkgs.qinclude?(pkg) }
+          path[0] == '/' && pkgs.split.find { |pkg| deleted_pkgs.qinclude?(pkg) }
         end.each do |path, pkgs|
           path = File.expand_path(path)
 
@@ -549,7 +549,7 @@ class PkgDB
       new_pkgs.sort do |a, b|
         date_installed(a) <=> date_installed(b)
       end.each do |pkg|
-        STDERR.putc ?.
+        STDERR.putc '.'
 
         n += 1
         if n % 100 == 0

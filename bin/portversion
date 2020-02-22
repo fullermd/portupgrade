@@ -41,12 +41,12 @@ COLUMNSIZE = 24
 NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
 
 SUGGESTIONS = {
-  ?< => 'needs updating (port has %s)',
-  ?= => 'up-to-date with port',
-  ?> => 'succeeds port (port has %s)',
-  ?? => 'error - origin not found',
-  ?! => 'error - port broken',
-  ?# => 'error - origin not recorded; run pkgdb -F',
+  '<' => 'needs updating (port has %s)',
+  '=' => 'up-to-date with port',
+  '>' => 'succeeds port (port has %s)',
+  '?' => 'error - origin not found',
+  '!' => 'error - port broken',
+  '#' => 'error - origin not recorded; run pkgdb -F',
 }
 
 def init_global
@@ -235,7 +235,7 @@ Environment Variables [default]:
           if $test_version
             version = PkgVersion.new(arg)
             x = $test_version <=> version
-            sign = if x < 0 then ?< elsif x == 0 then ?= else ?> end
+            sign = if x < 0 then '<' elsif x == 0 then '=' else '>' end
 
             if $verbose
               printf "%s %c %s\n", $test_version, sign, version
@@ -296,29 +296,29 @@ def check_pkg(pkg, origin = nil)
   pkgname = pkg.fullname
 
   if origin.nil?
-    return nil, ?#
+    return nil, '#'
   end
 
   if portinfo = $portsdb[origin]
     newpkg = portinfo.pkgname
   elsif $portsdb.exist?(origin, true)
-    pkgname = $portsdb.exist?(origin) or return nil, ?!
+    pkgname = $portsdb.exist?(origin) or return nil, '!'
     newpkg = PkgInfo.new(pkgname)        # raises ArgumentError
   else
-    return nil, ??
+    return nil, '?'
   end
 
   cmp = newpkg.version <=> pkg.version
 
   if cmp > 0 then
-    return newpkg, ?<
+    return newpkg, '<'
   elsif cmp < 0 then
-    return newpkg, ?>
+    return newpkg, '>'
   end
 
-  return newpkg, ?=
+  return newpkg, '='
 rescue
-  return nil, ?!
+  return nil, '!'
 end
 
 def check_pkgs(pkgs)
@@ -334,7 +334,7 @@ def check_pkgs(pkgs)
 
     newpkg, sign = check_pkg(pkg, origin)
 
-    next if $command_output && sign != ?<
+    next if $command_output && sign != '<'
 
     next if ($limit_chars && !$limit_chars.include?(sign)) ||
       ($inv_limit_chars && $inv_limit_chars.include?(sign))

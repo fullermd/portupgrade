@@ -569,7 +569,7 @@ class PortsDB
             if lineno % 1000 == 0
               STDERR.print lineno
             else
-              STDERR.putc(?.)
+              STDERR.putc('.')
             end
           end
 
@@ -613,17 +613,17 @@ class PortsDB
       @virtual_categories = (all_categories - real_categories).sort
 
       @db[':categories'] = @categories.join(' ')
-      STDERR.putc(?.)
+      STDERR.putc('.')
       @db[':virtual_categories'] = @virtual_categories.join(' ')
-      STDERR.putc(?.)
+      STDERR.putc('.')
       @db[':origins'] = @origins.join(' ')
-      STDERR.putc(?.)
+      STDERR.putc('.')
       @db[':pkgnames'] = @pkgnames.map { |n| n.to_s }.join(' ')
-      STDERR.putc(?.)
+      STDERR.putc('.')
       all_categories.each do |c|
         @db['?' + c] = @origins_by_categories[c].join(' ')
       end
-      STDERR.putc(?.)
+      STDERR.putc('.')
       @db[':db_version'] = Marshal.dump(DB_VERSION)
     rescue => e
       if File.exist?(@db_file)
