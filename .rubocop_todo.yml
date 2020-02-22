@@ -168,12 +168,6 @@ Style/AccessModifierDeclarations:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/ColonMethodDefinition:
-  Exclude:
-    - 'lib/pkgtools/pkgversion.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerBackticks.
 # SupportedStyles: backticks, percent_x, mixed
 Style/CommandLiteral:
