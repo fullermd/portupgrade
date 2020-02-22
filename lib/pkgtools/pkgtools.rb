@@ -1162,7 +1162,7 @@ class PkgResultSet < SimpleDelegator
 end
 
 def set_signal_handlers
-  for sig in [:SIGINT, :SIGQUIT, :SIGTERM]
+  [:SIGINT, :SIGQUIT, :SIGTERM].each do |sig|
     trap(sig) do
       puts "\nInterrupted."
       $interrupt_proc.call if $interrupt_proc

@@ -115,7 +115,7 @@ class PkgVersion
     end
 
     # Add separators before specials
-    for s in special.keys
+    special.keys.each do |s|
       n1 = n1.gsub(/(#{s})/, ".#{special[s]}")
       n2 = n2.gsub(/(#{s})/, ".#{special[s]}")
     end
