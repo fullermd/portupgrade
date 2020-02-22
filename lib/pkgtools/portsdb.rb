@@ -330,8 +330,8 @@ class PortsDB
   end
 
   def subdirs(dir)
-    %x"fgrep SUBDIR #{dir}/Makefile | sed -e 's/SUBDIR +=//'
-       2> /dev/null".split.select do |i|
+    `fgrep SUBDIR #{dir}/Makefile | sed -e 's/SUBDIR +=//'
+       2> /dev/null`.split.select do |i|
       File.directory?(File.join(dir, i))
     end.sort
   end

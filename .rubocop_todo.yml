@@ -167,14 +167,6 @@ Style/AccessModifierDeclarations:
     - 'lib/pkgtools/pkgdb.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerBackticks.
-# SupportedStyles: backticks, percent_x, mixed
-Style/CommandLiteral:
-  Exclude:
-    - 'lib/pkgtools/portsdb.rb'
-
-# Offense count: 1
 Style/CommentedKeyword:
   Exclude:
     - 'bin/portupgrade'
