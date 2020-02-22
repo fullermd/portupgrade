@@ -323,14 +323,14 @@ end
 
 def check_pkgs(pkgs)
   pkgs.each do |pkg|
-    if !$ignore_moved and \
+    origin = if !$ignore_moved and \
         !config_ignore_moved?(pkg) and \
         (moved = $portsdb.moved.trace(pkg.origin)) and \
         (o = moved.last.to)
-      origin = o
-    else
-      origin = pkg.origin
-    end
+               o
+             else
+               pkg.origin
+             end
 
     newpkg, sign = check_pkg(pkg, origin)
 

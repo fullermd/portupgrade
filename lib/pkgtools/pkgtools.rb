@@ -418,11 +418,11 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
 
       next if not delete
 
-      if all
-        ans = prompt_yesnoall("Delete this?", true)
-      else
-        ans = prompt_yesno("Delete this?", true)
-      end
+      ans = if all
+              prompt_yesnoall("Delete this?", true)
+            else
+              prompt_yesno("Delete this?", true)
+            end
 
       if ans == :all
         return :delete_all
@@ -446,11 +446,11 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
       next
     when ''
       if skip
-        if all
-          ans = prompt_yesnoall("Skip this?", true)
-        else
-          ans = prompt_yesno("Skip this?", true)
-        end
+        ans = if all
+                prompt_yesnoall("Skip this?", true)
+              else
+                prompt_yesno("Skip this?", true)
+              end
 
         if ans == :all
           return :skip_all
@@ -499,13 +499,13 @@ end
 # sudo, xsudo
 def __sudo(x, *args)
   if $sudo && Process.euid != 0
-    if $sudo_args.grep(/%s/).empty?
-      args = $sudo_args + args
-    else
-      args = $sudo_args.map do |arg|
-        format(arg, shelljoin(*args)) rescue arg
-      end
-    end
+    args = if $sudo_args.grep(/%s/).empty?
+             $sudo_args + args
+           else
+             $sudo_args.map do |arg|
+               format(arg, shelljoin(*args)) rescue arg
+             end
+           end
 
     progress_message "[Executing a command as root: " + shelljoin(*args) + "]"
   end
@@ -527,11 +527,11 @@ def script_path
   # If a fixed/custom script(1) is installed by the port, use that version.
   # See #8
   custom_script = "#{PREFIX}/libexec/pkgtools/script"
-  if File.exist?(custom_script)
-    $script_path = custom_script
-  else
-    $script_path = '/usr/bin/script'
-  end
+  $script_path = if File.exist?(custom_script)
+                   custom_script
+                 else
+                   '/usr/bin/script'
+                 end
   $script_path
 end
 
@@ -602,13 +602,13 @@ end
 # backquote
 def __backquote(x, sudo, *args)
   if sudo && Process.euid != 0
-    if $sudo_args.grep(/%s/).empty?
-      args = $sudo_args + args
-    else
-      args = $sudo_args.map do |arg|
-        format(arg, shelljoin(*args)) rescue arg
-      end
-    end
+    args = if $sudo_args.grep(/%s/).empty?
+             $sudo_args + args
+           else
+             $sudo_args.map do |arg|
+               format(arg, shelljoin(*args)) rescue arg
+             end
+           end
 
     cmdline = shelljoin(*args)
 
@@ -640,12 +640,12 @@ def xbackquote!(*args)
 end
 
 def grep_q_file(re, file)
-  case re
-  when Regexp
-    pat = re.source
-  else
-    pat = re.to_s
-  end
+  pat = case re
+        when Regexp
+          re.source
+        else
+          re.to_s
+        end
 
   system '/usr/bin/egrep', '-q', pat, file
 end
@@ -861,12 +861,12 @@ def modify_origin(pkgname, origin)
   else
     contents_file = $pkgdb.pkg_contents(pkgname)
 
-    if grep_q_file(/^@comment[ \t]+ORIGIN:/, contents_file)
-      command = shelljoin('sed',
-                          "s|^\\(@comment[ \t][ \t]*ORIGIN:\\).*$|\\1#{origin}|")
-    else
-      command = "(cat; echo '@comment ORIGIN:#{origin}')"
-    end
+    command = if grep_q_file(/^@comment[ \t]+ORIGIN:/, contents_file)
+                shelljoin('sed',
+                                    "s|^\\(@comment[ \t][ \t]*ORIGIN:\\).*$|\\1#{origin}|")
+              else
+                "(cat; echo '@comment ORIGIN:#{origin}')"
+              end
 
     filter_file(command, contents_file)
   end
@@ -1023,16 +1023,16 @@ class PkgResult
   end
 
   def self.sign(result, long = false)
-    case result
-    when :done
-      sign = "+"
-    when :ignored
-      sign = "-"
-    when :skipped
-      sign = "*"
-    else
-      sign = "!"
-    end
+    sign = case result
+           when :done
+             "+"
+           when :ignored
+             "-"
+           when :skipped
+             "*"
+           else
+             "!"
+           end
 
     if long
       sign << ":" << phrase(result)
@@ -1057,11 +1057,11 @@ class PkgResult
   end
 
   def write(io = STDOUT, prefix = "\t")
-    if @info
-      str = "#{@item} (#{@info})"
-    else
-      str = @item
-    end
+    str = if @info
+            "#{@item} (#{@info})"
+          else
+            @item
+          end
 
     line = prefix.dup << sign << " " << str
 
@@ -1187,15 +1187,15 @@ module PkgConfig
       OS_BRANCH, os_patchlevel, OS_PLATFORM = m[1..-1]
     OS_PATCHLEVEL = os_patchlevel || ""
 
-    case OS_BRANCH
-    when /^CURRENT$/        # <n>-current
-      OS_PKGBRANCH = sprintf('%s-%s', OS_MAJOR, OS_BRANCH.downcase)
-    when /^RELEASE$/        # <n>.<m>-release
-      OS_PKGBRANCH = sprintf('%s-%s', OS_REVISION, OS_BRANCH.downcase)
-    else                # <n>-stable
+    OS_PKGBRANCH = case OS_BRANCH
+                   when /^CURRENT$/        # <n>-current
+                     sprintf('%s-%s', OS_MAJOR, OS_BRANCH.downcase)
+                   when /^RELEASE$/        # <n>.<m>-release
+                     sprintf('%s-%s', OS_REVISION, OS_BRANCH.downcase)
+                   else                # <n>-stable
       # when /^(PRERELEASE|RC\d*|ALPHA|BETA)$/
-      OS_PKGBRANCH = sprintf('%s-%s', OS_MAJOR, 'stable')
-    end
+                     sprintf('%s-%s', OS_MAJOR, 'stable')
+                   end
   else
     STDERR.puts "uname(1) could be broken - cannot parse the output: #{uname}"
   end
@@ -1243,11 +1243,11 @@ module PkgConfig
   end
 
   def enabled_rc_scripts(origin_or_pkgname)
-    if origin_or_pkgname.include?('/')
-      pkgname = deorigin(origin_or_pkgname)
-    else
-      pkgname = origin_or_pkgname
-    end
+    pkgname = if origin_or_pkgname.include?('/')
+                deorigin(origin_or_pkgname)
+              else
+                origin_or_pkgname
+              end
 
     pkg = PkgInfo.new(pkgname)
 
@@ -1261,11 +1261,11 @@ module PkgConfig
   end
 
   def disabled_rc_scripts(origin_or_pkgname)
-    if origin_or_pkgname.include?('/')
-      pkgname = deorigin(origin_or_pkgname)
-    else
-      pkgname = origin_or_pkgname
-    end
+    pkgname = if origin_or_pkgname.include?('/')
+                deorigin(origin_or_pkgname)
+              else
+                origin_or_pkgname
+              end
 
     pkg = PkgInfo.new(pkgname)
 

@@ -50,13 +50,13 @@ end
 COLUMNSIZE = 24
 NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
 
-if PkgConfig::OS_MAJOR.to_i >= 8
-  PKG_SUFFIXES = ['.tbz', '.txz', '.tgz']
-elsif PkgConfig::OS_MAJOR.to_i >= 5
-  PKG_SUFFIXES = ['.tbz', '.tgz']
-else
-  PKG_SUFFIXES = ['.tgz', '.tbz']
-end
+PKG_SUFFIXES = if PkgConfig::OS_MAJOR.to_i >= 8
+                 ['.tbz', '.txz', '.tgz']
+               elsif PkgConfig::OS_MAJOR.to_i >= 5
+                 ['.tbz', '.tgz']
+               else
+                 ['.tgz', '.tbz']
+               end
 
 def main(argv)
   usage = <<-"EOF"
@@ -214,11 +214,11 @@ def do_fetch_pkg(pkgname)
 
   progress_message "Fetching #{pkgname}"
 
-  if $pkgdb.with_pkgng?
-    temp_path_base = File.join($tmpdir, 'All/', pkgname)
-  else
-    temp_path_base = File.join($tmpdir, pkgname)
-  end
+  temp_path_base = if $pkgdb.with_pkgng?
+                     File.join($tmpdir, 'All/', pkgname)
+                   else
+                     File.join($tmpdir, pkgname)
+                   end
 
   temp_path = real_fetch_pkg(pkgname, temp_path_base, latest)
 
@@ -306,13 +306,13 @@ def set_uri_base(uri_s)
     # not a remote URI
   end
 
-  if ENV.key?('PACKAGESITE')
-    $pkg_site_uris = [URI.parse(ENV['PACKAGESITE']) + '../']
-  else
-    $pkg_site_uris = $pkg_sites.map do |str|
-      URI.parse(str)
-    end
-  end
+  $pkg_site_uris = if ENV.key?('PACKAGESITE')
+                     [URI.parse(ENV['PACKAGESITE']) + '../']
+                   else
+                     $pkg_sites.map do |str|
+                       URI.parse(str)
+                     end
+                   end
 
   return true
 rescue => e
@@ -322,11 +322,11 @@ rescue => e
 end
 
 def real_fetch_pkg(pkgname, path_base, latest = false)
-  if latest
-    subdir = $subdir || 'Latest'
-  else
-    subdir = $subdir || 'All'
-  end
+  subdir = if latest
+             $subdir || 'Latest'
+           else
+             $subdir || 'All'
+           end
 
   if $pkgdb.with_pkgng?
     suffix = '.txz'
@@ -364,14 +364,14 @@ def fetch(uri, path = File.basename(uri.path))
 
   uri_subbed = uri.to_s.gsub("%3A", ":").gsub("%2F", "/")
 
-  if $pkgdb.with_pkgng?
+  cmdline = if $pkgdb.with_pkgng?
     # Path is /tmp/<something>/All
-    cmdline = format("%s fetch -U -y -o '%s' '%s'", PkgDB.command(:pkg),
-                     File.dirname(File.dirname(path)),
-                     File.basename(uri, '.txz'))
-  else
-    cmdline = format(ENV['PKG_FETCH'] || "/usr/bin/fetch -o '%2$s' '%1$s'", uri_subbed, path)
-  end
+              format("%s fetch -U -y -o '%s' '%s'", PkgDB.command(:pkg),
+                               File.dirname(File.dirname(path)),
+                               File.basename(uri, '.txz'))
+            else
+              format(ENV['PKG_FETCH'] || "/usr/bin/fetch -o '%2$s' '%1$s'", uri_subbed, path)
+            end
 
   progress_message "Invoking a command: #{cmdline}" if $verbose
 

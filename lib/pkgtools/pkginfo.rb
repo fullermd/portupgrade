@@ -157,11 +157,11 @@ class PkgInfo
       chdir = "cd #{File.dirname(pkg)};"
     end
 
-    if $pkgdb.with_pkgng?
-      info = `#{chdir}env PKG_PATH= #{PkgDB.command(:pkg)} query "#{opt}" #{pkg} 2>/dev/null`.chomp
-    else
-      info = `#{chdir}env PKG_PATH= #{PKG_INFO_CMD} -q#{opt} #{pkg} 2>/dev/null`.chomp
-    end
+    info = if $pkgdb.with_pkgng?
+             `#{chdir}env PKG_PATH= #{PkgDB.command(:pkg)} query "#{opt}" #{pkg} 2>/dev/null`.chomp
+           else
+             `#{chdir}env PKG_PATH= #{PKG_INFO_CMD} -q#{opt} #{pkg} 2>/dev/null`.chomp
+           end
 
     info.empty? ? nil : info
   end

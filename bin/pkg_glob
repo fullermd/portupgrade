@@ -37,12 +37,12 @@ MYNAME = File.basename($0)
 require "optparse"
 require "pkgtools"
 
-case MYNAME
-when 'pkg_deinstall'
-  $service = :deinstall
-else
-  $service = :list
-end
+$service = case MYNAME
+           when 'pkg_deinstall'
+             :deinstall
+           else
+             :list
+           end
 $service_verb = $service.to_s
 
 COLUMNSIZE = 22
@@ -66,17 +66,17 @@ def init_global
 end
 
 def main(argv)
-  case $service
-  when :deinstall
-    usage = <<-"EOF"
+  usage = case $service
+          when :deinstall
+            <<-"EOF"
 usage: #{MYNAME} [-hacdDfinOPqrRv] [-e args] [-p prefix] [-x pkgname_glob]
         [pkgname_glob ...]
-    EOF
-  else
-    usage = <<-"EOF"
+            EOF
+          else
+            <<-"EOF"
 usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
-    EOF
-  end
+            EOF
+          end
 
   banner = <<-"EOF"
 #{MYNAME} #{Version} (#{PkgTools::DATE})
@@ -285,11 +285,11 @@ Environment Variables [default]:
 
       tasks.reverse_each do |pkgname|
         begin
-          if deinstall_pkg(pkgname)
-            results << PkgResult.new(pkgname, :done)
-          else
-            results << PkgResult.new(pkgname, :skipped)
-          end
+          results << if deinstall_pkg(pkgname)
+                       PkgResult.new(pkgname, :done)
+                     else
+                       PkgResult.new(pkgname, :skipped)
+                     end
         rescue => e
           raise e if e.class == PkgDB::NeedsPkgNGSupport
           results << PkgResult.new(pkgname, e)

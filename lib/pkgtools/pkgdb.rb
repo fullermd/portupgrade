@@ -773,11 +773,11 @@ class PkgDB
 
       prev = nil
 
-      if File.size(filename) >= 65536        # 64KB
-        obj = "| grep -E '^@pkgdep|^@comment DEPORIGIN:' #{filename}"
-      else
-        obj = filename
-      end
+      obj = if File.size(filename) >= 65536        # 64KB
+              "| grep -E '^@pkgdep|^@comment DEPORIGIN:' #{filename}"
+            else
+              filename
+            end
 
       open(obj) do |f|
         f.each do |line|
@@ -843,13 +843,13 @@ class PkgDB
   end
 
   def installed_pkgs!()
-    if with_pkgng?
-      packages = backquote(PkgDB.command(:pkg), 'query', '%n-%v').split
-    else
-      packages = Dir.entries(db_dir).select do |pkgname|
-        /^\.\.?$/ !~ pkgname && pkgdir?(pkgdir(pkgname))
-      end
-    end
+    packages = if with_pkgng?
+                 backquote(PkgDB.command(:pkg), 'query', '%n-%v').split
+               else
+                 Dir.entries(db_dir).select do |pkgname|
+                   /^\.\.?$/ !~ pkgname && pkgdir?(pkgdir(pkgname))
+                 end
+               end
     packages.sort
   rescue => e
     raise DBError, e.message

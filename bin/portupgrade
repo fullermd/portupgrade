@@ -862,12 +862,12 @@ end
 # Returns:
 #      Set: all recursive depends list
 def get_all_depends(origin, parents_list = nil)
-  if $use_packages_only
-    depends_vars = %w{LIB_DEPENDS RUN_DEPENDS}
-  else
-    depends_vars = %w{FETCH_DEPENDS EXTRACT_DEPENDS PATCH_DEPENDS
+  depends_vars = if $use_packages_only
+                   %w{LIB_DEPENDS RUN_DEPENDS}
+                 else
+                   %w{FETCH_DEPENDS EXTRACT_DEPENDS PATCH_DEPENDS
                       BUILD_DEPENDS LIB_DEPENDS RUN_DEPENDS}
-  end
+                 end
 
   unless $depends.has_key?(origin)
     depends = Set.new
@@ -955,11 +955,11 @@ def run_make_config(portdir, origin)
     cmdargs << 'ECHO_MSG=/usr/bin/true'
   end
 
-  if $force_config
-    cmdargs << 'config'
-  else
-    cmdargs << 'config-conditional'
-  end
+  cmdargs << if $force_config
+               'config'
+             else
+               'config-conditional'
+             end
 
   if !system "cd #{portdir} && #{shelljoin(*cmdargs)}"
     warning_message "make config failed for #{origin}"
@@ -1121,11 +1121,11 @@ def do_install(origin, orphan)
   end
 
   begin
-    if install_new_port(origin, orphan, false)        # confirmed in advance
-      $results << PkgResult.new(origin, :done)
-    else
-      $results << PkgResult.new(origin, :skipped)
-    end
+    $results << if install_new_port(origin, orphan, false)        # confirmed in advance
+                  PkgResult.new(origin, :done)
+                else
+                  PkgResult.new(origin, :skipped)
+                end
   rescue IgnoreMarkError => e
     $results << PkgResult.new(origin, :ignored)
   rescue => e
@@ -1402,13 +1402,13 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
 
   cmp = newpkg.version <=> oldpkg.version
 
-  if cmp > 0
-    service = :upgrade
-  elsif cmp == 0
-    service = :reinstall
-  else
-    service = :downgrade
-  end
+  service = if cmp > 0
+              :upgrade
+            elsif cmp == 0
+              :reinstall
+            else
+              :downgrade
+            end
 
   if newpkg.name != oldpkg.name
     warning_message "Detected a package name change: #{oldpkg.name} (#{oldpkg.origin || 'unknown'}) -> '#{newpkg.name}' (#{origin})"
@@ -1843,11 +1843,11 @@ def build_port(origin, logfile = nil, retried = false, is_new = false)
           raise BuildError, 'distclean error'
       end
 
-      if $fetch_recursive
-        cmdargs << 'checksum-recursive'
-      else
-        cmdargs << 'checksum'
-      end
+      cmdargs << if $fetch_recursive
+                   'checksum-recursive'
+                 else
+                   'checksum'
+                 end
 
       xscript!(logfile, *cmdargs)        # raises CommandFailedError
     else
@@ -1901,11 +1901,11 @@ end
 def distclean_mismatched(logfile)
   progress_message "Deleting mismatched files"
 
-  if File.size(logfile) >= 65536        # 64KB
-    obj = "| grep '^=> \\(MD5\\|SHA256\\) Checksum mismatch for ' #{logfile}"
-  else
-    obj = logfile
-  end
+  obj = if File.size(logfile) >= 65536        # 64KB
+          "| grep '^=> \\(MD5\\|SHA256\\) Checksum mismatch for ' #{logfile}"
+        else
+          logfile
+        end
 
   files = []
 
@@ -2292,15 +2292,15 @@ def guess_reason(logfile)
   elsif grep_q_file(/values\.h: No such file or directory/, logfile)
     reason = :values_h
   elsif grep_q_file(/.*\.h: No such file/, logfile)
-    if grep_q_file(/(X11\/.*|Xosdefs)\.h: No such file/, logfile)
-      if $pkgdb.glob('XFree86-*').empty?
-        reason = :usexlib
-      else
-        reason = :header
-      end
-    else
-      reason = :header
-    end
+    reason = if grep_q_file(/(X11\/.*|Xosdefs)\.h: No such file/, logfile)
+               if $pkgdb.glob('XFree86-*').empty?
+                 :usexlib
+               else
+                 :header
+                        end
+             else
+               :header
+             end
 #  elsif grep_q_file(/pnohang: killing make checksum/, logfile)
 #    reason = :fetch_timeout
 #  elsif grep_q_file(/pnohang: killing make package/, logfile)
