@@ -54,7 +54,7 @@ def init_global
   #$sanity_check = true
   $temp_dir = ""
   $update_db = false
-  $origins = Hash.new
+  $origins = {}
 end
 
 def main(argv)
@@ -295,7 +295,7 @@ def get_real_run_deps(pkgname)
 
     puts "Disclose depends for #{pkgname}" if $verbose
 
-    $origins[pkgname] = Hash.new
+    $origins[pkgname] = {}
     `cd #{$portsdb.portdir(origin)} && #{shelljoin(*make_env)} make #{shelljoin(*make_args)} package-depends-list`.each_line do |line|
       next if line.empty?
       a = line.chomp.split(/ /)

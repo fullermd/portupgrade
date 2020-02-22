@@ -141,9 +141,9 @@ end
 def config_make_env(origin, pkgname = nil)
   $make_env_table ||= compile_config_table(config_value(:MAKE_ENV))
 
-  envset = (lookup_config_table($make_env_table, origin, pkgname) or Array.new)
+  envset = (lookup_config_table($make_env_table, origin, pkgname) or [])
 
-  make_env = Array.new
+  make_env = []
 
   envset.each do |envs|
     if envs.is_a?(Proc)
@@ -1314,7 +1314,7 @@ module PkgConfig
   end
 
   def include_hash(glob)
-    hash = Hash.new
+    hash = {}
     Dir.glob(File.join(PREFIX, glob)) do |f|
       if FileTest.file?(f)
         File.open(f) do |file|

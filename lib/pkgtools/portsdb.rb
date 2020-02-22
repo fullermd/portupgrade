@@ -101,7 +101,7 @@ class PortsDB
     MOVED_FILE = 'MOVED'
 
     def initialize(ports_dir)
-      @moved = Hash.new
+      @moved = {}
       @seq = 0
       fill(File.join(ports_dir, MOVED_FILE))
     end
@@ -209,7 +209,7 @@ class PortsDB
 
   def ports_dir=(new_ports_dir)
     @abs_ports_dir = @index_file = @dist_dir = nil
-    @alt_index_files = Array.new
+    @alt_index_files = []
 
     @ports_dir = new_ports_dir || ENV['PORTSDIR'] || '/usr/ports'
   end
