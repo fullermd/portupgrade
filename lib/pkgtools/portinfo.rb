@@ -96,7 +96,7 @@ class PortInfo
   end
 
   def to_s(ports_dir = PortsDB.instance.ports_dir)
-    FIELDS.collect { |field|
+    FIELDS.collect do |field|
       value = @attr[field]
 
       if value.nil?
@@ -113,7 +113,7 @@ class PortInfo
           value
         end
       end
-    }.join(FIELD_SEPARATOR) + "\n"
+    end.join(FIELD_SEPARATOR) + "\n"
   end
 
   def <=>(other)

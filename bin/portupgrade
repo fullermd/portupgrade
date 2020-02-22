@@ -237,236 +237,236 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
     opts.def_option("-h", "--help",
-                    "Show this message") {
+                    "Show this message") do
       print opts
       exit 0
-    }
+    end
 
     opts.def_option("-a", "--all",
-                    "Do with all the installed packages") { |v|
+                    "Do with all the installed packages") do |v|
       $all = v
       $recursive = false
       $upward_recursive = false
-    }
+    end
 
     opts.def_option("-A", "--afterinstall=CMD",
-                    "Run the command after each installation") { |v|
+                    "Run the command after each installation") do |v|
       $afterinstall = v
       $afterinstall.strip!
-    }
+    end
 
     opts.def_option("-b", "--backup-packages",
-                    "Keep backup packages of the old versions") { |v|
+                    "Keep backup packages of the old versions") do |v|
       $backup_packages = v
-    }
+    end
 
     opts.def_option("--batch",
                     "Run an upgrading process in a batch mode" << NEXTLINE <<
-                        "(with BATCH=yes)") { |v|
+                        "(with BATCH=yes)") do |v|
       $batch_mode = v
-    }
+    end
 
     opts.def_option("-B", "--beforebuild=CMD",
                     "Run the command before each build; If the command" << NEXTLINE <<
-                    "exits in failure, then the port will be skipped") { |v|
+                    "exits in failure, then the port will be skipped") do |v|
       $beforebuild = v
       $beforebuild.strip!
-    }
+    end
 
     opts.def_option("-c", "--config",
-                    "Run \"make config-conditional\" before everything for all tasks") { |v|
+                    "Run \"make config-conditional\" before everything for all tasks") do |v|
       $config = v
-    }
+    end
 
     opts.def_option("-C", "--force-config",
-                    "Run \"make config\" before everything for all tasks") { |v|
+                    "Run \"make config\" before everything for all tasks") do |v|
       $force_config = v
       $config = true
-    }
+    end
 
     opts.def_option("-D", "--distclean",
                     "Delete failed distfiles and retry if checksum fails" << NEXTLINE <<
                     "Specified twice, do \"make distclean\" before each" << NEXTLINE <<
-                    "fetch or build") {
+                    "fetch or build") do
       $distclean += 1
-    }
+    end
 
     opts.def_option("-e", "--emit-summaries",
-                    "Emit summary info after each port processing" << NEXTLINE) { |v|
+                    "Emit summary info after each port processing" << NEXTLINE) do |v|
       $emit_summaries = v
-    }
+    end
 
     opts.def_option("-f", "--force",
                     "Force the upgrade of a port even if it is to be a" << NEXTLINE <<
-                    "downgrade or just a reinstall, or the port is held") { |v|
+                    "downgrade or just a reinstall, or the port is held") do |v|
       $force = v
-    }
+    end
 
     opts.def_option("-F", "--fetch-only",
                     "Only fetch distfiles or packages (if -P is given);" << NEXTLINE <<
-                    "Do not build or install anything") { |v|
+                    "Do not build or install anything") do |v|
       $fetch_only = v
-    }
+    end
 
     opts.def_option("--ignore-moved",
-                    "Ignore MOVED file") { |v|
+                    "Ignore MOVED file") do |v|
       $ignore_moved = v
-    }
+    end
 
     opts.def_option("-i", "--interactive",
-                    "Turn on interactive mode") { |v|
+                    "Turn on interactive mode") do |v|
       $interactive = v
       $verbose = true
-    }
+    end
 
     opts.def_option("-k", "--keep-going",
                     "Force the upgrade of a port even if some of the" << NEXTLINE <<
-                    "requisite ports have failed to upgrade") { |v|
+                    "requisite ports have failed to upgrade") do |v|
       $keep_going = v
-    }
+    end
 
     opts.def_option("-l", "--results-file=FILE",
                     "Specify a file name to save the results to" << NEXTLINE <<
-                    "(default: do not save results)") { |resultsfile|
+                    "(default: do not save results)") do |resultsfile|
       $resultsfile = File.expand_path(resultsfile)
-    }
+    end
 
     opts.def_option("-L", "--log-file=FORMAT",
                     "Specify a printf(3) style format to determine the" << NEXTLINE <<
                     "log file name for each port; '%s::%s' is appended" << NEXTLINE <<
                     "if it does not contain a %; category and portname" << NEXTLINE <<
-                    "are given as arguments (default: do not save logs)") { |fmt|
+                    "are given as arguments (default: do not save logs)") do |fmt|
       fmt.include?(?%) or fmt << '%s::%s'
 
       $logfilename_format = File.expand_path(fmt)
-    }
+    end
 
     opts.def_option("-m", "--make-args=ARGS",
                     "Specify arguments to append to each make(1)" << NEXTLINE <<
-                    "command line") { |v|
+                    "command line") do |v|
       $make_args = v
-    }
+    end
 
     opts.def_option("-M", "--make-env=ARGS",
                     "Specify arguments to prepend to each make(1)" << NEXTLINE <<
-                    "command line") { |make_env|
+                    "command line") do |make_env|
       $make_env = shellwords(make_env) unless make_env.empty?
 
       if $make_env[0].include?('=')
         $make_env.unshift('env')
       end
-    }
+    end
 
     opts.def_option("-n", "--noexecute",
                     "Do not upgrade any ports, but just show what would" << NEXTLINE <<
-                    "be done") { |v|
+                    "be done") do |v|
       $noexecute = v
       $verbose = true
       $interactive = true
       $yestoall = false
-    }
+    end
 
     opts.def_option("-N", "--new",
                     "Install a new one when a specified package is" << NEXTLINE <<
                     "not installed, after upgrading all the dependent" << NEXTLINE <<
-                    "packages (default: #{MYNAME == 'portinstall' ? 'on' : 'off'})") { |v|
+                    "packages (default: #{MYNAME == 'portinstall' ? 'on' : 'off'})") do |v|
       $new = v
-    }
+    end
 
     opts.def_option("-o", "--origin=ORIGIN",
-                    "Specify a port to upgrade the following pkg with") { |origin|
+                    "Specify a port to upgrade the following pkg with") do |origin|
       $origin = $portsdb.strip(origin) || origin
-    }
+    end
 
     opts.def_option("-O", "--omit-check",
-                    "Omit sanity checks for dependencies.") {
+                    "Omit sanity checks for dependencies.") do
       $sanity_check = false
       $uninstall_extra_flags << 'O'
-    }
+    end
 
     opts.def_option("-p", "--package",
-                    "Build package when each port is installed") { |v|
+                    "Build package when each port is installed") do |v|
       $package = v
-    }
+    end
 
     opts.def_option("-P", "--use-packages",
                     "Use packages instead of ports whenever available;" << NEXTLINE <<
-                    "Specified twice, --use-packages-only is implied") {
+                    "Specified twice, --use-packages-only is implied") do
       if $use_packages and !dry_parse
         $use_packages_only = true
       else
         $use_packages = true
       end
-    }
+    end
 
     opts.def_option("--use-packages-only",
-                    "Or -PP; Use no ports but packages only") { |v|
+                    "Or -PP; Use no ports but packages only") do |v|
       $use_packages_only = v
       $use_packages = true
-    }
+    end
 
     opts.def_option("-q", "--quiet",
-                    "Be quiet when -N option specified and the package already installed") { |v|
+                    "Be quiet when -N option specified and the package already installed") do |v|
       $quiet = v
-    }
+    end
 
     opts.def_option("--noconfig",
-                    "Do not read pkgtools.conf") { |v|
+                    "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
     opts.def_option("-r", "--recursive",
                     "Do with all those depending on the given packages" << NEXTLINE <<
-                    "as well") {
+                    "as well") do
       $recursive = true unless $all
-    }
+    end
 
     opts.def_option("-R", "--upward-recursive",
                     "Do with all those required by the given packages" << NEXTLINE <<
-                    "as well / Fetch recursively if -F is specified") {
+                    "as well / Fetch recursively if -F is specified") do
       $upward_recursive = true unless $all
       $fetch_recursive = true
-    }
+    end
 
     opts.def_option("-s", "--sudo",
-                    "Run commands under sudo(8) where needed") { |v|
+                    "Run commands under sudo(8) where needed") do |v|
       $sudo = v
-    }
+    end
 
     opts.def_option("-S", "--sudo-command=CMD",
                     "Specify an alternative to sudo(8)" << NEXTLINE <<
-                    "e.g. 'su root -c \"%s\"' (default: sudo)") { |sudo_command|
+                    "e.g. 'su root -c \"%s\"' (default: sudo)") do |sudo_command|
       $sudo_args = shellwords(sudo_command)
-    }
+    end
 
     opts.def_option("-u", "--uninstall-shlibs",
-                    "Do not preserve old shared libraries") {
+                    "Do not preserve old shared libraries") do
       $uninstall_extra_flags.sub!(/P/, '')
-    }
+    end
 
     opts.def_option("-v", "--verbose",
-                    "Be verbose") { |v|
+                    "Be verbose") do |v|
       $verbose = v
-    }
+    end
 
     opts.def_option("-w", "--noclean",
-                    "Do not \"make clean\" before each build") { |_noclean|
+                    "Do not \"make clean\" before each build") do |_noclean|
       $clean = false
-    }
+    end
 
     opts.def_option("-W", "--nocleanup",
-                    "Do not \"make clean\" after each installation") { |_nocleanup|
+                    "Do not \"make clean\" after each installation") do |_nocleanup|
       $cleanup = false
-    }
+    end
 
     opts.def_option("--without-env-upgrade",
-                          "Do not set UPGRADE_* environment variables") { |v|
+                          "Do not set UPGRADE_* environment variables") do |v|
       $without_env_upgrade = v
-    }
+    end
 
     opts.def_option("-x", "--exclude=GLOB",
                     "Exclude packages matching the specified glob" << NEXTLINE <<
-                    "pattern") { |arg|
+                    "pattern") do |arg|
       begin
         pattern = parse_pattern(arg)
       rescue RegexpError => e
@@ -475,14 +475,14 @@ usage: #{MYNAME} [-habcCDDefFiklnOpPPqrRsuvwWy] [-A command] [-B command]
       end
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
-    }
+    end
 
     opts.def_option("-y", "--yes",
-                    "Answer yes to all the questions") { |v|
+                    "Answer yes to all the questions") do |v|
       $yestoall = v
       $verbose = true
       $noexecute = false
-    }
+    end
 
     opts.def_tail_option '
 pkgname_glob is one of these: a full pkgname, a pkgname w/o version,
@@ -591,7 +591,7 @@ Environment Variables [default]:
         found = false
 
         unless $new
-          catch(:pkg) {
+          catch(:pkg) do
             begin
               $pkgdb.glob(pattern, false).each do |pkgname|
                 first ||= pkgname
@@ -740,7 +740,7 @@ Environment Variables [default]:
               warning_message "No matching packages left after exclusion: #{arg}"
               throw :pkg
             end
-          }
+          end
           unless found
             warning_message "No such installed package: #{arg}"
           end
@@ -1313,7 +1313,7 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
   newpkg = nil
 
   if (oldpkg.version < portpkg.version || $force) && $use_packages
-    newpkg = catch(:newpkg) {
+    newpkg = catch(:newpkg) do
       make_args = get_make_args(origin)
 
       if !make_args.empty?
@@ -1371,7 +1371,7 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
       end
 
       pkg
-    }
+    end
 
     if $fetch_only
       return newpkg ? [:done, newpkg] : :ignored
@@ -1534,9 +1534,9 @@ def check_pkgname(origin, logfile = nil)
     progress_message "Executing a pre-build command for '#{origin}': " + command
 
     unless $noexecute
-      Dir.chdir(portdir) {
+      Dir.chdir(portdir) do
         xscript(logfile, '/bin/sh', '-c', command)        # raises CommandFailedError
-      }
+      end
     end
   end
 
@@ -1828,7 +1828,7 @@ def build_port(origin, logfile = nil, retried = false, is_new = false)
 
   cmdargs << "FETCH_CMD=#{$fetch_cmd}" if retried && !$fetch_cmd.nil?
 
-  Dir.chdir(portdir) {
+  Dir.chdir(portdir) do
     $fetch_cmd = `make -V FETCH_CMD`.chomp
 
     if !STDOUT.tty?
@@ -1874,7 +1874,7 @@ def build_port(origin, logfile = nil, retried = false, is_new = false)
 
       xscript(logfile, *cmdargs)        # raises CommandFailedError
     end
-  }
+  end
 
   true
 rescue CommandFailedError => e
@@ -1966,7 +1966,7 @@ def install_port(origin, orphan, logfile = nil, is_new = false, *teardown_procs)
   sleep 1
   $pkgdb_update = true
 
-  Dir.chdir(portdir) {
+  Dir.chdir(portdir) do
     xscript!(logfile, *(cmdargs.dup << 'reinstall'))        # raises CommandFailedError
 
     if $package
@@ -1977,9 +1977,9 @@ def install_port(origin, orphan, logfile = nil, is_new = false, *teardown_procs)
       script!(logfile, *(cmdargs.dup << 'clean'))
     end
 
-    teardown_procs.each { |f|
+    teardown_procs.each do |f|
       f.call(:cleanup) if f
-    }
+    end
 
     if command = get_afterinstall_command(origin)
       progress_message "Executing a post-install command for '#{origin}': " + command
@@ -1988,15 +1988,15 @@ def install_port(origin, orphan, logfile = nil, is_new = false, *teardown_procs)
         script!(logfile, '/bin/sh', '-c', command)
       end
     end
-  }
+  end
 
   true
 rescue CommandFailedError => e
   warning_message e.message
 
-  teardown_procs.each { |f|
+  teardown_procs.each do |f|
     f.call(:restore) if f
-  }
+  end
 
   warning_message "Fix the installation problem and try again."
   raise InstallError, "install error"
@@ -2047,9 +2047,9 @@ def install_pkg(pkgname, orphan, origin, logfile = nil, _is_new = false, *teardo
 
   xscript!(logfile, *cmdargs)        # raises CommandFailedError
 
-  teardown_procs.each { |f|
+  teardown_procs.each do |f|
     f.call(:cleanup) if f
-  }
+  end
 
   if command = get_afterinstall_command(origin)
     progress_message "Executing a post-install command for '#{origin}': " + command
@@ -2063,9 +2063,9 @@ def install_pkg(pkgname, orphan, origin, logfile = nil, _is_new = false, *teardo
 rescue CommandFailedError => e
   warning_message e.message
 
-  teardown_procs.each { |f|
+  teardown_procs.each do |f|
     f.call(:restore) if f
-  }
+  end
 
   warning_message "Fix the package's problem and try again."
   raise InstallError, "pkg_add failed"
@@ -2094,12 +2094,12 @@ def uninstall_pkg(pkgname, orphan, logfile = nil, extra_flags = '')
   else
     if str = backquote!(PkgDB::command(:pkg_create), '-vb', pkgname,
                         File.join($tmpdir, pkgname + $portsdb.pkg_sufx))
-      str.each_line { |line|
+      str.each_line do |line|
         if /^Creating .*tar ball in \'(.*)\'/ =~ line
           backup_pkgfile = $1
           break
         end
-      }
+      end
     end
   end
 
@@ -2196,24 +2196,24 @@ def find_pkg(origin)
 
   $pkg_path.split(':').each do |dir|
     begin
-      Dir.chdir(dir) {
-        Dir.glob(glob_pkgfile).grep(re_pkgfile) { |file|
+      Dir.chdir(dir) do
+        Dir.glob(glob_pkgfile).grep(re_pkgfile) do |file|
           id_pkgname, id_origin, pkgdep = identify_pkg(file)
 
           if id_origin == origin
             pkglist << [PkgInfo.new(id_pkgname), File.join(dir, file)]
           end
-        }
-      }
+        end
+      end
     rescue => e
       raise e if e.class == PkgDB::NeedsPkgNGSupport
       warning_message e.message
     end
   end
 
-  latest_pkg, pkgfile = *pkglist.max { |(pkg1, _file1), (pkg2, _file2)|
+  latest_pkg, pkgfile = *pkglist.max do |(pkg1, _file1), (pkg2, _file2)|
     pkg1 <=> pkg2
-  }
+  end
 
   if latest_pkg
     progress_message "Found a package of '#{origin}': #{pkgfile} (#{latest_pkg.fullname})"

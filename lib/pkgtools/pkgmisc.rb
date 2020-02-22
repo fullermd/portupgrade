@@ -86,13 +86,13 @@ def shellwords(line)
 end
 
 def shelljoin(*args)
-  args.collect { |arg|
+  args.collect do |arg|
     if /[*?{}\[\]<>()~&|\\$;\'\`\s]/ =~ arg
       '"' + arg.gsub(/([$\\\"\`])/, "\\\\\\1") + '"'
     else
       arg
     end
-  }.join(' ')
+  end.join(' ')
 end
 
 def init_tmpdir
@@ -113,12 +113,12 @@ def init_tmpdir
   end
   tmpdir.chomp!
 
-  at_exit {
+  at_exit do
     begin
       xsystem("rm -r #{tmpdir}")
     rescue
       warning_message "Could not clean up temporary directory: " + $!
     end
-  }
+  end
   $tmpdir = tmpdir
 end

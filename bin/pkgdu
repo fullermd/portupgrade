@@ -61,41 +61,41 @@ usage: #{MYNAME} [-hbkmRrqs] [pkgname_glob ...]
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-b", "--bytes", "Display size in bytes") {
+    opts.def_option("-b", "--bytes", "Display size in bytes") do
       $divider = 1
-    }
+    end
 
-    opts.def_option("-k", "--kbytes", "Display size in kilobytes (default)") {
+    opts.def_option("-k", "--kbytes", "Display size in kilobytes (default)") do
       $divider = 1024
-    }
+    end
 
-    opts.def_option("-m", "--mbytes", "Display size in Megabytes") {
+    opts.def_option("-m", "--mbytes", "Display size in Megabytes") do
       $divider = 1024 * 1024
-    }
+    end
 
-    opts.def_option("-t", "--total", "Display a grand total") { |v|
+    opts.def_option("-t", "--total", "Display a grand total") do |v|
       $total = v
-    }
+    end
 
-    opts.def_option("-q", "--quiet", "Display only grand total") { |v|
+    opts.def_option("-q", "--quiet", "Display only grand total") do |v|
       $quiet = v
       $total = true
-    }
+    end
 
-    opts.def_option("-r", "--recursive", "Check for all those depending on the given#{NEXTLINE}packages as well") { |v|
+    opts.def_option("-r", "--recursive", "Check for all those depending on the given#{NEXTLINE}packages as well") do |v|
       $recursive = v
-    }
+    end
 
-    opts.def_option("-R", "--upward-recursive", "Check for all those required by the given#{NEXTLINE}packages as well") { |v|
+    opts.def_option("-R", "--upward-recursive", "Check for all those required by the given#{NEXTLINE}packages as well") do |v|
       $upward_recursive = v
-    }
+    end
 
-    opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") { |arg|
+    opts.def_option("-x", "--exclude=GLOB", "Exclude packages matching the specified glob#{NEXTLINE}pattern") do |arg|
       begin
         pattern = parse_pattern(arg)
       rescue RegexpError => e
@@ -104,7 +104,7 @@ usage: #{MYNAME} [-hbkmRrqs] [pkgname_glob ...]
       end
 
       $exclude_packages |= $pkgdb.glob(pattern, false) unless dry_parse
-    }
+    end
 
     opts.def_tail_option '
 pkgname_glob is one of these: a full pkgname, a pkgname w/o version,

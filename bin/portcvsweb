@@ -420,28 +420,28 @@ usage: #{MYNAME} [-hqv] {pkgname_glob|portorigin_glob|file|directory}
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
-    opts.def_option("-v", "--verbose", "Be verbose") { |v|
+    opts.def_option("-v", "--verbose", "Be verbose") do |v|
       $verbose = v
-    }
+    end
 
     opts.def_option("-F", "--freshports",
-                    "View FreshPorts.org instead of cvsweb") { |v|
+                    "View FreshPorts.org instead of cvsweb") do |v|
       $freshports = v
-    }
+    end
 
     opts.def_option("-D [DATE]", "--datespec [DATE]",
-                    "View the FreshPorts.org of DAYBACK days ago.") { |v|
+                    "View the FreshPorts.org of DAYBACK days ago.") do |v|
       $datespec = v
-    }
+    end
 
     begin
       init_global

@@ -68,52 +68,52 @@ usage: #{MYNAME} [-hfFMqrRuU] [-x port_glob] [port_glob ...]
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-f", "--force", "Force to update database regardless of timestamps") { |v|
+    opts.def_option("-f", "--force", "Force to update database regardless of timestamps") do |v|
       $force = v
-    }
+    end
 
-    opts.def_option("-F", "--fetchindex", "Fetch INDEX") { |b|
+    opts.def_option("-F", "--fetchindex", "Fetch INDEX") do |b|
       $update_index = $fetch_index = b
-    }
+    end
 
-    opts.def_option("-M", "--master-recursive", "List all the master ports of the given packages#{NEXTLINE}as well") { |v|
+    opts.def_option("-M", "--master-recursive", "List all the master ports of the given packages#{NEXTLINE}as well") do |v|
       $master_recursive = v
-    }
+    end
 
 #    opts.def_option("-O", "--omit-check", "Omit sanity checks for dependencies.") {
 #      $sanity_check = false
 #    }
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
-    opts.def_option("-r", "--recursive", "List all those depending on the given packages#{NEXTLINE}as well") { |v|
+    opts.def_option("-r", "--recursive", "List all those depending on the given packages#{NEXTLINE}as well") do |v|
       $recursive = v
-    }
+    end
 
-    opts.def_option("-R", "--upward-recursive", "List all those required by the given packages#{NEXTLINE}as well") { |v|
+    opts.def_option("-R", "--upward-recursive", "List all those required by the given packages#{NEXTLINE}as well") do |v|
       $upward_recursive = v
-    }
+    end
 
 #    opts.def_option("-S", "--slave-recursive", "List all the slave ports of the given packages#{NEXTLINE}as well") { |v|
 #      $slave_recursive = v
 #    }
 
-    opts.def_option("-u", "--update", "Update INDEX.db") { |v|
+    opts.def_option("-u", "--update", "Update INDEX.db") do |v|
       $update_db = v
-    }
+    end
 
-    opts.def_option("-U", "--updateindex", "Update INDEX") { |v|
+    opts.def_option("-U", "--updateindex", "Update INDEX") do |v|
       $update_index = v
-    }
+    end
 
-    opts.def_option("-x", "--exclude=GLOB", "Exclude ports matching the specified glob#{NEXTLINE}pattern") { |arg|
+    opts.def_option("-x", "--exclude=GLOB", "Exclude ports matching the specified glob#{NEXTLINE}pattern") do |arg|
       begin
         pattern = parse_pattern(arg)
       rescue RegexpError => e
@@ -122,7 +122,7 @@ usage: #{MYNAME} [-hfFMqrRuU] [-x port_glob] [port_glob ...]
       end
 
       $exclude_ports |= $portsdb.glob(pattern).collect { |portinfo| portinfo.origin }
-    }
+    end
 
     opts.def_tail_option '
 If a port_glob is specified, the ports matching the pattern are listed.

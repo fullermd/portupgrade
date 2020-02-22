@@ -68,45 +68,45 @@ usage: #{MYNAME} [-hCDDiLnPPQQq]
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-C", "--workclean", "Clean up working directories") { |v|
+    opts.def_option("-C", "--workclean", "Clean up working directories") do |v|
       $workclean = v
-    }
+    end
 
-    opts.def_option("-D", "--distclean", "Clean up distfiles which are not referenced from any#{NEXTLINE}port in the ports tree;#{NEXTLINE}Specified twice, clean up distfiles which are not#{NEXTLINE}referenced from any port that is currently installed") {
+    opts.def_option("-D", "--distclean", "Clean up distfiles which are not referenced from any#{NEXTLINE}port in the ports tree;#{NEXTLINE}Specified twice, clean up distfiles which are not#{NEXTLINE}referenced from any port that is currently installed") do
       $distclean += 1
-    }
+    end
 
-    opts.def_option("-i", "--interactive", "Turn on interactive mode") {
+    opts.def_option("-i", "--interactive", "Turn on interactive mode") do
       unless $noexecute
         $interactive = true
       end
-    }
+    end
 
-    opts.def_option("-L", "--libclean", "Clean up old shared libraries") { |v|
+    opts.def_option("-L", "--libclean", "Clean up old shared libraries") do |v|
       $libclean = v
-    }
+    end
 
-    opts.def_option("-n", "--noexecute", "Do not actually delete files") { |v|
+    opts.def_option("-n", "--noexecute", "Do not actually delete files") do |v|
       $noexecute = v
       if $noexecute
         $interactive = false
       end
-    }
+    end
 
 #    opts.def_option("-O", "--omit-check", "Omit sanity checks for dependencies.") {
 #      $sanity_check = false
 #    }
 
-    opts.def_option("-P", "--pkgclean", "Clean up outdated package tarballs;#{NEXTLINE}Specified twice, delete all the package tarballs") {
+    opts.def_option("-P", "--pkgclean", "Clean up outdated package tarballs;#{NEXTLINE}Specified twice, delete all the package tarballs") do
       $pkgclean += 1
-    }
+    end
 
-    opts.def_option("-Q", "--quiet", "Do not write anything to stdout;#{NEXTLINE}Specified twice, stderr neither") {
+    opts.def_option("-Q", "--quiet", "Do not write anything to stdout;#{NEXTLINE}Specified twice, stderr neither") do
       if !$quiet
         STDOUT.reopen(open('/dev/null', 'w')) unless dry_parse
         $quiet = true
@@ -114,11 +114,11 @@ usage: #{MYNAME} [-hCDDiLnPPQQq]
         STDERR.reopen(open('/dev/null', 'w')) unless dry_parse
         $quieter = true
       end
-    }
+    end
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
     opts.def_tail_option '
 Environment Variables [default]:
@@ -229,7 +229,7 @@ def distclean(level)
 
   distfiles = scan_distfiles(dist_dir)
 
-  catch(:done) {
+  catch(:done) do
     throw :done if distfiles.empty?
 
     if 2 <= level
@@ -249,7 +249,7 @@ def distclean(level)
         throw :done if distfiles.empty?
       end
     end
-  }
+  end
 
   if distfiles.empty?
     puts 'no unreferenced distfiles found.'
@@ -397,9 +397,9 @@ def libclean()
 
   libtable.each do |libname, hash|
     # ignore the ones outside the localbase and the x11base
-    hash.delete_if { |_ver, (_path, dir, prefix, _pkgname)|
+    hash.delete_if do |_ver, (_path, dir, prefix, _pkgname)|
       !prefix || dir == compatlibdir
-    }
+    end
 
     size = hash.size
 

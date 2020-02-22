@@ -129,13 +129,13 @@ def config_make_args(origin, pkgname = nil)
   argset = lookup_config_table($make_args_table, origin, pkgname) or
     return nil
 
-  argset.map { |args|
+  argset.map do |args|
     if args.is_a?(Proc)
       String.new(args.call(origin)) rescue nil
     else
       args
     end
-  }.join(' ')
+  end.join(' ')
 end
 
 def config_make_env(origin, pkgname = nil)
@@ -165,13 +165,13 @@ def config_commandtable(key, origin)
   cmdset = lookup_config_table($command_tables[key], origin) or
     return nil
 
-  cmdset.map { |command|
+  cmdset.map do |command|
     if command.is_a?(Proc)
       String.new(command.call(origin)) rescue nil
     else
       command.dup
     end
-  }.compact
+  end.compact
 end
 
 def config_beforebuild(origin)
@@ -379,9 +379,9 @@ ensure
 end
 
 def input_file(prompt, dir, add_history = nil)
-  Dir.chdir(dir) {
+  Dir.chdir(dir) do
     return input_line(prompt, add_history, Readline::FILENAME_COMPLETION_PROC)
-  }
+  end
 end
 
 OPTIONS_NONE        = 0x00
@@ -502,9 +502,9 @@ def __sudo(x, *args)
     if $sudo_args.grep(/%s/).empty?
       args = $sudo_args + args
     else
-      args = $sudo_args.map { |arg|
+      args = $sudo_args.map do |arg|
         format(arg, shelljoin(*args)) rescue arg
-      }
+      end
     end
 
     progress_message "[Executing a command as root: " + shelljoin(*args) + "]"
@@ -605,9 +605,9 @@ def __backquote(x, sudo, *args)
     if $sudo_args.grep(/%s/).empty?
       args = $sudo_args + args
     else
-      args = $sudo_args.map { |arg|
+      args = $sudo_args.map do |arg|
         format(arg, shelljoin(*args)) rescue arg
-      }
+      end
     end
 
     cmdline = shelljoin(*args)
@@ -1118,9 +1118,9 @@ class PkgResultSet < SimpleDelegator
       end
     end
 
-    [:done, :ignored, :skipped, :error].map { |e|
+    [:done, :ignored, :skipped, :error].map do |e|
       "#{count[e]} #{PkgResult.phrase(e)}"
-    }.join(', ').sub(/, ([^,]+)$/, " and \\1")
+    end.join(', ').sub(/, ([^,]+)$/, " and \\1")
   end
 
   def write(io = STDOUT, prefix = "\t", verbose = $verbose)
@@ -1254,9 +1254,9 @@ module PkgConfig
     re = %r"^((?:#{Regexp.quote(localbase())}|#{Regexp.quote(x11base())})/etc/rc\.d/[^/]+(\.sh)?)(\.\w+)?$"
 
     ret = []
-    pkg.files.each { |file|
+    pkg.files.each do |file|
       ret << $1 if re =~ file && File.executable?($1)
-    }
+    end
     ret
   end
 
@@ -1271,9 +1271,9 @@ module PkgConfig
 
     re = %r"^((?:#{Regexp.quote(localbase())}|#{Regexp.quote(x11base())})/etc/rc\.d/[^/]+(\.sh)?)(\.\w+)$"
 
-    pkg.files.select { |file|
+    pkg.files.select do |file|
       re =~ file && File.executable?(file)
-    }
+    end
   end
 
   def cmd_start_rc(origin)

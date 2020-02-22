@@ -72,30 +72,30 @@ usage: #{MYNAME} [-hfqRv] {pkgname|URI} ...
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-f", "--force", "Download a package even if recorded as installed;#{NEXTLINE}Remove existing packages if they are corrupt") { |v|
+    opts.def_option("-f", "--force", "Download a package even if recorded as installed;#{NEXTLINE}Remove existing packages if they are corrupt") do |v|
       $force = v
-    }
+    end
 
 #    opts.def_option("-O", "--omit-check", "Omit sanity checks for dependencies.") {
 #      $sanity_check = false
 #    }
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
-    opts.def_option("-R", "--upward-recursive", "Download the packages required by the given#{NEXTLINE}packages as well") { |v|
+    opts.def_option("-R", "--upward-recursive", "Download the packages required by the given#{NEXTLINE}packages as well") do |v|
       $upward_recursive = v
-    }
+    end
 
-    opts.def_option("-v", "--verbose", "Be verbose") { |v|
+    opts.def_option("-v", "--verbose", "Be verbose") do |v|
       $verbose = v
-    }
+    end
 
     opts.def_tail_option '
 pkgname is a full pkgname, a pkgname w/o version followed by an @,
@@ -309,9 +309,9 @@ def set_uri_base(uri_s)
   if ENV.key?('PACKAGESITE')
     $pkg_site_uris = [URI.parse(ENV['PACKAGESITE']) + '../']
   else
-    $pkg_site_uris = $pkg_sites.map { |str|
+    $pkg_site_uris = $pkg_sites.map do |str|
       URI.parse(str)
-    }
+    end
   end
 
   return true

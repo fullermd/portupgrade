@@ -153,9 +153,9 @@ class PortsDB
   end
 
   def PortsDB.finalizer
-    Proc.new {
+    Proc.new do
       PkgDBTools.remove_lock(LOCK_FILE)
-    }
+    end
   end
 
   def setup(alt_db_dir = nil, alt_ports_dir = nil, alt_db_driver = nil)
@@ -187,14 +187,14 @@ class PortsDB
     all_vars = var.is_a?(Array) ? var : [var]
     vars = all_vars.join(' -V ')
     file = dir == ports_dir() ? "-f Mk/bsd.port.mk" : ""
-    results = `cd #{dir} && make #{file} -V #{vars}`.lines.map { |val|
+    results = `cd #{dir} && make #{file} -V #{vars}`.lines.map do |val|
       val.strip!
       if val.empty?
         nil
       else
         val
       end
-    }
+    end
     # Return array if requested, or single value if not
     var.is_a?(Array) ? results : results.first
   end
@@ -220,9 +220,9 @@ class PortsDB
       dir = ports_dir
 
       begin
-        Dir.chdir(dir) {
+        Dir.chdir(dir) do
           @abs_ports_dir = Dir.pwd
-        }
+        end
       rescue => e
         raise DBError, "Can't chdir to '#{dir}': #{e.message}"
       end
@@ -331,9 +331,9 @@ class PortsDB
 
   def subdirs(dir)
     %x"fgrep SUBDIR #{dir}/Makefile | sed -e 's/SUBDIR +=//'
-       2> /dev/null".split.select { |i|
+       2> /dev/null".split.select do |i|
       File.directory?(File.join(dir, i))
-    }.sort
+    end.sort
   end
 
   def categories
@@ -694,9 +694,9 @@ class PortsDB
   def origins!(category = nil)
     if category
       # only lists the ports which primary category is the given category
-      subdirs(portdir(category)).map { |i|
+      subdirs(portdir(category)).map do |i|
         File.join(category, i)
-      }
+      end
     else
       list = []
 
@@ -711,23 +711,23 @@ class PortsDB
   def each(category = nil)
     ports = origins(category) or return nil
 
-    ports.each { |key|
+    ports.each do |key|
       yield(@db[key])
-    }
+    end
   end
 
   def each_category
-    categories.each { |key|
+    categories.each do |key|
       yield(key)
-    }
+    end
   end
 
   def each_origin(category = nil)
     ports = origins(category) or return nil
 
-    ports.each { |key|
+    ports.each do |key|
       yield(key)
-    }
+    end
   end
 
   def each_origin!(category = nil, &block)
@@ -746,9 +746,9 @@ class PortsDB
   def each_pkgname
     open_db
 
-    @pkgnames.each { |key|
+    @pkgnames.each do |key|
       yield(key)
-    }
+    end
   end
 
   def glob(pattern = '*')
@@ -837,9 +837,9 @@ class PortsDB
   end
 
   def all_depends_list!(origin, before_args = nil, after_args = nil)
-    `cd #{$portsdb.portdir(origin)} && #{before_args || ''} make #{after_args || ''} all-depends-list`.lines.map { |line|
+    `cd #{$portsdb.portdir(origin)} && #{before_args || ''} make #{after_args || ''} all-depends-list`.lines.map do |line|
       strip(line.chomp, true)
-    }.compact
+    end.compact
   end
 
   def all_depends_list(origin, before_args = nil, after_args = nil)

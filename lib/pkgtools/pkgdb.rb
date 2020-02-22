@@ -142,9 +142,9 @@ class PkgDB
   end
 
   def PkgDB.finalizer
-    Proc.new {
+    Proc.new do
       PkgDBTools.remove_lock(LOCK_FILE)
-    }
+    end
   end
 
   def initialize(*args)
@@ -191,9 +191,9 @@ class PkgDB
       dir = db_dir
 
       begin
-        Dir.chdir(dir) {
+        Dir.chdir(dir) do
           @abs_db_dir = Dir.pwd
-        }
+        end
       rescue => e
         raise DBError, "Can't chdir to '#{dir}': #{e.message}"
       end
@@ -526,9 +526,9 @@ class PkgDB
         STDERR.print '(...)'
 
         # NOTE: you cannot delete keys while you enumerate the database elements
-        @db.select { |path, pkgs|
+        @db.select do |path, pkgs|
           path[0] == ?/ && pkgs.split.find { |pkg| deleted_pkgs.qinclude?(pkg) }
-        }.each do |path, pkgs|
+        end.each do |path, pkgs|
           path = File.expand_path(path)
 
           pkgs = pkgs.split - deleted_pkgs
@@ -546,9 +546,9 @@ class PkgDB
       end
 
       n = 0
-      new_pkgs.sort { |a, b|
+      new_pkgs.sort do |a, b|
         date_installed(a) <=> date_installed(b)
-      }.each do |pkg|
+      end.each do |pkg|
         STDERR.putc ?.
 
         n += 1
@@ -746,10 +746,10 @@ class PkgDB
 
       File.exist?(filename) or return nil
 
-      File.open(filename).each_line { |line|
+      File.open(filename).each_line do |line|
         line.chomp!
         deps[line] = true unless line.empty?
-      }
+      end
     end
 
     deps.keys
@@ -846,9 +846,9 @@ class PkgDB
     if with_pkgng?
       packages = backquote(PkgDB::command(:pkg), 'query', '%n-%v').split
     else
-      packages = Dir.entries(db_dir).select { |pkgname|
+      packages = Dir.entries(db_dir).select do |pkgname|
         /^\.\.?$/ !~ pkgname && pkgdir?(pkgdir(pkgname))
-      }
+      end
     end
     packages.sort
   rescue => e

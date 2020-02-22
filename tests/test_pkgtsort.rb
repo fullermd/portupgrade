@@ -70,9 +70,9 @@ class TestPkgTSort < Test::Unit::TestCase
 
     t.add(3, 2)
 
-    t.tsort { |cycle|
+    t.tsort do |cycle|
       assert_equal([2, 3], cycle.sort)
       nil
-    }
+    end
   end
 end

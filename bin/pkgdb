@@ -71,12 +71,12 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-c", "--collate=PKGNAME", "Show files installed by the given packge#{NEXTLINE}that have been overwritten by other packages") { |pkgname|
+    opts.def_option("-c", "--collate=PKGNAME", "Show files installed by the given packge#{NEXTLINE}that have been overwritten by other packages") do |pkgname|
       pkgname = $pkgdb.strip(pkgname, true)
 
       begin
@@ -99,36 +99,36 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
         raise e if e.class == PkgDB::NeedsPkgNGSupport
         STDERR.puts e.message
       end unless dry_parse
-    }
+    end
 
-    opts.def_option("-f", "--force", "Force;#{NEXTLINE}Specified with -u, update database#{NEXTLINE}regardless of timestamps#{NEXTLINE}Specified with -F, fix held packages too") { |v|
+    opts.def_option("-f", "--force", "Force;#{NEXTLINE}Specified with -u, update database#{NEXTLINE}regardless of timestamps#{NEXTLINE}Specified with -F, fix held packages too") do |v|
       $force = v
-    }
+    end
 
-    opts.def_option("-F", "--fix", "Fix the package database interactively") { |v|
+    opts.def_option("-F", "--fix", "Fix the package database interactively") do |v|
       $fix_db = v
       $interactive = true if !$automatic
-    }
+    end
 
-    opts.def_option("-a", "--auto", "Turn on automatic mode when -F is also specified") { |v|
+    opts.def_option("-a", "--auto", "Turn on automatic mode when -F is also specified") do |v|
       $automatic = v
       $interactive = false if $fix_db
-    }
+    end
 
-    opts.def_option("--autofix", "Shorthand of --auto --fix (-aF)") {
+    opts.def_option("--autofix", "Shorthand of --auto --fix (-aF)") do
       $automatic = $fix_db = true
-    }
+    end
 
     opts.def_option("-i", "--interactive",
-                    "Turn on interactive mode") { |v|
+                    "Turn on interactive mode") do |v|
       $interactive = v
-    }
+    end
 
-    opts.def_option("-L", "--fix-lost", "Check and restore lost dependencies#{NEXTLINE}against the ports tree") { |v|
+    opts.def_option("-L", "--fix-lost", "Check and restore lost dependencies#{NEXTLINE}against the ports tree") do |v|
       $check_lost = v
-    }
+    end
 
-    opts.def_option("-o", "--origin=PKGNAME[=ORIGIN]", "Look up or change the origin of the given#{NEXTLINE}package") { |arg|
+    opts.def_option("-o", "--origin=PKGNAME[=ORIGIN]", "Look up or change the origin of the given#{NEXTLINE}package") do |arg|
       pkgname, origin = arg.split('=', 2)
       spkgname = $pkgdb.strip(pkgname, true)
       unless dry_parse
@@ -148,13 +148,13 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
           puts '?'
         end
       end
-    }
+    end
 
-    opts.def_option("-O", "--omit-check", "Specified with -F, turn off checks#{NEXTLINE}dependencies against the ports tree. Useful#{NEXTLINE}if you need a speed-up") { |v|
+    opts.def_option("-O", "--omit-check", "Specified with -F, turn off checks#{NEXTLINE}dependencies against the ports tree. Useful#{NEXTLINE}if you need a speed-up") do |v|
       $omit_check = v
-    }
+    end
 
-    opts.def_option("-Q", "--quiet", "Do not write anything to stdout;#{NEXTLINE}Specified twice, stderr neither") {
+    opts.def_option("-Q", "--quiet", "Do not write anything to stdout;#{NEXTLINE}Specified twice, stderr neither") do
       if !$quiet
         STDOUT.reopen(open('/dev/null', 'w')) unless dry_parse
         $quiet = true
@@ -162,13 +162,13 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
         STDERR.reopen(open('/dev/null', 'w')) unless dry_parse
         $quieter = true
       end
-    }
+    end
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
-    opts.def_option("-s", "--substitute=/OLD/NEW/", "Substitute all the dependencies recorded#{NEXTLINE}as OLD with NEW") { |expr|
+    opts.def_option("-s", "--substitute=/OLD/NEW/", "Substitute all the dependencies recorded#{NEXTLINE}as OLD with NEW") do |expr|
       if expr.empty?
         warning_message "Illegal expression: " + expr
         print opts
@@ -199,15 +199,15 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
       fix_db_phase2()
 
       $automatic = automatic
-    }
+    end
 
-    opts.def_option("-u", "--update", "Update the package database") { |v|
+    opts.def_option("-u", "--update", "Update the package database") do |v|
       $update_db = v
-    }
+    end
 
-    opts.def_option("-v", "--verbose", "Be verbose") { |v|
+    opts.def_option("-v", "--verbose", "Be verbose") do |v|
       $verbose = v
-    }
+    end
 
     opts.def_tail_option '
 Environment Variables [default]:
@@ -296,11 +296,11 @@ def get_real_run_deps(pkgname)
     puts "Disclose depends for #{pkgname}" if $verbose
 
     $origins[pkgname] = Hash.new
-    `cd #{$portsdb.portdir(origin)} && #{shelljoin(*make_env)} make #{shelljoin(*make_args)} package-depends-list`.each_line { |line|
+    `cd #{$portsdb.portdir(origin)} && #{shelljoin(*make_env)} make #{shelljoin(*make_args)} package-depends-list`.each_line do |line|
       next if line.empty?
       a = line.chomp.split(/ /)
       $origins[pkgname].store(a[0], a[2]) unless a[0].nil? or a[1].nil?
-    }
+    end
   end
   $origins[pkgname]
 end
@@ -449,9 +449,9 @@ def fix_db_phase2()
     if $req_hash.key?(pkgname)
       req_by = $req_hash[pkgname].keys
 
-      req_by.each { |req|
+      req_by.each do |req|
         tsort.add(req, pkgname)
-      }
+      end
 
       File.open(req_file, "w") do |f|
         f.puts(*req_by.sort)
@@ -525,9 +525,9 @@ def fix_origin(pkg)
     end
 
     if origin && prompt_yesno("Browse CVSweb for the port's history?", false)
-      Dir.chdir($ports_dir) {
+      Dir.chdir($ports_dir) do
         xsystem(PkgDB::command(:portcvsweb), File.join(origin, "Makefile"))
-      }
+      end
     end
 
     guess = guess_origin(pkg)
@@ -635,9 +635,9 @@ def guess_origin(pkg)
   print "Guessing... "
   STDOUT.flush
 
-  guess = $portsdb.glob(pkg.name).max { |a, b|
+  guess = $portsdb.glob(pkg.name).max do |a, b|
     matchlen(pkgname, a.pkgname.to_s) <=> matchlen(pkgname, b.pkgname.to_s)
-  }
+  end
 
   if guess
     puts ''
@@ -799,11 +799,11 @@ def guess_dep(dep, origin)
 
   full = calc_score.call(pkgname)
 
-  score, name = pkgnames.map { |name|
+  score, name = pkgnames.map do |name|
     score = calc_score.call(name) * 100 / full
 
     [score, name]
-  }.max
+  end.max
 
   if score.nonzero?
     return name, score

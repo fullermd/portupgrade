@@ -58,14 +58,14 @@ usage: #{MYNAME} [-hq]
   dry_parse = true
 
   OptionParser.new(banner, COLUMNSIZE) do |opts|
-    opts.def_option("-h", "--help", "Show this message") {
+    opts.def_option("-h", "--help", "Show this message") do
       print opts
       exit 0
-    }
+    end
 
-    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") { |v|
+    opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
-    }
+    end
 
     opts.def_tail_option '
 Environment Variables [default]:
@@ -97,7 +97,7 @@ Environment Variables [default]:
 
     pkgs = []
 
-    STDIN.each { |line|
+    STDIN.each do |line|
       pkg = line.chomp
 
       if $pkgdb.installed?(pkg)
@@ -105,7 +105,7 @@ Environment Variables [default]:
       else
         STDERR.puts "No such package is installed: #{pkg}"
       end
-    }
+    end
 
     list = $pkgdb.sort_build!(pkgs)
 
