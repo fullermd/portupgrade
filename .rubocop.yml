@@ -13,6 +13,9 @@ Style/Semicolon:
 Layout/MultilineOperationIndentation:
   EnforcedStyle: 'indented'
 
+Style/EmptyElse:
+  EnforcedStyle: 'empty'
+
 # There's a lot of garbage here, but forced anything isn't great, so deal
 # with it manually as it comes up
 Layout/ParameterAlignment:

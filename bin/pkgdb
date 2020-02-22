@@ -961,7 +961,7 @@ def fix_cycles(tsort)
                 when :keep
                   lines << line
                 else # :delete, nil
-                  # no output
+                  nil
                 end
 
                 deporigin = nil
