@@ -33,23 +33,23 @@
 #
 
 class PkgTSort
-  def initialize()
+  def initialize
     @hints = Hash.new([])
   end
 
-  def empty?()
+  def empty?
     @hints.empty?
   end
 
-  def clear()
+  def clear
     @hints.clear
   end
 
-  def dump()
+  def dump
     @hints.dup
   end
 
-  def dup()
+  def dup
     Marshal.load(Marshal.dump(self))
   end
 

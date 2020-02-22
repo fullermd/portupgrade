@@ -158,20 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 40
-# Cop supports --auto-correct.
-Style/DefWithParentheses:
-  Exclude:
-    - 'bin/pkgdb'
-    - 'bin/portsclean'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/pkgtsort.rb'
-    - 'lib/pkgtools/portinfo.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false

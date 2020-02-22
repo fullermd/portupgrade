@@ -1205,7 +1205,7 @@ module PkgConfig
             root, OS_PLATFORM, OS_PKGBRANCH)
   end
 
-  def pkg_site_primary()
+  def pkg_site_primary
     pkg_site_mirror('ftp://ftp.FreeBSD.org')
   end
 
@@ -1224,11 +1224,11 @@ module PkgConfig
 
   module_function :pkg_site_mirror, :pkg_site_primary, :pkg_site_builder
 
-  def localbase()
+  def localbase
     $portsdb.localbase
   end
 
-  def x11base()
+  def x11base
     $portsdb.x11base
   end
 

@@ -133,15 +133,15 @@ class PortInfo
     end
   end
 
-  def category()
+  def category
     categories().first
   end
 
-  def all_depends()
+  def all_depends
     build_depends | run_depends | extract_depends | patch_depends | fetch_depends
   end
 
-  def required_depends()
+  def required_depends
     build_depends | run_depends
   end
 
@@ -158,15 +158,15 @@ class PortInfo
       @attr[:pkgname].match?(pattern)
   end
 
-  def portdir()
+  def portdir
     PortsDB.instance.portdir origin()
   end
 
-  def exist?()
+  def exist?
     PortsDB.instance.exist? origin()
   end
 
-  def masters()
+  def masters
     PortsDB.instance.masters origin()
   end
 end

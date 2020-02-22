@@ -164,7 +164,7 @@ Environment Variables [default]:
   return 0
 end
 
-def workclean()
+def workclean
   perm = '770'
   grp = 'wheel'
 
@@ -297,7 +297,7 @@ def ldconfig_m(*dirs)
   system('/sbin/ldconfig', '-m', *dirs) unless $noexecute
 end
 
-def libclean()
+def libclean
   libdirs = nil
 
   localbase = $portsdb.localbase

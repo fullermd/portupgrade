@@ -183,7 +183,7 @@ class PkgInfo
     `
   end
 
-  def pkgdir()
+  def pkgdir
     PkgDB.instance.pkgdir fullname()
   end
 
@@ -191,7 +191,7 @@ class PkgInfo
     PkgDB.instance.pkgfile fullname(), filename
   end
 
-  def date_installed()
+  def date_installed
     if $pkgdb.with_pkgng?
       Time.at(get_info(:mtime).to_i)
     else
@@ -201,33 +201,33 @@ class PkgInfo
     end
   end
 
-  def installed?()
+  def installed?
     PkgDB.instance.installed? fullname()
   end
 
-  def required?()
+  def required?
     PkgDB.instance.required? fullname()
   end
 
-  def required_by()
+  def required_by
     PkgDB.instance.required_by fullname()
   end
 
-  def pkgdep()
+  def pkgdep
     PkgDB.instance.pkgdep fullname()
   end
 
-  def files()
+  def files
     str = get_info(:files) || ''
     str.gsub!(%r"//+", '/')        # tr is not multibyte-aware
     str.split("\n")
   end
 
-  def origin!()
+  def origin!
     get_info(:origin)
   end
 
-  def origin()
+  def origin
     PkgDB.instance.origin(fullname()) || origin!()
   end
 

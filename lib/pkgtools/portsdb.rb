@@ -199,7 +199,7 @@ class PortsDB
     var.is_a?(Array) ? results : results.first
   end
 
-  def ports_dir()
+  def ports_dir
     unless @ports_dir
       set_ports_dir(nil)        # initialize with the default value
     end
@@ -215,7 +215,7 @@ class PortsDB
   end
   alias set_ports_dir ports_dir=
 
-  def abs_ports_dir()
+  def abs_ports_dir
     unless @abs_ports_dir
       dir = ports_dir
 
@@ -231,7 +231,7 @@ class PortsDB
     @abs_ports_dir
   end
 
-  def index_file()
+  def index_file
     unless @index_file
       indexdir, indexfile = make_var(['INDEXDIR', 'INDEXFILE'])
       @index_file = ENV['PORTS_INDEX'] || File.join(indexdir, indexfile || 'INDEX')
@@ -253,7 +253,7 @@ class PortsDB
   end
   alias set_db_dir db_dir=
 
-  def db_dir_list()
+  def db_dir_list
     [
       db_dir,
       ports_dir,
@@ -288,7 +288,7 @@ class PortsDB
     make_var('PKG_SUFX', my_portdir) || ENV['PKG_SUFX'] || '.tbz'
   end
 
-  def dist_dir()
+  def dist_dir
     @dist_dir ||= make_var('DISTDIR') || portdir('distfiles')
   end
 

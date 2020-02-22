@@ -842,7 +842,7 @@ class PkgDB
     raise ArgumentError, "#{str}: date format error"
   end
 
-  def installed_pkgs!()
+  def installed_pkgs!
     packages = if with_pkgng?
                  backquote(PkgDB.command(:pkg), 'query', '%n-%v').split
                else
@@ -855,20 +855,20 @@ class PkgDB
     raise DBError, e.message
   end
 
-  def installed_pkgs()
+  def installed_pkgs
     open_db if @installed_pkgs.nil?
 
     @installed_pkgs
   end
 
-  def installed_ports!()
+  def installed_ports!
     ary = installed_pkgs!.map { |pkgname| origin(pkgname) }
     ary.uniq!
     ary.sort!
     ary
   end
 
-  def installed_ports()
+  def installed_ports
     open_db if @installed_ports.nil?
 
     @installed_ports

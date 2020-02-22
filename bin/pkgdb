@@ -305,7 +305,7 @@ def get_real_run_deps(pkgname)
   $origins[pkgname]
 end
 
-def check_lost_deps()
+def check_lost_deps
   # pkg check -dn
   raise NeedsPkgNGSupport, "PKGNG support needed: #{__FILE__}:#{__LINE__}" if $pkgdb.with_pkgng?
   fix_db_init()
@@ -380,7 +380,7 @@ def fix_db
   $pkgdb.unmark_fixme
 end
 
-def fix_db_init()
+def fix_db_init
   $pkgnames = $pkgdb.installed_pkgs
 
   $req_hash = {}        # a hash of pkgname => { dependent1 => true , ... } pairs
@@ -388,7 +388,7 @@ def fix_db_init()
   $all_list = []        # an array of pkgnames, with which a user answered "all"
 end
 
-def fix_db_phase1()
+def fix_db_phase1
   # fix missing or stale origins
   org_hash = {}                # a hash of origin => [pkg1, pkg2, ...] pairs
 
@@ -432,7 +432,7 @@ def fix_db_phase1()
   end
 end
 
-def fix_db_phase2()
+def fix_db_phase2
   if $pkgdb.with_pkgng?
     # FIXME: pkgng
     return
