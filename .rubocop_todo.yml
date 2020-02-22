@@ -166,11 +166,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 1
-Style/CaseEquality:
-  Exclude:
-    - 'lib/pkgtools/portinfo.rb'
-
 # Offense count: 29
 # Cop supports --auto-correct.
 Style/CharacterLiteral:

@@ -149,7 +149,7 @@ class PortInfo
     if pattern.is_a?(String)
       File.fnmatch?(pattern, origin, File::FNM_PATHNAME)
     else
-      pattern === origin ? true : false
+      origin.match?(pattern) ? true : false
     end
   end
 
