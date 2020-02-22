@@ -53,7 +53,7 @@ class Array
 end
 
 def shellwords(line)
-  unless line.kind_of?(String)
+  unless line.is_a?(String)
     raise ArgumentError, "Argument must be String class object."
   end
   line = line.sub(/\A\s+/, '')

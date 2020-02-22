@@ -241,7 +241,7 @@ class PkgDB
 
   def pkgfile(pkgname, filename)
     raise NeedsPkgNGSupport, "PKGNG support needed: #{__FILE__}:#{__LINE__}" if with_pkgng?
-    if filename.kind_of?(Symbol)
+    if filename.is_a?(Symbol)
       filename = PKGDB_FILES[filename]
     end
 
