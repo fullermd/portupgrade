@@ -141,7 +141,7 @@ class PkgDB
 #    end
   end
 
-  def PkgDB.finalizer
+  def self.finalizer
     Proc.new do
       PkgDBTools.remove_lock(LOCK_FILE)
     end

@@ -29,7 +29,7 @@
 #
 
 module PkgDBTools
-  def PkgDBTools.remove_lock(file_name, force = false)
+  def self.remove_lock(file_name, force = false)
     return if file_name.nil?
 
     if !file_name.nil? && File.exist?(file_name) && !File.zero?(file_name) &&

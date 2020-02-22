@@ -83,7 +83,7 @@ class PkgVersion
       @revision <=> other.revision
   end
 
-  def PkgVersion::compare_numbers(n1, n2)
+  def self::compare_numbers(n1, n2)
     # For full comparing rules see file:
     #        /usr/src/usr.sbin/pkg_install/lib/version.c
     special = { 'pl' => 'pl', 'alpha' => 'a', 'beta' => 'b',

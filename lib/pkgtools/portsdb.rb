@@ -152,7 +152,7 @@ class PortsDB
     end
   end
 
-  def PortsDB.finalizer
+  def self.finalizer
     Proc.new do
       PkgDBTools.remove_lock(LOCK_FILE)
     end

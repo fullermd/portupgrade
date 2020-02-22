@@ -166,16 +166,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 15
-# Cop supports --auto-correct.
-Style/ClassMethods:
-  Exclude:
-    - 'bin/portcvsweb'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkgversion.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 61
 # Cop supports --auto-correct.
 Style/ColonMethodCall:
