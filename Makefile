@@ -51,3 +51,9 @@ dist: ${DISTFILES}
 test:
 	@env PORTSDIR=/usr/ports ${RUBY} -Ilib -I. tests/test_all.rb
 	@rm -f /var/db/pkgdb.fixme /var/db/pkg/pkgdb.db
+
+rubocop:
+	rubocop -PES
+
+rubocop-fix:
+	rubocop -a

@@ -46,6 +46,8 @@ Style/SymbolProc:
   Enabled: false
 Style/RescueStandardError:
   Enabled: false
+Style/AndOr:
+  Enabled: false
 
 # It may be useful to enforce one way or another in the future
 Style/SpecialGlobalVars:
