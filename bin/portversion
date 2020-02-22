@@ -368,7 +368,7 @@ def check_pkgs(pkgs)
           sign
       when :quiet then
         printf "%s\n", pkg.send($display)
-  end
+      end
     end
   end
 rescue PortsDB::IndexFileError

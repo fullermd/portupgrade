@@ -2297,7 +2297,7 @@ def guess_reason(logfile)
                  :usexlib
                else
                  :header
-                        end
+               end
              else
                :header
              end
