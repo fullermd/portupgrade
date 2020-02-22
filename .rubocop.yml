@@ -107,6 +107,10 @@ Lint/UselessAccessModifier:
 Naming/ClassAndModuleCamelCase:
   Exclude:
     - 'bin/portcvsweb'
+Style/BarePercentLiterals:
+  Exclude:
+    - 'bin/pkgdu'
+    - 'bin/portversion'
 
 # Do seem to be wrong, and catching StandardError is probably fine, but
 # I'm leaving alone for now.  Both uses are in loading config or the
