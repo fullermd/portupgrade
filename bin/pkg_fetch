@@ -139,7 +139,7 @@ Environment Variables [default]:
       results = PkgResultSet.new
 
       if $pkgdb.with_pkgng?
-        system(format("%s update", PkgDB::command(:pkg)))
+        system(format("%s update", PkgDB.command(:pkg)))
       end
 
       opts.order(*argv) do |arg|
@@ -185,7 +185,7 @@ def do_fetch_pkg(pkgname)
   end
 
   if $pkgdb.with_pkgng?
-    pkgname = backquote!(PkgDB::command(:pkg), 'rquery', '-U', '%n-%v',
+    pkgname = backquote!(PkgDB.command(:pkg), 'rquery', '-U', '%n-%v',
                          pkgname).lines.first.chomp
   end
 
@@ -366,7 +366,7 @@ def fetch(uri, path = File.basename(uri.path))
 
   if $pkgdb.with_pkgng?
     # Path is /tmp/<something>/All
-    cmdline = format("%s fetch -U -y -o '%s' '%s'", PkgDB::command(:pkg),
+    cmdline = format("%s fetch -U -y -o '%s' '%s'", PkgDB.command(:pkg),
                      File.dirname(File.dirname(path)),
                      File.basename(uri, '.txz'))
   else

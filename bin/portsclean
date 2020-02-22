@@ -506,7 +506,7 @@ def pkgclean(level)
 
   pkgs = {}
   if $pkgdb.with_pkgng?
-    IO.popen("cd #{$packages_dir} && find . -maxdepth 1 -type f -name '*.t[bgx]z' -exec echo \"Information for {}:\" \\\; -exec #{PkgDB::command(:pkg)} info -qoF {} \\\;") do |r|
+    IO.popen("cd #{$packages_dir} && find . -maxdepth 1 -type f -name '*.t[bgx]z' -exec echo \"Information for {}:\" \\\; -exec #{PkgDB.command(:pkg)} info -qoF {} \\\;") do |r|
       pkgfile = pkgname = nil
 
       r.each do |line|
@@ -526,7 +526,7 @@ def pkgclean(level)
       end
     end
   else
-    IO.popen("cd #{$packages_dir} && find . -maxdepth 1 -type f -name '*.t[bgx]z' | xargs #{PkgDB::command(:pkg_info)} -o") do |r|
+    IO.popen("cd #{$packages_dir} && find . -maxdepth 1 -type f -name '*.t[bgx]z' | xargs #{PkgDB.command(:pkg_info)} -o") do |r|
       pkgfile = pkgname = nil
 
       r.each do |line|

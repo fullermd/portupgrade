@@ -857,7 +857,7 @@ end
 def modify_origin(pkgname, origin)
   if $pkgdb.with_pkgng?
     oldorigin = $pkgdb.origin(pkgname)
-    str = backquote!(PkgDB::command(:pkg), 'set', '-yo', "#{oldorigin}:#{origin}")
+    str = backquote!(PkgDB.command(:pkg), 'set', '-yo', "#{oldorigin}:#{origin}")
   else
     contents_file = $pkgdb.pkg_contents(pkgname)
 
@@ -885,14 +885,14 @@ def identify_pkg(path)
   pkgdep = []
 
   if $pkgdb.with_pkgng?
-    origin = backquote!(PkgDB::command(:pkg), 'query', '-F', "#{dir}/#{file}",
+    origin = backquote!(PkgDB.command(:pkg), 'query', '-F', "#{dir}/#{file}",
                         '%o').chomp
-    pkgname = backquote!(PkgDB::command(:pkg), 'query', '-F', "#{dir}/#{file}",
+    pkgname = backquote!(PkgDB.command(:pkg), 'query', '-F', "#{dir}/#{file}",
                          '%n-%v').chomp
-    pkgdep = backquote!(PkgDB::command(:pkg), 'query', '-F', "#{dir}/#{file}",
+    pkgdep = backquote!(PkgDB.command(:pkg), 'query', '-F', "#{dir}/#{file}",
                         '%dn-%dv').split("\n")
   else
-    IO.popen("cd #{dir} && #{PkgDB::command(:pkg_info)} -qfo #{file}") do |r|
+    IO.popen("cd #{dir} && #{PkgDB.command(:pkg_info)} -qfo #{file}") do |r|
       r.each do |line|
         case line
         when /^@name\s+(\S*)/

@@ -224,7 +224,7 @@ def pkgs_size(pkgs)
   if $pkgdb.with_pkgng?
     puts pkgs.join(' ')
     begin
-      IO.popen("#{PkgDB::command(:pkg)} query '%n-%v %sb' #{pkgs.join(' ')}") do |r|
+      IO.popen("#{PkgDB.command(:pkg)} query '%n-%v %sb' #{pkgs.join(' ')}") do |r|
         r.each do |line|
           line.chomp!
           pkgname, size_s = line.split(' ')
@@ -252,7 +252,7 @@ def pkgs_size(pkgs)
 
       size = 0
       begin
-        IO.popen("#{PkgDB::command(:pkg_info)} -qL #{pkg}") do |r|
+        IO.popen("#{PkgDB.command(:pkg_info)} -qL #{pkg}") do |r|
           r.each do |line|
             line.chomp!
             size += File.size(line)

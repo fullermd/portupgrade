@@ -287,7 +287,7 @@ end
 
 def get_real_run_deps(pkgname)
   unless $origins.has_key?(pkgname)
-    origin = PkgInfo::new(pkgname).origin
+    origin = PkgInfo.new(pkgname).origin
     make_env = config_make_env(origin, pkgname)
     make_args = config_make_args(origin, pkgname)
 
@@ -526,7 +526,7 @@ def fix_origin(pkg)
 
     if origin && prompt_yesno("Browse CVSweb for the port's history?", false)
       Dir.chdir($ports_dir) do
-        xsystem(PkgDB::command(:portcvsweb), File.join(origin, "Makefile"))
+        xsystem(PkgDB.command(:portcvsweb), File.join(origin, "Makefile"))
       end
     end
 
@@ -607,7 +607,7 @@ def fix_origin(pkg)
       # pkg_deinstall will update the pkgdb
       $pkgdb.close_db
 
-      if xsystem(PkgDB::command(:pkg_deinstall), pkgname)
+      if xsystem(PkgDB.command(:pkg_deinstall), pkgname)
         puts "--> Done."
         return nil
       else
@@ -687,7 +687,7 @@ def fix_dependencies(pkgname)
       next if fix == :skip
 
       if fix == :install
-        xsystem(PkgDB::command(:portinstall), origin)
+        xsystem(PkgDB.command(:portinstall), origin)
         fix = dep
       end
 

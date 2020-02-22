@@ -134,7 +134,7 @@ module PkgDBTools
     return if @lock_file.nil?
     count = 0
     while FileTest.exist?(@lock_file)
-      if Time::now() - File.stat(@lock_file).mtime > 120
+      if Time.now() - File.stat(@lock_file).mtime > 120
         puts "** Stale lock file was found. Removed."
         PkgDBTools.remove_lock(@lock_file, true)
         break
@@ -168,7 +168,7 @@ module PkgDBTools
     return if @lock_file.nil?
     count = 0
     while FileTest.exist?(@lock_file)
-      if Time::now() - File.stat(@lock_file).mtime > 120
+      if Time.now() - File.stat(@lock_file).mtime > 120
         STDERR.puts "** Stale lock file was found. Removed."
         PkgDBTools.remove_lock(@lock_file, true)
         break

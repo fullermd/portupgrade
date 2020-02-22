@@ -35,7 +35,7 @@ require 'pkgtools/pkgversion'
 class PkgInfo
   include Comparable
 
-  PKG_INFO_CMD = PkgDB::command(:pkg_info)
+  PKG_INFO_CMD = PkgDB.command(:pkg_info)
   PKG_INFO_FLAGS = {
     :prefix      => 'p',
     :comment     => 'c',
@@ -158,7 +158,7 @@ class PkgInfo
     end
 
     if $pkgdb.with_pkgng?
-      info = `#{chdir}env PKG_PATH= #{PkgDB::command(:pkg)} query "#{opt}" #{pkg} 2>/dev/null`.chomp
+      info = `#{chdir}env PKG_PATH= #{PkgDB.command(:pkg)} query "#{opt}" #{pkg} 2>/dev/null`.chomp
     else
       info = `#{chdir}env PKG_PATH= #{PKG_INFO_CMD} -q#{opt} #{pkg} 2>/dev/null`.chomp
     end
@@ -167,7 +167,7 @@ class PkgInfo
   end
 
   def get_info(what)
-    PkgInfo::get_info(fullname(), what)
+    PkgInfo.get_info(fullname(), what)
   end
 
   PKG_INFO_FLAGS.each_key do |key|
@@ -270,7 +270,7 @@ class PkgFileInfo < PkgInfo
   def initialize(pkgfile)
     @pkgfile = pkgfile
 
-    info = PkgInfo::get_info(pkgfile, :plist)
+    info = PkgInfo.get_info(pkgfile, :plist)
 
     if info.nil?
       raise ArgumentError, "#{pkgfilename}: Couldn't get package info."
@@ -286,6 +286,6 @@ class PkgFileInfo < PkgInfo
   end
 
   def get_info(what)
-    PkgInfo::get_info(@pkgfile, what)
+    PkgInfo.get_info(@pkgfile, what)
   end
 end

@@ -152,7 +152,7 @@ module PortCvsWeb
     def check_file(file, set_anchor = false)
       uri_info = nil
 
-      IO::popen("/usr/bin/ident #{file} 2>/dev/null").each do |line|
+      IO.popen("/usr/bin/ident #{file} 2>/dev/null").each do |line|
         puts "Checking ident of #{file}..." if $verbose
 
         if CVSTAG_RE =~ line
@@ -243,7 +243,7 @@ module PortCvsWeb
         savedir = Dir.pwd
         Dir.chdir(arg.dir)
         begin
-          uri_info = GetCvsInfo::get_cvsinfo(arg.file)
+          uri_info = GetCvsInfo.get_cvsinfo(arg.file)
           if !uri_info.os
             uri_info.os = guess_os(arg.file) || OS_DEFAULT
           end
@@ -283,14 +283,14 @@ module PortCvsWeb
     }
 
     def self.path2uri(arg, check_cvsinfo)
-      uri_info = Uri_Base::path2uri(arg, check_cvsinfo)
+      uri_info = Uri_Base.path2uri(arg, check_cvsinfo)
       uri_info.base = URI_BASE[uri_info.os]
       uri_info.uri = uri_info.base + uri_info.path + (uri_info.anchor || '')
       uri_info
     end
 
     def self.search_pkgdb(file)
-      if origin = SearchDB::search_pkgdb(file)
+      if origin = SearchDB.search_pkgdb(file)
         uri_info = UriInfo.new
         uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
         uri_info.base = URI_BASE[uri_info.os]
@@ -308,8 +308,8 @@ module PortCvsWeb
 
     def self.search_portsdb(file)
       ret = nil
-      if origin = SearchDB::search_portsdb(file)
-        if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
+      if origin = SearchDB.search_portsdb(file)
+        if PortCvsWeb.get_pathinfo(File.join($ports_dir, origin))
           uri_info = UriInfo.new
           uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
           uri_info.base = URI_BASE[uri_info.os]
@@ -337,7 +337,7 @@ module PortCvsWeb
     DATESPEC_DATE_RE = %r|^\d[\d/-]*$|
 
     def self.path2uri(arg, check_cvsinfo)
-      uri_info = Uri_Base::path2uri(arg, check_cvsinfo)
+      uri_info = Uri_Base.path2uri(arg, check_cvsinfo)
       uri_info.base = URI_BASE
       uri_info.uri = uri_info.base + uri_info.path
       uri_info
@@ -357,7 +357,7 @@ module PortCvsWeb
     end
 
     def self.search_pkgdb(file)
-      if origin = SearchDB::search_pkgdb(file)
+      if origin = SearchDB.search_pkgdb(file)
         uri_info = UriInfo.new
         uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
         uri_info.base = URI_BASE
@@ -371,8 +371,8 @@ module PortCvsWeb
 
     def self.search_portsdb(file)
       ret = nil
-      if origin = SearchDB::search_portsdb(file)
-        if PortCvsWeb::get_pathinfo(File.join($ports_dir, origin))
+      if origin = SearchDB.search_portsdb(file)
+        if PortCvsWeb.get_pathinfo(File.join($ports_dir, origin))
           uri_info = UriInfo.new
           uri_info.os = Uri_Base.guess_os(nil) || OS_DEFAULT
           uri_info.base = URI_BASE

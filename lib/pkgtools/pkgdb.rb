@@ -399,7 +399,7 @@ class PkgDB
     if $sudo
       close_db
 
-      if system!(PkgDB::command(:pkgdb), '-u')
+      if system!(PkgDB.command(:pkgdb), '-u')
         mark_fixme
         return true
       end
@@ -428,14 +428,14 @@ class PkgDB
       @db = {}
 
       flavors = {}
-      pkg_flavors = xbackquote(PkgDB::command(:pkg), 'annotate', '-Sa',
+      pkg_flavors = xbackquote(PkgDB.command(:pkg), 'annotate', '-Sa',
                                'flavor').split("\n")
       pkg_flavors.each do |line|
         pkg, flavor = line.sub(/: Tag: flavor Value: /, ':').split(':')
         flavors[pkg] = flavor
       end
 
-      pkg_origins = xbackquote(PkgDB::command(:pkg), 'query', '%n-%v %o').split("\n")
+      pkg_origins = xbackquote(PkgDB.command(:pkg), 'query', '%n-%v %o').split("\n")
       pkg_origins.each do |line|
         pkg, origin = line.split(' ')
         @installed_pkgs << pkg
@@ -660,7 +660,7 @@ class PkgDB
     # Load the entire DB for quicker lookups.
     if $pkgdb_which_db.nil?
       $pkgdb_which_db = {}
-      IO.popen("#{PkgDB::command(:pkg)} query '%n-%v %Fp'") do |r|
+      IO.popen("#{PkgDB.command(:pkg)} query '%n-%v %Fp'") do |r|
         r.each do |line|
           space = line.index(" ")
           pkgname = line[0, space]
@@ -682,7 +682,7 @@ class PkgDB
       if $pkgdb_which_db
         pkgnames = [$pkgdb_which_db[path]]
       else
-        pkgname = xbackquote(PkgDB::command(:pkg), 'which', '-q', path).chomp
+        pkgname = xbackquote(PkgDB.command(:pkg), 'which', '-q', path).chomp
         return nil unless pkgname.length
         pkgnames = [pkgname]
       end
@@ -723,7 +723,7 @@ class PkgDB
 
   def required?(pkgname)
     if with_pkgng?
-      str = backquote!(PkgDB::command(:pkg), 'query', '%?r', pkgname)
+      str = backquote!(PkgDB.command(:pkg), 'query', '%?r', pkgname)
       return str.to_i > 0
     else
       file = pkg_required_by(pkgname)
@@ -735,7 +735,7 @@ class PkgDB
   def required_by(pkgname)
     deps = {}
     if with_pkgng?
-      IO.popen("#{PkgDB::command(:pkg)} query \"%rn-%rv\" #{pkgname}") do |r|
+      IO.popen("#{PkgDB.command(:pkg)} query \"%rn-%rv\" #{pkgname}") do |r|
         r.each do |line|
           line.chomp!
           deps[line] = true
@@ -759,7 +759,7 @@ class PkgDB
     deps = {}
 
     if with_pkgng?
-      IO.popen("#{PkgDB::command(:pkg)} query \"%do %dn-%dv\" #{pkgname}") do |r|
+      IO.popen("#{PkgDB.command(:pkg)} query \"%do %dn-%dv\" #{pkgname}") do |r|
         r.each do |line|
           line.chomp!
           deporigin, pkgdepname = line.split(" ")
@@ -844,7 +844,7 @@ class PkgDB
 
   def installed_pkgs!()
     if with_pkgng?
-      packages = backquote(PkgDB::command(:pkg), 'query', '%n-%v').split
+      packages = backquote(PkgDB.command(:pkg), 'query', '%n-%v').split
     else
       packages = Dir.entries(db_dir).select do |pkgname|
         /^\.\.?$/ !~ pkgname && pkgdir?(pkgdir(pkgname))
@@ -1069,7 +1069,7 @@ class PkgDB
     if with_pkgng?
       return
     end
-    xsystem!(PkgDB::command(:pkgdb), '-aFO' << (less_quiet ? 'Q' : 'QQ'))
+    xsystem!(PkgDB.command(:pkgdb), '-aFO' << (less_quiet ? 'Q' : 'QQ'))
   end
 
   def recurse(pkgname, recurse_down = false, recurse_up = false, sanity_check = false)

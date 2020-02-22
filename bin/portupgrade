@@ -1075,9 +1075,9 @@ def do_upgrade(pkgname)
     end
 
     if $pkgdb.with_pkgng?
-      system!(PkgDB::command(:pkg), 'create', '-o', $packages_dir, '-f', $portsdb.pkg_sufx, pkgname)
+      system!(PkgDB.command(:pkg), 'create', '-o', $packages_dir, '-f', $portsdb.pkg_sufx, pkgname)
     else
-      system!(PkgDB::command(:pkg_create), '-vb', pkgname,
+      system!(PkgDB.command(:pkg_create), '-vb', pkgname,
               File.join($packages_dir, pkgname + $portsdb.pkg_sufx))
     end
   end
@@ -1472,7 +1472,7 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
   # Determine if this port should retain the 'automatic' flag or not from pkgng
   orphan = nil
   if $pkgdb.with_pkgng?
-    str = backquote!(PkgDB::command(:pkg), 'query', '%a', origin)
+    str = backquote!(PkgDB.command(:pkg), 'query', '%a', origin)
     orphan = str.to_i == 1
   end
 
@@ -1489,7 +1489,7 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
 
   # Change origin in pkgng
   if $pkgdb.with_pkgng? and origin and oldorigin != origin
-    str = backquote!(PkgDB::command(:pkg), 'set', '-yo' "#{oldorigin}:#{origin}")
+    str = backquote!(PkgDB.command(:pkg), 'set', '-yo' "#{oldorigin}:#{origin}")
     warning_message "Updating origin in pkg for #{oldorigin} to #{origin}"
   end
 
@@ -1498,7 +1498,7 @@ def upgrade_pkg(oldpkg, origin = nil, interactive = $interactive)
   sleep 1
 
   progress_message "Cleaning out obsolete shared libraries"
-  system!(PkgDB::command(:portsclean), '-QL')
+  system!(PkgDB.command(:portsclean), '-QL')
 
   [:done, newpkg]
 rescue CommandFailedError => e
@@ -1602,7 +1602,7 @@ def get_pkgname(origin)
 end
 
 def fetch_pkg(origin, logfile = nil, use_latest_link = false)
-  cmdargs = [PkgDB::command(:pkg_fetch)]
+  cmdargs = [PkgDB.command(:pkg_fetch)]
 
   cmdargs << '-f' if $force
   cmdargs << '-R' if $fetch_recursive
@@ -2029,13 +2029,13 @@ def install_pkg(pkgname, orphan, origin, logfile = nil, _is_new = false, *teardo
   end
 
   if $pkgdb.with_pkgng?
-    cmdargs << PkgDB::command(:pkg) << 'add'
+    cmdargs << PkgDB.command(:pkg) << 'add'
     if orphan
       cmdargs << "-A"
     end
     cmdargs << pkgfile
   else
-    cmdargs << PkgDB::command(:pkg_add) << '-f' << pkgfile
+    cmdargs << PkgDB.command(:pkg_add) << '-f' << pkgfile
   end
 
   progress_message "Installing the new version via the package"
@@ -2090,9 +2090,9 @@ def uninstall_pkg(pkgname, orphan, logfile = nil, extra_flags = '')
 
   if $pkgdb.with_pkgng?
     backup_pkgfile = File.join($tmpdir, pkgname + $portsdb.pkg_sufx)
-    backquote!(PkgDB::command(:pkg), 'create', '-o', $tmpdir, '-f', $portsdb.pkg_sufx, pkgname)
+    backquote!(PkgDB.command(:pkg), 'create', '-o', $tmpdir, '-f', $portsdb.pkg_sufx, pkgname)
   else
-    if str = backquote!(PkgDB::command(:pkg_create), '-vb', pkgname,
+    if str = backquote!(PkgDB.command(:pkg_create), '-vb', pkgname,
                         File.join($tmpdir, pkgname + $portsdb.pkg_sufx))
       str.each_line do |line|
         if /^Creating .*tar ball in \'(.*)\'/ =~ line
@@ -2132,7 +2132,7 @@ def uninstall_pkg(pkgname, orphan, logfile = nil, extra_flags = '')
     cmd = []
   end
 
-  cmd << PkgDB::command(:pkg_deinstall) << '-f' + extra_flags << pkgname
+  cmd << PkgDB.command(:pkg_deinstall) << '-f' + extra_flags << pkgname
 
   system!(*cmd) or
     raise UninstallError, "uninstall error"
@@ -2143,10 +2143,10 @@ def uninstall_pkg(pkgname, orphan, logfile = nil, extra_flags = '')
       progress_message "Restoring the old version"
 
       if $pkgdb.with_pkgng?
-        xsystem! PkgDB::command(:pkg), 'add', backup_pkgfile
-        xsystem! PkgDB::command(:pkg), 'set', '-y', '-A', orphan ? "1" : "0", origin
+        xsystem! PkgDB.command(:pkg), 'add', backup_pkgfile
+        xsystem! PkgDB.command(:pkg), 'set', '-y', '-A', orphan ? "1" : "0", origin
       else
-        xsystem! PkgDB::command(:pkg_add), '-f', backup_pkgfile
+        xsystem! PkgDB.command(:pkg_add), '-f', backup_pkgfile
       end
 
       if origin and command = get_afterinstall_command(origin)
@@ -2228,10 +2228,10 @@ def extract_pkgfile_deporigins(pkgfile)
   deporigins = []
 
   if $pkgdb.with_pkgng?
-    pkgdep = backquote!(PkgDB::command(:pkg), 'query', '-F', "#{dir}/#{file}",
+    pkgdep = backquote!(PkgDB.command(:pkg), 'query', '-F', "#{dir}/#{file}",
                         '%do').split("\n")
   else
-    IO.popen("cd #{dir} && #{PkgDB::command(:pkg_info)} -qfo #{file}") do |r|
+    IO.popen("cd #{dir} && #{PkgDB.command(:pkg_info)} -qfo #{file}") do |r|
       r.each do |line|
         case line
         when /^@comment\s+DEPORIGIN:(\S*)/
