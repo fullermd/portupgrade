@@ -50,6 +50,8 @@ Style/RescueStandardError:
   Enabled: false
 Style/AndOr:
   Enabled: false
+Style/Documentation:
+  Enabled: false
 
 # It may be useful to enforce one way or another in the future
 Style/SpecialGlobalVars:
