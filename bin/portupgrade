@@ -657,7 +657,7 @@ Environment Variables [default]:
                   dep = []
                   get_all_depends(origin).each do |d|
                     newdep = $pkgdb.deorigin(d)
-                    unless newdep.nil? then
+                    unless newdep.nil?
                       if newdep.length > 1
                         warning_message "Duplicated origin - #{d}: #{newdep.join(" ")}"
                         warning_message "Run 'pkgdb -F' to interactively fix them."
@@ -1084,7 +1084,7 @@ def do_upgrade(pkgname)
 end
 
 def do_install(origin, orphan)
-  if origin.nil? then
+  if origin.nil?
     warning_message "NIL origin passed to do_install"
     return
   end

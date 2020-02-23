@@ -310,9 +310,9 @@ def check_pkg(pkg, origin = nil)
 
   cmp = newpkg.version <=> pkg.version
 
-  if cmp > 0 then
+  if cmp > 0
     return newpkg, '<'
-  elsif cmp < 0 then
+  elsif cmp < 0
     return newpkg, '>'
   end
 

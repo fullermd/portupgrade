@@ -61,18 +61,18 @@ def shellwords(line)
   while line != ''
     field = ''
     loop do
-      if line.sub!(/\A"(([^"\\]|\\.)*)"/, '') then #"
+      if line.sub!(/\A"(([^"\\]|\\.)*)"/, '') #"
         snippet = $1
         snippet.gsub!(/\\(.)/, '\1')
-      elsif line.starts_with?('"') then
+      elsif line.starts_with?('"')
         raise ArgumentError, "Unmatched double quote: #{line}"
-      elsif line.sub!(/\A'([^']*)'/, '') then #'
+      elsif line.sub!(/\A'([^']*)'/, '') #'
         snippet = $1
-      elsif line.starts_with?("'") then
+      elsif line.starts_with?("'")
         raise ArgumentError, "Unmatched single quote: #{line}"
-      elsif line.sub!(/\A\\(.)/, '') then
+      elsif line.sub!(/\A\\(.)/, '')
         snippet = $1
-      elsif line.sub!(/\A([^\s\\'"]+)/, '') then #'
+      elsif line.sub!(/\A([^\s\\'"]+)/, '') #'
         snippet = $1
       else
         line.sub!(/\A\s+/, '')
@@ -96,7 +96,7 @@ def shelljoin(*args)
 end
 
 def init_tmpdir
-  if !$tmpdir.nil? && $tmpdir != "" then
+  if !$tmpdir.nil? && $tmpdir != ""
     return
   end
   maintmpdir = ENV['PKG_TMPDIR'] || ENV['TMPDIR'] || '/var/tmp'

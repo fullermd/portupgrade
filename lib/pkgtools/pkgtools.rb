@@ -973,7 +973,7 @@ class PkgResult
   attr_accessor :item, :result, :info
 
   def initialize(item, result, info = nil)
-    if item.nil? then
+    if item.nil?
       raise ArgumentError
     end
     @item = item
