@@ -121,6 +121,15 @@ Style/GuardClause:
     - 'lib/pkgtools/portinfo.rb'
     - 'lib/pkgtools/portsdb.rb'
 
+Style/Next:
+  Exclude:
+    - 'bin/pkg_glob'
+    - 'bin/pkgdb'
+    - 'bin/portcvsweb'
+    - 'bin/portsclean'
+    - 'bin/portupgrade'
+    - 'lib/pkgtools/portsdb.rb'
+
 Style/IfInsideElse:
   Exclude:
     - 'bin/pkgdb'

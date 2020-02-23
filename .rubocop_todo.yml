@@ -158,19 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdb'
-    - 'bin/portcvsweb'
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
