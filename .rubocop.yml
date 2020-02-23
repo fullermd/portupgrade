@@ -115,6 +115,10 @@ Style/NegatedIf:
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
 
+Style/OneLineConditional:
+  Exclude:
+    - 'bin/portversion'
+
 # This is probably a good idea, but it's a lot of work to phase in, so
 # worry about it later.
 Style/GuardClause:

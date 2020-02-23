@@ -663,7 +663,7 @@ class PortsDB
       return port(val)
     end
 
-    @ports[key] = if val then PortInfo.new(val) else nil end
+    @ports[key] = (val ? PortInfo.new(val) : nil)
   end
   alias [] port
 

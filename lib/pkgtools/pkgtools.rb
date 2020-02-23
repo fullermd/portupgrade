@@ -318,7 +318,7 @@ def no?(str)
 end
 
 def yesno_str(yes)
-  if yes then 'yes' else 'no' end
+  yes ? 'yes' : 'no'
 end
 
 def prompt_yesno(message = "OK?", yes_by_default = false)

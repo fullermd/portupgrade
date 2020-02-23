@@ -1207,7 +1207,7 @@ def get_upgrade_env_vars(pkgname)
 end
 
 def get_beforebuild_command(origin)
-  commands = if $beforebuild.empty? then [] else [$beforebuild] end
+  commands = $beforebuild.empty? ? [] : [$beforebuild]
 
   commands[commands.size, 0] = config_beforebuild(origin)        # maybe nil
 
@@ -1223,7 +1223,7 @@ def get_beforebuild_command(origin)
 end
 
 def get_afterinstall_command(origin)
-  commands = if $afterinstall.empty? then [] else [$afterinstall] end
+  commands = $afterinstall.empty? ? [] : [$afterinstall]
 
   commands[0, 0] = config_afterinstall(origin)        # maybe nil
 
