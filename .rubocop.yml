@@ -73,6 +73,8 @@ Style/EvalWithLocation:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkginfo.rb'
     - 'lib/pkgtools/portinfo.rb'
+Style/GlobalVars:
+  Enabled: false
 
 # It may be useful to enforce one way or another in the future
 Style/SpecialGlobalVars:
@@ -92,6 +94,23 @@ Layout/HashAlignment:
   Enabled: false
 Layout/ArgumentAlignment:
   Enabled: false
+
+# This is probably a good idea, but it's a lot of work to phase in, so
+# worry about it later.
+Style/GuardClause:
+  Exclude:
+    - 'bin/pkgdb'
+    - 'bin/portcvsweb'
+    - 'bin/portsclean'
+    - 'bin/portupgrade'
+    - 'bin/portversion'
+    - 'lib/pkgtools/pkgdb.rb'
+    - 'lib/pkgtools/pkgdbtools.rb'
+    - 'lib/pkgtools/pkginfo.rb'
+    - 'lib/pkgtools/pkgtools.rb'
+    - 'lib/pkgtools/pkgversion.rb'
+    - 'lib/pkgtools/portinfo.rb'
+    - 'lib/pkgtools/portsdb.rb'
 
 # Metrics are mostly stupid...
 Metrics/AbcSize:
