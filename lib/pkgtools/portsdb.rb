@@ -422,7 +422,7 @@ class PortsDB
       raise IndexFileError, "index chmod error"
     end
 
-    if not system('/bin/mv', '-f', tmp, index_file)
+    if !system('/bin/mv', '-f', tmp, index_file)
       STDERR.puts "failed to overwrite #{index_file}!"
       raise IndexFileError, "index overwrite error"
     end
@@ -523,7 +523,7 @@ class PortsDB
   end
 
   def update_db(force = false)
-    if not File.exist?(index_file)
+    if !File.exist?(index_file)
       begin
         update(true)
       rescue IndexFileFetchError
@@ -784,7 +784,7 @@ class PortsDB
         when Regexp
           next if pattern !~ origin
         else
-          next if not File.fnmatch?(pattern, origin, File::FNM_PATHNAME)
+          next if !File.fnmatch?(pattern, origin, File::FNM_PATHNAME)
         end
 
         if portinfo = port(origin)
@@ -797,7 +797,7 @@ class PortsDB
       end
     else
       @pkgnames.each do |pkgname|
-        next if not pkgname.match?(pattern)
+        next if !pkgname.match?(pattern)
 
         if portinfo = port(pkgname.to_s)
           if block_given?
@@ -829,7 +829,7 @@ class PortsDB
 
     dir = portdir(port)
 
-    return false if not File.file?(File.join(dir, 'Makefile'))
+    return false if !File.file?(File.join(dir, 'Makefile'))
 
     return true if quick
 
@@ -909,7 +909,7 @@ class PortsDB
   end
 
   def recurse(portinfo, recurse_down = false, recurse_up = false)
-    if not portinfo.is_a?(PortInfo)
+    if !portinfo.is_a?(PortInfo)
       portinfo = port(portinfo)
     end
 

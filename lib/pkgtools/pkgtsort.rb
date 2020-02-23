@@ -61,7 +61,7 @@ class PkgTSort
     @hints[a] |= b
 
     b.each do |x|
-      @hints[x] = [] if not @hints.include?(x)
+      @hints[x] = [] if !@hints.include?(x)
     end
 
     self

@@ -627,7 +627,7 @@ class PkgDB
     retried = false
 
     begin
-      if not with_pkgng?
+      if !with_pkgng?
         open_db_for_read!
 
         check_db_version or raise TypeError, 'database version mismatch/bump detected'

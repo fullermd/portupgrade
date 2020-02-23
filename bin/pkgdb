@@ -260,7 +260,7 @@ Environment Variables [default]:
         else
           path = `which #{arg}`.chomp
 
-          if not File.exist?(path)
+          if !File.exist?(path)
             STDERR.puts "#{arg}: not found"
             next
           end
@@ -336,7 +336,7 @@ def check_lost_deps
         puts "  #{origin}"
       end
       if $interactive
-        next if not prompt_yesno("Fix?", true)
+        next if !prompt_yesno("Fix?", true)
       end
       dep = ""
       lost.each do |origin|
@@ -937,7 +937,7 @@ def fix_cycles(tsort)
         if prompt_yesno("Unlink #{a} -> #{b} ?", true)
           file = $pkgdb.pkg_contents(a)
 
-          next if not File.exist?(file)
+          next if !File.exist?(file)
           File.open(file, "r+") do |f|
             lines = []
             pkgdeps = { b => true }

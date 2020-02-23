@@ -168,7 +168,7 @@ def workclean
   perm = '770'
   grp = 'wheel'
 
-  if not File.exist?(File.join($ports_dir, 'Mk/bsd.port.mk'))
+  if !File.exist?(File.join($ports_dir, 'Mk/bsd.port.mk'))
     STDERR.puts "#{MYNAME}: PORTSDIR (#{$ports_dir}) does not seem to be a ports directory."
     return false
   end
@@ -571,7 +571,7 @@ def pkgclean(level)
     r.each do |line|
       pkgfile = line.chomp
 
-      if not File.exist?(pkgfile)        # dead link
+      if !File.exist?(pkgfile)        # dead link
         delete_file(pkgfile)
       end
     end
@@ -621,7 +621,7 @@ def scan_distfiles(dist_dir)
 
   Dir.chdir(dist_dir) do
     Find.find('.') do |f|
-      next if not File.file?(f)
+      next if !File.file?(f)
 
       if f[1] == '/'
         f.slice!(0, 2)

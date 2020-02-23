@@ -497,7 +497,7 @@ def open_browser!(uri)
 
     next if s.empty?
 
-    s << ' %s' if not s.include?('%s')
+    s << ' %s' if !s.include?('%s')
 
     system('/bin/sh', '-c', format(s, uri)) and exit 0
   end

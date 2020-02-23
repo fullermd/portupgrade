@@ -418,7 +418,7 @@ def choose_from_options(message = 'Input?', options = nil, flags = OPTIONS_NONE)
     if input.nil?
       print "\n"
 
-      next if not delete
+      next if !delete
 
       ans = if all
               prompt_yesnoall("Delete this?", true)

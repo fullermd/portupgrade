@@ -199,7 +199,7 @@ def do_fetch_pkg(pkgname)
 
     id_pkgname, origin, pkgdep = identify_pkg(path)
 
-    return false, pkgdep if not id_pkgname.nil?
+    return false, pkgdep if !id_pkgname.nil?
 
     warning_message "Failed to extract information from #{path}"
 
@@ -222,7 +222,7 @@ def do_fetch_pkg(pkgname)
 
   temp_path = real_fetch_pkg(pkgname, temp_path_base, latest)
 
-  if not temp_path
+  if !temp_path
     warning_message "Failed to fetch #{pkgname}"
     raise "fetch error"
   end
@@ -289,7 +289,7 @@ def set_uri_base(uri_s)
   begin
     uri = URI.parse(uri_s)
 
-    if not uri.scheme.nil?
+    if !uri.scheme.nil?
       $subdir = File.basename((uri + './').path.chomp('/'))
 
       case $subdir
