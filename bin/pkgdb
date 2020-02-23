@@ -79,26 +79,28 @@ usage: #{MYNAME} [-hafFfiLOQQquv] [-c pkgname] [-o pkgname] [-s /old_pkgname/new
     opts.def_option("-c", "--collate=PKGNAME", "Show files installed by the given packge#{NEXTLINE}that have been overwritten by other packages") do |pkgname|
       pkgname = $pkgdb.strip(pkgname, true)
 
-      begin
-        pkg = PkgInfo.new(pkgname)
+      unless dry_parse
+        begin
+          pkg = PkgInfo.new(pkgname)
 
-        pkg.files.each do |path|
-          owners = $pkgdb.which_m(path) or
-            raise PkgDB::DBError, "The file #{path} is not properly recorded as installed"
+          pkg.files.each do |path|
+            owners = $pkgdb.which_m(path) or
+              raise PkgDB::DBError, "The file #{path} is not properly recorded as installed"
 
-          i = owners.index(pkgname) or
-            raise PkgDB::DBError, "The file #{path} is not properly recorded as installed by #{pkgname}"
+            i = owners.index(pkgname) or
+              raise PkgDB::DBError, "The file #{path} is not properly recorded as installed by #{pkgname}"
 
-          if i != owners.size - 1
-            print "#{path}: "
-            print "overwritten by: " if $verbose
-            puts owners[(i + 1)..-1].join(' ')
+            if i != owners.size - 1
+              print "#{path}: "
+              print "overwritten by: " if $verbose
+              puts owners[(i + 1)..-1].join(' ')
+            end
           end
+        rescue => e
+          raise e if e.class == PkgDB::NeedsPkgNGSupport
+          STDERR.puts e.message
         end
-      rescue => e
-        raise e if e.class == PkgDB::NeedsPkgNGSupport
-        STDERR.puts e.message
-      end unless dry_parse
+      end
     end
 
     opts.def_option("-f", "--force", "Force;#{NEXTLINE}Specified with -u, update database#{NEXTLINE}regardless of timestamps#{NEXTLINE}Specified with -F, fix held packages too") do |v|

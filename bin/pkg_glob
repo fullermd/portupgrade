@@ -98,54 +98,70 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
       $upward_recursive = false
     end
 
-    opts.def_option("-c", "--collate", "Check if any of the installed files of each package#{NEXTLINE}has been overwritten by other packages, and do not#{NEXTLINE}deinstall if any") do
-      $collate = true unless $force
-    end if $service == :deinstall
-
-    opts.def_option("-d", "--rmdir", "Remove empty directories created by file cleanup [*]") do
-      $pkg_delete_args.push '-d'
-    end if $service == :deinstall
-
-    opts.def_option("-D", "--noscripts", "Do not execute deinstallation scripts [*]") do
-      $pkg_delete_args.push '-D'
-    end if $service == :deinstall
-
-    opts.def_option("-f", "--force", "Force removal of the packages [*]") do |v|
-      $force = v
-      $pkg_delete_args.push '-f'
-      $collate = false
-    end if $service == :deinstall
-
-    opts.def_option("-i", "--interactive", "Request confirmation for each package removal [*]") do |v|
-      $interactive = v
-      if $interactive
-        $verbose = true
+    if $service == :deinstall
+      opts.def_option("-c", "--collate", "Check if any of the installed files of each package#{NEXTLINE}has been overwritten by other packages, and do not#{NEXTLINE}deinstall if any") do
+        $collate = true unless $force
       end
+    end
 
-      $pkg_delete_args.push '-i'
-    end if $service == :deinstall
-
-    opts.def_option("-n", "--noexecute", "Do not actually deinstall a package, just report the#{NEXTLINE}steps that would be taken if it were [*]") do |v|
-      $noexecute = v
-      if $noexecute
-        $verbose = true
-        $interactive = false
+    if $service == :deinstall
+      opts.def_option("-d", "--rmdir", "Remove empty directories created by file cleanup [*]") do
+        $pkg_delete_args.push '-d'
       end
+    end
 
-      $pkg_delete_args.push '-n'
-    end if $service == :deinstall
+    if $service == :deinstall
+      opts.def_option("-D", "--noscripts", "Do not execute deinstallation scripts [*]") do
+        $pkg_delete_args.push '-D'
+      end
+    end
+
+    if $service == :deinstall
+      opts.def_option("-f", "--force", "Force removal of the packages [*]") do |v|
+        $force = v
+        $pkg_delete_args.push '-f'
+        $collate = false
+      end
+    end
+
+    if $service == :deinstall
+      opts.def_option("-i", "--interactive", "Request confirmation for each package removal [*]") do |v|
+        $interactive = v
+        if $interactive
+          $verbose = true
+        end
+
+        $pkg_delete_args.push '-i'
+      end
+    end
+
+    if $service == :deinstall
+      opts.def_option("-n", "--noexecute", "Do not actually deinstall a package, just report the#{NEXTLINE}steps that would be taken if it were [*]") do |v|
+        $noexecute = v
+        if $noexecute
+          $verbose = true
+          $interactive = false
+        end
+
+        $pkg_delete_args.push '-n'
+      end
+    end
 
     opts.def_option("-O", "--omit-check", "Omit sanity checks for dependencies.") do
       $sanity_check = false
     end
 
-    opts.def_option("-p", "--prefix=PREFIX", "Set prefix [*]") do |prefix|
-      $pkg_delete_args.push '-p', prefix
-    end if $service == :deinstall
+    if $service == :deinstall
+      opts.def_option("-p", "--prefix=PREFIX", "Set prefix [*]") do |prefix|
+        $pkg_delete_args.push '-p', prefix
+      end
+    end
 
-    opts.def_option("-P", "--preserve", "Preserve shared libraries (Save *.so.n)") do |v|
-      $preserve_shlib = v
-    end if $service == :deinstall
+    if $service == :deinstall
+      opts.def_option("-P", "--preserve", "Preserve shared libraries (Save *.so.n)") do |v|
+        $preserve_shlib = v
+      end
+    end
 
     opts.def_option("-q", "--noconfig", "Do not read pkgtools.conf") do |v|
       $noconfig = v
@@ -159,10 +175,12 @@ usage: #{MYNAME} [-haOqrR] [-x pkgname_glob] [pkgname_glob ...]
       $upward_recursive = true unless $all
     end
 
-    opts.def_option("-v", "--verbose", "Turn on verbose output [*]") do |v|
-      $verbose = v
-      $pkg_delete_args.push '-v'
-    end if $service == :deinstall
+    if $service == :deinstall
+      opts.def_option("-v", "--verbose", "Turn on verbose output [*]") do |v|
+        $verbose = v
+        $pkg_delete_args.push '-v'
+      end
+    end
 
     opts.def_tail_option <<-"EOF".chomp if $service == :deinstall
 

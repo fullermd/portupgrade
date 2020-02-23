@@ -89,15 +89,17 @@ def compile_config_table(hash)
   otable = {}
   gtable = {}
 
-  hash.each do |pattern, value|
-    $portsdb.glob(pattern) do |portinfo|
-      (otable[portinfo.origin] ||= Set.new) << value
-    end
+  if hash
+    hash.each do |pattern, value|
+      $portsdb.glob(pattern) do |portinfo|
+        (otable[portinfo.origin] ||= Set.new) << value
+      end
 
-    if !pattern.include?('/')
-      gtable[pattern] = value
+      if !pattern.include?('/')
+        gtable[pattern] = value
+      end
     end
-  end if hash
+  end
 
   table = [otable, gtable]
 end
