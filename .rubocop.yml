@@ -132,6 +132,10 @@ Style/MultilineBlockChain:
   Exclude:
     - 'lib/pkgtools/pkgdb.rb'
 
+Style/MultilineTernaryOperator:
+  Exclude:
+    - 'bin/pkgdb'
+
 # UNDECIDED: Not sure how we want to go with this...
 Style/MethodCallWithoutArgsParentheses:
   Exclude:
