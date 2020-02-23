@@ -158,17 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 7
-# Configuration parameters: AllowIfModifier.
-Style/IfInsideElse:
-  Exclude:
-    - 'bin/pkgdb'
-    - 'bin/portcvsweb'
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-
 # Offense count: 128
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
