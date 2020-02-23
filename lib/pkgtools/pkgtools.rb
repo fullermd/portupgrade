@@ -799,10 +799,8 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
             next
           end
         end
-        depends_lines << line
-      else
-        depends_lines << line
       end
+      depends_lines << line
     else
       if depends_lines.empty?
         head_lines << line
