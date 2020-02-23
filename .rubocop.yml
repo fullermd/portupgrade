@@ -95,6 +95,10 @@ Layout/HashAlignment:
 Layout/ArgumentAlignment:
   Enabled: false
 
+# This may be a good thing to change, but for now...
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
 # This is probably a good idea, but it's a lot of work to phase in, so
 # worry about it later.
 Style/GuardClause:
