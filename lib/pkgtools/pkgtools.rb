@@ -78,7 +78,7 @@ def load_config
 end
 
 def setproctitle(fmt, *args)
-  $0 = sprintf('%s: ' << fmt, MYNAME, *args)
+  $0 = format('%s: ' << fmt, MYNAME, *args)
 end
 
 def config_value(name)
@@ -1189,19 +1189,19 @@ module PkgConfig
 
     OS_PKGBRANCH = case OS_BRANCH
                    when /^CURRENT$/        # <n>-current
-                     sprintf('%s-%s', OS_MAJOR, OS_BRANCH.downcase)
+                     format('%s-%s', OS_MAJOR, OS_BRANCH.downcase)
                    when /^RELEASE$/        # <n>.<m>-release
-                     sprintf('%s-%s', OS_REVISION, OS_BRANCH.downcase)
+                     format('%s-%s', OS_REVISION, OS_BRANCH.downcase)
                    else                # <n>-stable
       # when /^(PRERELEASE|RC\d*|ALPHA|BETA)$/
-                     sprintf('%s-%s', OS_MAJOR, 'stable')
+                     format('%s-%s', OS_MAJOR, 'stable')
                    end
   else
     STDERR.puts "uname(1) could be broken - cannot parse the output: #{uname}"
   end
 
   def pkg_site_mirror(root = ENV['PACKAGEROOT'] || 'ftp://ftp.FreeBSD.org/')
-    sprintf('%s/pub/FreeBSD/ports/%s/packages-%s/',
+    format('%s/pub/FreeBSD/ports/%s/packages-%s/',
             root, OS_PLATFORM, OS_PKGBRANCH)
   end
 
@@ -1214,10 +1214,10 @@ module PkgConfig
 
     case OS_PLATFORM
     when 'i386', 'sparc64', 'amd64', 'ia64'
-      sprintf('http://pointyhat.FreeBSD.org/errorlogs/%s-%s-packages-%s/',
+      format('http://pointyhat.FreeBSD.org/errorlogs/%s-%s-packages-%s/',
               OS_PLATFORM, OS_MAJOR, run)
     else
-      raise sprintf('There is no official package builder site yet for the %s platform.',
+      raise format('There is no official package builder site yet for the %s platform.',
                     OS_PLATFORM)
     end
   end

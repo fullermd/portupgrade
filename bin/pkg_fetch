@@ -48,7 +48,7 @@ def init_global
 end
 
 COLUMNSIZE = 24
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 PKG_SUFFIXES = if PkgConfig::OS_MAJOR.to_i >= 8
                  ['.tbz', '.txz', '.tgz']

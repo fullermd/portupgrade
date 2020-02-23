@@ -44,7 +44,7 @@ OS_DEFAULT = 'FreeBSD'
 MAKEFILE = 'Makefile'
 
 COLUMNSIZE = 24
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 module PortCvsWeb
   CVSTAGS = ['FreeBSD', 'NetBSD', 'OpenBSD']

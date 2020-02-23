@@ -158,24 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'bin/pkg_fetch'
-    - 'bin/pkg_glob'
-    - 'bin/pkg_sort'
-    - 'bin/pkgdb'
-    - 'bin/pkgdu'
-    - 'bin/portcvsweb'
-    - 'bin/portsclean'
-    - 'bin/portsdb'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgtools.rb'
-
 # Offense count: 73
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: annotated, template, unannotated

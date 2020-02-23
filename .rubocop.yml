@@ -19,6 +19,12 @@ Style/EmptyElse:
 Style/EmptyMethod:
   EnforcedStyle: 'expanded'
 
+# Probably mising sprintf or format would be fine, but pick one, and % is
+# terrible.  We might culturally favor sprintf, but it looks like ruby
+# likes format...
+Style/FormatString:
+  EnforcedStyle: 'format'
+
 # There's a lot of garbage here, but forced anything isn't great, so deal
 # with it manually as it comes up
 Layout/ParameterAlignment:

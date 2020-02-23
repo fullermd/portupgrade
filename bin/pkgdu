@@ -36,7 +36,7 @@ require "optparse"
 require "pkgtools"
 
 COLUMNSIZE = 24
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 def init_global
   $divider = 1024

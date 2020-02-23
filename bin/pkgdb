@@ -39,7 +39,7 @@ require "optparse"
 require "pkgtools"
 
 COLUMNSIZE = 30
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 def init_global
   $fix_db = false

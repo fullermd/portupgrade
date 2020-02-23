@@ -46,7 +46,7 @@ $service = case MYNAME
 $service_verb = $service.to_s
 
 COLUMNSIZE = 22
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 def init_global
   $all = false

@@ -38,7 +38,7 @@ require "optparse"
 require "pkgtools"
 
 COLUMNSIZE = 24
-NEXTLINE = "\n%*s" % [5 + COLUMNSIZE, '']
+NEXTLINE = format("\n%*s", 5 + COLUMNSIZE, '')
 
 SUGGESTIONS = {
   '<' => 'needs updating (port has %s)',
@@ -341,7 +341,7 @@ def check_pkgs(pkgs)
 
     held = config_held?(pkg)
 
-    suggestion = SUGGESTIONS[sign] % [newpkg ? newpkg.version : nil]
+    suggestion = format(SUGGESTIONS[sign], newpkg ? newpkg.version : nil)
 
     if held
       suggestion = '[held] ' + suggestion
