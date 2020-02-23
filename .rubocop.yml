@@ -128,6 +128,19 @@ Style/IfInsideElse:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkgtools.rb'
 
+# UNDECIDED: Not sure how we want to go with this...
+Style/MethodCallWithoutArgsParentheses:
+  Exclude:
+    - 'bin/pkgdb'
+    - 'bin/portupgrade'
+    - 'lib/pkgtools/pkgdb.rb'
+    - 'lib/pkgtools/pkgdbtools.rb'
+    - 'lib/pkgtools/pkginfo.rb'
+    - 'lib/pkgtools/pkgmisc.rb'
+    - 'lib/pkgtools/pkgtools.rb'
+    - 'lib/pkgtools/portinfo.rb'
+    - 'lib/pkgtools/portsdb.rb'
+
 # Metrics are mostly stupid...
 Metrics/AbcSize:
   Enabled: false
