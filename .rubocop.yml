@@ -49,6 +49,8 @@ Naming/MethodParameterName:
   Enabled: false
 Style/FormatStringToken:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...
