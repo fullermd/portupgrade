@@ -136,6 +136,19 @@ Style/MultilineTernaryOperator:
   Exclude:
     - 'bin/pkgdb'
 
+Style/MutableConstant:
+  Exclude:
+    - 'bin/pkg_fetch'
+    - 'bin/portcvsweb'
+    - 'bin/portupgrade'
+    - 'bin/portversion'
+    - 'lib/pkgtools/pkgdb.rb'
+    - 'lib/pkgtools/pkginfo.rb'
+    - 'lib/pkgtools/pkgtools.rb'
+    - 'lib/pkgtools/portinfo.rb'
+    - 'lib/pkgtools/portsdb.rb'
+    - 'tests/test_portinfo.rb'
+
 # UNDECIDED: Not sure how we want to go with this...
 Style/MethodCallWithoutArgsParentheses:
   Exclude:
