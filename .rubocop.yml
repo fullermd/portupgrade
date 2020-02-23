@@ -19,6 +19,11 @@ Style/EmptyElse:
 Style/EmptyMethod:
   EnforcedStyle: 'expanded'
 
+# Our big numeric literals are Well-Known-Numbers, so don't worry too
+# much...
+Style/NumericLiterals:
+  MinDigits: 6
+
 # Probably mising sprintf or format would be fine, but pick one, and % is
 # terrible.  We might culturally favor sprintf, but it looks like ruby
 # likes format...
