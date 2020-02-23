@@ -94,6 +94,9 @@ Layout/HashAlignment:
   Enabled: false
 Layout/ArgumentAlignment:
   Enabled: false
+# Further good-ish ideas, but forcing is terrible
+Style/IfUnlessModifier:
+  Enabled: false
 
 # This may be a good thing to change, but for now...
 Style/HashSyntax:
