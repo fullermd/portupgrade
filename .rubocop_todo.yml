@@ -158,11 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 2
-Style/MultilineBlockChain:
-  Exclude:
-    - 'lib/pkgtools/pkgdb.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 Style/MultilineIfModifier:

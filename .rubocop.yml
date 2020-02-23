@@ -128,6 +128,10 @@ Style/IfInsideElse:
     - 'lib/pkgtools/pkgdb.rb'
     - 'lib/pkgtools/pkgtools.rb'
 
+Style/MultilineBlockChain:
+  Exclude:
+    - 'lib/pkgtools/pkgdb.rb'
+
 # UNDECIDED: Not sure how we want to go with this...
 Style/MethodCallWithoutArgsParentheses:
   Exclude:
