@@ -53,7 +53,7 @@ test:
 	@rm -f /var/db/pkgdb.fixme /var/db/pkg/pkgdb.db
 
 rubocop:
-	rubocop -PES
+	-rubocop -PES
 
 rubocop-fix:
-	rubocop -a
+	-rubocop -a
