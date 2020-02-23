@@ -158,6 +158,7 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
+# XXXXXXXXX  HERE  XXXXXX
 # Offense count: 29
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
