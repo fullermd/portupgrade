@@ -1024,7 +1024,8 @@ def do_upgrade(pkgname)
 
   upgraded = false
 
-  use_packages, use_packages_only = $use_packages, $use_packages_only
+  use_packages = $use_packages
+  use_packages_only = $use_packages_only
 
   if (origin && config_use_packages_only?(origin)) || config_use_packages_only?(pkgname)
     $use_packages = $use_packages_only = true
@@ -1053,7 +1054,8 @@ def do_upgrade(pkgname)
     raise e if e.class == PkgDB::NeedsPkgNGSupport
     $results << PkgResult.new(origin || pkg.fullname, e, pkgname)
   ensure
-    $use_packages, $use_packages_only = use_packages, use_packages_only
+    $use_packages = use_packages
+    $use_packages_only = use_packages_only
   end
 
   if !upgraded && $package_tasks.include?(pkgname)
@@ -1112,7 +1114,8 @@ def do_install(origin, orphan)
 
   stty_sane
 
-  use_packages, use_packages_only = $use_packages, $use_packages_only
+  use_packages = $use_packages
+  use_packages_only = $use_packages_only
 
   if config_use_packages_only?(origin)
     $use_packages = $use_packages_only = true
@@ -1132,7 +1135,8 @@ def do_install(origin, orphan)
     raise e if e.class == PkgDB::NeedsPkgNGSupport
     $results << PkgResult.new(origin, e)
   ensure
-    $use_packages, $use_packages_only = use_packages, use_packages_only
+    $use_packages = use_packages
+    $use_packages_only = use_packages_only
   end
   $pkgdb.autofix
 end

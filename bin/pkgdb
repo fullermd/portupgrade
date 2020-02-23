@@ -929,9 +929,11 @@ def fix_cycles(tsort)
         i = cycle.index(ans)
 
         if cycle[i + 1].nil?
-          a, b = cycle.last, cycle.first
+          a = cycle.last
+          b = cycle.first
         else
-          a, b = cycle[i], cycle[i + 1]
+          a = cycle[i]
+          b = cycle[i + 1]
         end
 
         if prompt_yesno("Unlink #{a} -> #{b} ?", true)
