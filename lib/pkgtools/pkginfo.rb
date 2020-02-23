@@ -147,7 +147,7 @@ class PkgInfo
   def self.get_info(pkg, what)
     opt = $pkgdb.with_pkgng? ? PKG_QUERY_FLAGS[what] : PKG_INFO_FLAGS[what]
 
-    if opt == nil
+    if opt.nil?
       raise ArgumentError, "#{what.to_s}: Unsupported information."
     end
 
