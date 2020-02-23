@@ -160,15 +160,6 @@ Style/AccessModifierDeclarations:
 
 # Offense count: 3
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedOctalStyle.
-# SupportedOctalStyles: zero_with_o, zero_only
-Style/NumericLiteralPrefix:
-  Exclude:
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
 # Configuration parameters: Strict.
 Style/NumericLiterals:
   MinDigits: 6

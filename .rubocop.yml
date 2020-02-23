@@ -25,6 +25,10 @@ Style/EmptyMethod:
 Style/FormatString:
   EnforcedStyle: 'format'
 
+# Similarly, lot of C programmers, so...
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: 'zero_only'
+
 # There's a lot of garbage here, but forced anything isn't great, so deal
 # with it manually as it comes up
 Layout/ParameterAlignment:
