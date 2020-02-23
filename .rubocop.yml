@@ -97,6 +97,8 @@ Layout/ArgumentAlignment:
 # Further good-ish ideas, but forcing is terrible
 Style/IfUnlessModifier:
   Enabled: false
+Style/NegatedIf:
+  Enabled: false
 
 # This may be a good thing to change, but for now...
 Style/HashSyntax:
