@@ -356,17 +356,17 @@ def check_pkgs(pkgs)
         pkg.fullname
     else
       case $verbose_output
-      when :verbose then
+      when :verbose
         printf "%-26s  %c  %s %s\n",
           pkg.send($display),
           sign,
           suggestion,
           (origin != pkg.origin) ? "(=> '#{origin}')" : ''
-      when :default then
+      when :default
         printf "%-26s  %c\n",
           pkg.send($display),
           sign
-      when :quiet then
+      when :quiet
         printf "%s\n", pkg.send($display)
       end
     end
