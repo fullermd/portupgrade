@@ -158,23 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 24
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'bin/pkgdb'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkgdbtools.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/pkgmisc.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/OneLineConditional:

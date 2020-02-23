@@ -38,6 +38,8 @@ Style/NumericLiteralPrefix:
 # with it manually as it comes up
 Layout/ParameterAlignment:
   Enabled: false
+Style/NumericPredicate:
+  Enabled: false
 
 # We'll probably never care about these
 Style/CommentedKeyword:
