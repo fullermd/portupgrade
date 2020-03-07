@@ -160,12 +160,6 @@ Style/AccessModifierDeclarations:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/RedundantConditional:
-  Exclude:
-    - 'lib/pkgtools/portinfo.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/RedundantInterpolation:
   Exclude:
     - 'bin/pkgdu'
