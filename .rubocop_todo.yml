@@ -98,14 +98,6 @@ Lint/NonLocalExitFromIterator:
     - 'bin/portsclean'
     - 'bin/portupgrade'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Lint/RedundantStringCoercion:
-  Exclude:
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/portinfo.rb'
-
 # Offense count: 5
 # XXX Some of these DO appear to be bugs!
 Lint/ShadowingOuterLocalVariable:

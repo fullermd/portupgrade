@@ -148,7 +148,7 @@ class PkgInfo
     opt = $pkgdb.with_pkgng? ? PKG_QUERY_FLAGS[what] : PKG_INFO_FLAGS[what]
 
     if opt.nil?
-      raise ArgumentError, "#{what.to_s}: Unsupported information."
+      raise ArgumentError, "#{what}: Unsupported information."
     end
 
     chdir = ''
@@ -177,7 +177,7 @@ class PkgInfo
     end
 
     module_eval %`
-    def #{key.to_s}
+    def #{key}
       get_info(#{key.inspect})
     end
     `
@@ -233,7 +233,7 @@ class PkgInfo
 
   PkgDB::PKGDB_FILES.each_key do |key|
     module_eval %{
-      def pkg_#{key.to_s}()
+      def pkg_#{key}()
         pkgfile #{key.inspect}
       end
     }

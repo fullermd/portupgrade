@@ -804,8 +804,8 @@ class PkgDB
 
   PKGDB_FILES.each_key do |key|
     module_eval %{
-      def pkg_#{key.to_s}(pkgname)
-        raise NeedsPkgNGSupport, "PKGNG support needed (pkg_#{key.to_s}): #{__FILE__}:#{__LINE__}" if with_pkgng?
+      def pkg_#{key}(pkgname)
+        raise NeedsPkgNGSupport, "PKGNG support needed (pkg_#{key}): #{__FILE__}:#{__LINE__}" if with_pkgng?
         pkgfile(pkgname, #{key.inspect})
       end
     }
