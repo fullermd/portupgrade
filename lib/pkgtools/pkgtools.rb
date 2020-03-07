@@ -89,15 +89,13 @@ def compile_config_table(hash)
   otable = {}
   gtable = {}
 
-  if hash
-    hash.each do |pattern, value|
-      $portsdb.glob(pattern) do |portinfo|
-        (otable[portinfo.origin] ||= Set.new) << value
-      end
+  hash&.each do |pattern, value|
+    $portsdb.glob(pattern) do |portinfo|
+      (otable[portinfo.origin] ||= Set.new) << value
+    end
 
-      if !pattern.include?('/')
-        gtable[pattern] = value
-      end
+    if !pattern.include?('/')
+      gtable[pattern] = value
     end
   end
 
@@ -1165,7 +1163,7 @@ def set_signal_handlers
   [:SIGINT, :SIGQUIT, :SIGTERM].each do |sig|
     trap(sig) do
       puts "\nInterrupted."
-      $interrupt_proc.call if $interrupt_proc
+      $interrupt_proc&.call
       stty_sane
       exit
     end

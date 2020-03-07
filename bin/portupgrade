@@ -1005,7 +1005,7 @@ def do_upgrade(pkgname)
 
         result = $results[o]
 
-        if result && result.failed?
+        if result&.failed?
           progress_message "Skipping '#{origin}' (#{pkgname}) because a requisite package '#{dep}' (#{o}) failed (specify -k to force)"
           $results << PkgResult.new(origin, :skipped, pkgname)
           return
@@ -1103,7 +1103,7 @@ def do_install(origin, orphan)
       $portsdb.all_depends_list!(origin, shelljoin(*make_env), shelljoin(*make_args)).each do |o|
         result = $results[o]
 
-        if result && result.failed?
+        if result&.failed?
           progress_message "Skipping '#{origin}' because a requisite port '#{o}' failed (specify -k to force)"
           $results << PkgResult.new(origin, :skipped)
           return
@@ -1216,7 +1216,7 @@ def get_beforebuild_command(origin)
   commands[commands.size, 0] = config_beforebuild(origin)        # maybe nil
 
   commands.uniq!
-  commands.each { |cmd| cmd.sub!(/^[;\s]+/, '') if !cmd.nil? }
+  commands.each { |cmd| cmd&.sub!(/^[;\s]+/, '') }
   commands.reject! { |cmd| cmd.nil? || cmd.empty? }
 
   if commands.empty?
@@ -1232,7 +1232,7 @@ def get_afterinstall_command(origin)
   commands[0, 0] = config_afterinstall(origin)        # maybe nil
 
   commands.uniq!
-  commands.each { |cmd| cmd.sub!(/^[;\s]+/, '') if !cmd.nil? }
+  commands.each { |cmd| cmd&.sub!(/^[;\s]+/, '') }
   commands.reject! { |cmd| cmd.nil? || cmd.empty? }
 
   if commands.empty?
@@ -1982,7 +1982,7 @@ def install_port(origin, orphan, logfile = nil, is_new = false, *teardown_procs)
     end
 
     teardown_procs.each do |f|
-      f.call(:cleanup) if f
+      f&.call(:cleanup)
     end
 
     if command = get_afterinstall_command(origin)
@@ -1999,7 +1999,7 @@ rescue CommandFailedError => e
   warning_message e.message
 
   teardown_procs.each do |f|
-    f.call(:restore) if f
+    f&.call(:restore)
   end
 
   warning_message "Fix the installation problem and try again."
@@ -2052,7 +2052,7 @@ def install_pkg(pkgname, orphan, origin, logfile = nil, _is_new = false, *teardo
   xscript!(logfile, *cmdargs)        # raises CommandFailedError
 
   teardown_procs.each do |f|
-    f.call(:cleanup) if f
+    f&.call(:cleanup)
   end
 
   if command = get_afterinstall_command(origin)
@@ -2068,7 +2068,7 @@ rescue CommandFailedError => e
   warning_message e.message
 
   teardown_procs.each do |f|
-    f.call(:restore) if f
+    f&.call(:restore)
   end
 
   warning_message "Fix the package's problem and try again."

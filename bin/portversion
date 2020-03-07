@@ -337,7 +337,7 @@ def check_pkgs(pkgs)
     next if $command_output && sign != '<'
 
     next if ($limit_chars && !$limit_chars.include?(sign)) ||
-      ($inv_limit_chars && $inv_limit_chars.include?(sign))
+      $inv_limit_chars&.include?(sign)
 
     held = config_held?(pkg)
 
