@@ -30,6 +30,20 @@ Style/NumericLiterals:
 Style/FormatString:
   EnforcedStyle: 'format'
 
+# This is a good idea in general, but hard to hardcode reasonably...
+Layout/LineLength:
+  Max: 125
+  Exclude:
+    - 'bin/pkg_fetch'
+    - 'bin/pkg_glob'
+    - 'bin/pkgdb'
+    - 'bin/pkgdu'
+    - 'bin/portsclean'
+    - 'bin/portupgrade'
+    - 'bin/portversion'
+    - 'lib/pkgtools/pkgtools.rb'
+    - 'tests/**/*'
+
 # Similarly, lot of C programmers, so...
 Style/NumericLiteralPrefix:
   EnforcedOctalStyle: 'zero_only'
