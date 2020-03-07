@@ -71,6 +71,10 @@ Style/FrozenStringLiteralComment:
 Style/RedundantReturn:
   Enabled: false
 
+# This is a terrible idea
+Style/StderrPuts:
+  Enabled: false
+
 # These are reasonable to ignore wholesale for now.  Maybe we'll revisit
 # if we do a massive restyle...
 Style/StringLiteralsInInterpolation:
