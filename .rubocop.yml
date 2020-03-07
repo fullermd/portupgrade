@@ -42,6 +42,8 @@ Style/NumericPredicate:
   Enabled: false
 Style/PercentLiteralDelimiters:
   Enabled: false
+Style/RedundantInterpolation:
+  Enabled: false
 
 # We'll probably never care about these
 Style/CommentedKeyword:
