@@ -158,41 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# XXXXXXXXX  HERE  XXXXXX
-# Offense count: 29
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdu'
-    - 'bin/portcvsweb'
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
-    - 'bin/portversion'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/portinfo.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
-# Offense count: 64
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'bin/pkg_glob'
-    - 'bin/pkgdb'
-    - 'bin/portcvsweb'
-    - 'bin/portsclean'
-    - 'bin/portupgrade'
-    - 'lib/pkgtools/pkgdb.rb'
-    - 'lib/pkgtools/pkginfo.rb'
-    - 'lib/pkgtools/pkgmisc.rb'
-    - 'lib/pkgtools/pkgtools.rb'
-    - 'lib/pkgtools/pkgversion.rb'
-    - 'lib/pkgtools/portinfo.rb'
-    - 'lib/pkgtools/portsdb.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
