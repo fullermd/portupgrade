@@ -44,6 +44,8 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 Style/RedundantInterpolation:
   Enabled: false
+Style/RescueModifier:
+  Enabled: false
 
 # We'll probably never care about these
 Style/CommentedKeyword:
