@@ -319,7 +319,7 @@ def libclean
     case line
     when /^search directories:\s*(.*)/
       libdirs = $1.split(':')
-    when /^\d+:-l.*\s+=>\s+(\/.*)/
+    when %r{^\d+:-l.*\s+=>\s+(/.*)}
       path = $1
 
       # handle sequences of /'s (tr_s is not multibyte-aware, hence gsub)
@@ -341,7 +341,7 @@ def libclean
 
           # Skip system libraries (/lib, /usr/lib)
           # XXX Warning on this?
-          next if /^\/lib/ =~ prev_path || /^\/usr\/lib/ =~ prev_path
+          next if %r{^/lib} =~ prev_path || %r{^/usr/lib} =~ prev_path
 
           puts "** #{path} is shadowed by #{prev_path}"
 
@@ -511,10 +511,10 @@ def pkgclean(level)
 
       r.each do |line|
         case line
-        when /^Information for +\.\/((\S+-\S+)\.t[bgx]z):/
+        when %r{^Information for +\./((\S+-\S+)\.t[bgx]z):}
           pkgfile = $1
           pkgname = $2
-        when /^(\S+\/\S+)$/                # /
+        when %r{^(\S+/\S+)$}                # /
           origin = $1
 
           if pkgfile
@@ -531,10 +531,10 @@ def pkgclean(level)
 
       r.each do |line|
         case line
-        when /^Information for +\.\/((\S+-\S+)\.t[bgx]z):/
+        when %r{^Information for +\./((\S+-\S+)\.t[bgx]z):}
           pkgfile = $1
           pkgname = $2
-        when /^(\S+\/\S+)$/                # /
+        when %r{^(\S+/\S+)$}                # /
           origin = $1
 
           if pkgfile
@@ -610,7 +610,7 @@ def parse_so(f)
   dir, file = File.split(f)
 
   if /^lib(.*)\.so((?:\.\d+)*)?$/ =~ file
-    return dir, $1, $2.sub(%r"^\.", "")
+    return dir, $1, $2.sub(/^\./, "")
   end
 
   return nil

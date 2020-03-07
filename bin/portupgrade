@@ -1203,7 +1203,7 @@ def get_upgrade_env_vars(pkgname)
   unless pkgname.empty?
     env_vars << 'UPGRADE_TOOL=portupgrade'
     env_vars << 'UPGRADE_PORT=' + pkgname
-    pkgname =~ %r{^.*-(.*)$}
+    pkgname =~ /^.*-(.*)$/
     env_vars << 'UPGRADE_PORT_VER=' + $1
   end
 
@@ -2257,7 +2257,7 @@ def guess_reason(logfile)
     reason = :interrupt
 #  elsif grep_q_file(/list of extra files and directories/, logfile)
 #    reason = :mtree
-  elsif grep_q_file(/See <URL:http:\/\/www.gnu.org\/software\/gcc\/bugs\.html> for instructions\./, logfile)
+  elsif grep_q_file(%r{See <URL:http://www.gnu.org/software/gcc/bugs\.html> for instructions\.}, logfile)
     reason = :gcc_bug
   elsif grep_q_file(/Checksum mismatch/, logfile)
     reason = :checksum
@@ -2277,7 +2277,7 @@ def guess_reason(logfile)
     reason = :categories
   elsif grep_q_file(/make: don.t know how to make .*\.man. Stop/, logfile)
     reason = :xfree4man
-  elsif grep_q_file(/Xm\/Xm\.h: No such file/, logfile)
+  elsif grep_q_file(%r{Xm/Xm\.h: No such file}, logfile)
     reason = :motif
   elsif grep_q_file(/undefined reference to \`Xp/, logfile)
     reason = :motiflib
@@ -2291,12 +2291,12 @@ def guess_reason(logfile)
     reason = :libdepends
   elsif grep_q_file(/(crt0|c\+\+rt0)\.o: No such file/, logfile)
     reason = :elf
-  elsif grep_q_file(/machine\/soundcard\.h: No such file or directory/, logfile)
+  elsif grep_q_file(%r{machine/soundcard\.h: No such file or directory}, logfile)
     reason = :soundcard_h
   elsif grep_q_file(/values\.h: No such file or directory/, logfile)
     reason = :values_h
   elsif grep_q_file(/.*\.h: No such file/, logfile)
-    reason = if grep_q_file(/(X11\/.*|Xosdefs)\.h: No such file/, logfile)
+    reason = if grep_q_file(%r{(X11/.*|Xosdefs)\.h: No such file}, logfile)
                if $pkgdb.glob('XFree86-*').empty?
                  :usexlib
                else
@@ -2319,13 +2319,13 @@ def guess_reason(logfile)
     reason = :newgcc
   elsif grep_q_file(/(syntax error before|ISO C\+\+ forbids|friend declaration|no matching function for call to|.main. must return .int.|invalid conversion from|cannot be used as a macro name as it is an operator in C\+\+|is not a member of type|after previous specification in|no class template named|because worst conversion for the former|better than worst conversion|no match for.*operator|no match for call to|undeclared in namespace|is used as a type, but is not)/, logfile)
     reason = :badcpp
-  elsif grep_q_file(/(\/usr\/libexec\/elf\/ld: cannot find|undefined reference to|cannot open -l.*: No such file)/, logfile)
+  elsif grep_q_file(%r{(/usr/libexec/elf/ld: cannot find|undefined reference to|cannot open -l.*: No such file)}, logfile)
     reason = :ld
   elsif grep_q_file(/install: .*: No such file/, logfile)
     reason = :install
   elsif grep_q_file(/chown:.*invalid argument/, logfile)
     reason = :chown
-  elsif grep_q_file(/\/usr\/.*\/man\/.*: No such file or directory/, logfile)
+  elsif grep_q_file(%r{/usr/.*/man/.*: No such file or directory}, logfile)
     reason = :manpage
   elsif grep_q_file(/tar: can't add file|pkg_create: make_dist: tar command failed with code/, logfile) #'
     reason = :plist

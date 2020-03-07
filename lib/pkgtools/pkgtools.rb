@@ -705,7 +705,7 @@ def modify_pkgdep(pkgname, dep, newdep, neworigin = nil)
   return if pkgdir.nil? || !File.directory?(pkgdir)
   changed = false
 
-  pkgver_re = %r{-\d\S*$}
+  pkgver_re = /-\d\S*$/
   file = $pkgdb.pkg_contents(pkgname)
 
   if !newdep == :add
@@ -899,7 +899,7 @@ def identify_pkg(path)
           pkgname = $1
         when /^@pkgdep\s+(\S*)/
           pkgdep << $1
-        when /^(\S+\/\S+)$/                # /
+        when %r{^(\S+/\S+)$}                # /
           origin = $1
         end
       end

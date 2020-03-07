@@ -95,7 +95,7 @@ module PortCvsWeb
 
         if !uri_info
           uri_info = UriInfo.new
-          uri_info.path = file ? file.sub(/^\//, '') : ''
+          uri_info.path = file ? file.sub(%r{^/}, '') : ''
         end
       end
 
@@ -531,7 +531,7 @@ end
 
 def search_cvsweb(file)
   puts "Inquiring the CVSweb site..." if $verbose
-  uri = PortCvsWeb::Uri_CvsWeb::URI_BASE[OS_DEFAULT] + file.sub(/^\//, '')
+  uri = PortCvsWeb::Uri_CvsWeb::URI_BASE[OS_DEFAULT] + file.sub(%r{^/}, '')
   if uri_exist?(uri)
     return uri
   end
