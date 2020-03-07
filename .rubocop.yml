@@ -70,6 +70,8 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/RedundantReturn:
   Enabled: false
+Style/TernaryParentheses:
+  Enabled: false
 
 # This is a terrible idea
 Style/StderrPuts:

@@ -158,14 +158,6 @@ Style/AccessModifierDeclarations:
     - 'bin/portcvsweb'
     - 'lib/pkgtools/pkgdb.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
-  Exclude:
-    - 'bin/portversion'
-
 # Offense count: 16
 # Cop supports --auto-correct.
 Style/UnlessElse:
