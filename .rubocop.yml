@@ -40,6 +40,8 @@ Layout/ParameterAlignment:
   Enabled: false
 Style/NumericPredicate:
   Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
 
 # We'll probably never care about these
 Style/CommentedKeyword:
@@ -118,6 +120,21 @@ Style/HashSyntax:
 Style/OneLineConditional:
   Exclude:
     - 'bin/portversion'
+
+Style/PerlBackrefs:
+  Exclude:
+    - 'bin/pkg_glob'
+    - 'bin/pkgdb'
+    - 'bin/portcvsweb'
+    - 'bin/portsclean'
+    - 'bin/portupgrade'
+    - 'lib/pkgtools/pkgdb.rb'
+    - 'lib/pkgtools/pkginfo.rb'
+    - 'lib/pkgtools/pkgmisc.rb'
+    - 'lib/pkgtools/pkgtools.rb'
+    - 'lib/pkgtools/pkgversion.rb'
+    - 'lib/pkgtools/portinfo.rb'
+    - 'lib/pkgtools/portsdb.rb'
 
 # This is probably a good idea, but it's a lot of work to phase in, so
 # worry about it later.
