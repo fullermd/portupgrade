@@ -288,7 +288,7 @@ Environment Variables [default]:
 end
 
 def get_real_run_deps(pkgname)
-  unless $origins.has_key?(pkgname)
+  unless $origins.key?(pkgname)
     origin = PkgInfo.new(pkgname).origin
     make_env = config_make_env(origin, pkgname)
     make_args = config_make_args(origin, pkgname)

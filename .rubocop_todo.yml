@@ -160,15 +160,6 @@ Style/AccessModifierDeclarations:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'bin/pkgdb'
-    - 'bin/portupgrade'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Style/Proc:
   Exclude:
     - 'lib/pkgtools/pkgdb.rb'
