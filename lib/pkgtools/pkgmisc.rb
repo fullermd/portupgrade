@@ -108,7 +108,7 @@ def init_tmpdir
   pipe = IO.popen(cmdline)
   tmpdir = pipe.gets
   pipe.close
-  if $? != 0 || tmpdir.nil? || tmpdir.length == 0
+  if $? != 0 || tmpdir.nil? || tmpdir.empty?
     raise "Could not create temporary directory in #{maintmpdir}"
   end
   tmpdir.chomp!
