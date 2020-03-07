@@ -116,6 +116,10 @@ Style/EvalWithLocation:
     - 'lib/pkgtools/portinfo.rb'
 Style/GlobalVars:
   Enabled: false
+Style/AccessModifierDeclarations:
+  Exclude:
+    - 'bin/portcvsweb'
+    - 'lib/pkgtools/pkgdb.rb'
 
 # It may be useful to enforce one way or another in the future
 Style/SpecialGlobalVars:
