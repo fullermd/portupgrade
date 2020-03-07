@@ -48,10 +48,10 @@ class TestPkgVersion < Test::Unit::TestCase
     assert_equal(PkgVersion.new('1.0'), PkgVersion.new('1.0'))
     assert_equal(PkgVersion.new('2.15a'), PkgVersion.new('2.15a'))
     assert_operator(PkgVersion.new('0.10'), :>, PkgVersion.new('0.9'))
-    assert_raises(ArgumentError) { '0.10' > PkgVersion.new('0.9') }
+    assert_raises(ArgumentError) { PkgVersion.new('0.9') < '0.10' }
     assert_operator(PkgVersion.new('0.9'), :<, '0.10')
     assert_raises(TypeError) { PkgVersion.new('0.9') > 0.8 }
-    assert_raises(ArgumentError) { 0.8 < PkgVersion.new('0.9') }
+    assert_raises(ArgumentError) { PkgVersion.new('0.9') > 0.8 }
     assert_operator(PkgVersion.new('2.3p10'), :>, PkgVersion.new('2.3p9'))
     assert_operator(PkgVersion.new('1.6.0'), :>, PkgVersion.new('1.6.0.p3'))
     assert_operator(PkgVersion.new('1.0.b'), :>, PkgVersion.new('1.0.a3'))

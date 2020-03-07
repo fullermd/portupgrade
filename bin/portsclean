@@ -232,7 +232,7 @@ def distclean(level)
   catch(:done) do
     throw :done if distfiles.empty?
 
-    if 2 <= level
+    if level >= 2
       $pkgdb.installed_ports.each do |origin|
         check_distinfo(origin).each do |file|
           i = distfiles.qinclude?(file) and distfiles.delete_at(i)
@@ -554,7 +554,7 @@ def pkgclean(level)
 
     pkgfile = File.join($packages_dir, pkgfile)
 
-    if 2 <= level
+    if level >= 2
       delete_file(pkgfile)
     else
       if port = $portsdb[origin]
