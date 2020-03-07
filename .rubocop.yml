@@ -72,6 +72,8 @@ Style/RedundantReturn:
   Enabled: false
 Style/TernaryParentheses:
   Enabled: false
+Style/UnlessElse:
+  Enabled: false
 
 # This is a terrible idea
 Style/StderrPuts:
