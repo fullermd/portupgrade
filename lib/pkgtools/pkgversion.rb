@@ -167,6 +167,7 @@ class PkgVersion
     end
 
     # Look for first different sub-subnumber
+    x1 = x2 = nil
     loop do
       break if a1.empty? && a2.empty?
 
